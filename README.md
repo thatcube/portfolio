@@ -1,2 +1,2 @@
 
-> Brandon Moore Vue.js Portfolio
+> Brandon Moore Portfolio built with Vue.js and lots of CSS.
