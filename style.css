@@ -54,7 +54,7 @@ body {
 	background-size:auto 350vh;
 }
 .top {
-	background-image: url("/src/images/space_better.jpg");
+	background-image: url("https://res.cloudinary.com/thatcube/image/upload/v1513916683/space_better_j1twfe.jpg");
 	z-index: -1;
 }
 *,*:before,*:after {
