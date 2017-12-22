@@ -5,7 +5,7 @@
 	"type":"PHP",
 	"github":"https://github.com/thatcube/VacationReview",
 	"url":"",
-	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917543/codeigniter_zwed9o.jpg",
+	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917543/vacation_large.jpg",
 	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920125/vacation_small.jpg",
 	"desc":"A <b>PHP</b> web app built using the <b>CodeIgniter</b> framework. This app allows users to create and review vacation destinations. All user/vacation data is stored using a <b>MySQL</b> database."
 	},
