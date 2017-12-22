@@ -44,16 +44,11 @@ body {
 	position: relative;
 	margin: 0;
 	padding: 0;
-	background: #312244; /* Old browsers */ /* FF3.6-15 */
-	background: -webkit-linear-gradient(top,  #0a0011 0%,#2f2b33 50%,#312244 100%); /* Chrome10-25,Safari5.1-6 */
-	background: -webkit-gradient(linear,  left top, left bottom,  from(#ececec),color-stop(50%, #ececec),to(#ececec));
-	background: -webkit-linear-gradient(top,  #ececec 0%,#ececec 50%,#ececec 100%);
-	background: -o-linear-gradient(top,  #ececec 0%,#ececec 50%,#ececec 100%);
-	background: linear-gradient(to bottom,  #ececec 0%,#ececec 50%,#ececec 100%); 
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0a0011', endColorstr='#312244',GradientType=0 ); 
+	background: #ececec;
 	background-size:auto 350vh;
 }
 .top {
+    background: #201b35;
 	background-image: url("https://res.cloudinary.com/thatcube/image/upload/v1513916683/space_better_j1twfe.jpg");
 	z-index: -1;
 }
