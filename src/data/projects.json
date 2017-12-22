@@ -5,7 +5,8 @@
 	"type":"PHP",
 	"github":"https://github.com/thatcube/VacationReview",
 	"url":"",
-	"image":"src/images/codeigniter.jpg",
+	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917543/codeigniter_zwed9o.jpg",
+	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920125/vacation_small.jpg",
 	"desc":"A <b>PHP</b> web app built using the <b>CodeIgniter</b> framework. This app allows users to create and review vacation destinations. All user/vacation data is stored using a <b>MySQL</b> database."
 	},
 	{
@@ -13,8 +14,9 @@
 	"title":"Events Manager",
 	"type":"Vue.js, Vuetify, and Firebase",
 	"github":"https://github.com/thatcube/EventsManager",
-	"url":"http://events.brandonmoore.site",
-	"image":"src/images/events.png",
+	"url":"http://events.brandonmoore.site/",
+	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917544/event_large.png",
+	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920126/event_small.png",
 	"desc":"An event management app with full authentication for planning and managing events. It was built using <b>Vue</b>, <b>Vuetify</b>, and <b>Firebase</b>."
 	},
 	{
@@ -23,7 +25,8 @@
 	"type":"Agile Methodology",
 	"github":"",
 	"url":"",
-	"image":"src/images/arcade.jpg",
+	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917543/arcade_rwn2nk.jpg",
+	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920126/arcade_small.jpg",
 	"desc":"For a project management class, I worked in an <b>agile</b> environment with weekly <b>scrum</b> meetings to create a table-top arcade cabinet. The arcade cabinet was created using a <b>Rasberry Pi</b> and <b>RetroPie</b> to manage and emulate games."
 	},
 	{
@@ -32,7 +35,8 @@
 	"type":"Ruby on Rails",
 	"github":"https://github.com/thatcube/RestaurantReview",
 	"url":"",
-	"image":"src/images/restaurantreview.png",
+	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917543/restaurant_large.png",
+	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920125/restaurant_small.png",
 	"desc":"A <b>Ruby on Rails</b> CMS that allows users to add and review their favorite (or least favorite) restaurants. Styled using <b>Bootstrap</b> and some <b>Sass</b>. Has full user authentication thanks to the <b>devise</b> gem."
 	}
 ]

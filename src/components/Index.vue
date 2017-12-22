@@ -19,7 +19,7 @@
 				<span>About Me</span>
 				<div class="respond">
 				<div class="img-respond">
-					<img src="../images/me_portrait_square.jpg">
+					<img src="https://res.cloudinary.com/thatcube/image/upload/v1513917543/me_portrait_square_qddquv.jpg">
 				</div>
 				<p class="child">I'm a Web Development major at Alfred State College. I've recently finished all of my classes, achieving a 3.70 overall GPA. I switched majors from Mechanical Engineering to Web Development 2.5 years ago and I'm glad I did. I have a passion for development that I never really knew I had. I'm currently looking for a spring internship. Feel free to check out my <a href="https://github.com/thatcube">Github</a>, <a href="https://linkedin.com/in/bmoore46">LinkedIn</a>, or <a href="/Resume.pdf">resume</a>.<br><br>
 				When I'm not doing development work, I also enjoy running, playing soccer, and keeping up with the latest in technology.</p>
@@ -72,7 +72,7 @@
 
 <script>
 let filterKey
-import imagesData from '../data/project.json'
+import imagesData from '../data/projects.json'
 export default {
 	data() {
 		return {

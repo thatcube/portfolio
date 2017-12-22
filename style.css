@@ -612,7 +612,7 @@ h2 {
 	margin-top: 20px;
 }
 .img-respond { 
-	width: 250px;
+    width: 250px;
 }
 
 
@@ -634,12 +634,15 @@ h2 {
 	}
 	.card-bottom {
 		height: 170px;
-	}
+    }
+    .img-respond { 
+        padding-top: 1%;
+    }
 }
 
 @media screen and (max-width: 769px) {
 	.card {
-		width: 48.5%;
+        width: 48.5%;
 		margin-bottom: 20px;
 	}
 	.icons {
@@ -666,6 +669,7 @@ h2 {
 		width: 58%;
 	}
 	.img-respond {
+        padding-top: 10%;
 		width: 35%;
 	}
 	.card-bottom {
@@ -687,6 +691,9 @@ h2 {
 	}
 	.respond {
 		width: 100%;
+    }
+    .img-respond {
+        padding-top: 0;
 	}
 	.child {
 		width: 90%;
