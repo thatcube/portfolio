@@ -6,7 +6,7 @@
 	"url":"",
 	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513984090/vacation_1280.jpg",
 	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920125/vacation_small.jpg",
-	"desc":"A <b>PHP</b> web app built using the <b>CodeIgniter</b> framework. This app allows users to create and review vacation destinations. All user/vacation data is stored using a <b>MySQL</b> database."
+	"desc":"A <a href=\"http://php.net/\"><b>PHP</b></a> web app built using the <a href=\"https://codeigniter.com/\"><b>CodeIgniter</b></a> framework. This app allows users to create and review vacation destinations. All user/vacation data is stored using a <a href=\"https://www.mysql.com/\"><b>MySQL</b></a> database."
 	},
 	{
 	"id":"002",
@@ -15,7 +15,7 @@
 	"url":"http://events.brandonmoore.site/",
 	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513984012/events_1280.jpg",
 	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920126/event_small.png",
-	"desc":"An event management app with full authentication for planning and managing events. It was built using <b>Vue</b>, <b>Vuetify</b>, and <b>Firebase</b>."
+	"desc":"An event management app with full authentication for planning and managing events. It was built using <a href=\"https://vuejs.org/\"><b>Vue</b></a>, <a href=\"https://vuetifyjs.com/\"><b>Vuetify</b></a>, and <a href=\"https://firebase.google.com/\"><b>Firebase</b></a>."
 	},
 	{
 	"id":"003",
@@ -24,7 +24,7 @@
 	"url":"",
 	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513917543/arcade_rwn2nk.jpg",
 	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920126/arcade_small.jpg",
-	"desc":"For a project management class, I worked in an <b>agile</b> environment with weekly <b>scrum</b> meetings to create a table-top arcade cabinet. The arcade cabinet was created using a <b>Rasberry Pi</b> and <b>RetroPie</b> to manage and emulate games."
+	"desc":"For a project management class, I worked in an <a href=\"https://en.wikipedia.org/wiki/Agile_software_development\"><b>agile</b></a> environment with weekly <a href=\"https://www.scrum.org/resources/what-is-scrum\"><b>scrum</b></a> meetings to create a table-top arcade cabinet. The arcade cabinet was created using a <a href=\"https://www.raspberrypi.org/\"><b>Rasberry Pi</b></a> and <a href=\"https://retropie.org.uk/\"><b>RetroPie</b></a> to manage and emulate games."
 	},
 	{
 	"id":"004",
@@ -33,6 +33,6 @@
 	"url":"",
 	"image":"https://res.cloudinary.com/thatcube/image/upload/v1513983100/restaurant_1280.png",
 	"imageSmall":"https://res.cloudinary.com/thatcube/image/upload/v1513920125/restaurant_small.png",
-	"desc":"A <b>Ruby on Rails</b> CMS that allows users to add and review their favorite (or least favorite) restaurants. Styled using <b>Bootstrap</b> and some <b>Sass</b>. Has full user authentication thanks to the <b>devise</b> gem."
+	"desc":"A <a href=\"http://rubyonrails.org/\"><b>Ruby on Rails</b></a> CMS that allows users to add and review their favorite (or least favorite) restaurants. Styled using <a href=\"https://getbootstrap.com/\"><b>Bootstrap</b></a> and some <a href=\"http://sass-lang.com/\"><b>Sass</b></a>. Has full user authentication thanks to the <a href=\"https://github.com/plataformatec/devise\"><b>devise gem</b></a>."
 	}
 ]

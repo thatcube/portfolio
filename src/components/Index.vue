@@ -5,10 +5,10 @@
 			<h2>I am a web developer from upstate New York. Check out my stuff.</h2>
 		</div>
 		<div id="particles" class="top">
-			<div class="topnav hvr-border-fade">
-				<a href="/#about">About Me</a>
-				<a href="/#projects">Projects</a>
-				<a href="/#contact">Contact</a>
+			<div class="topnav box">
+				<a href="#about">About Me</a>
+				<a href="#projects">Projects</a>
+				<a href="#contact">Contact</a>
 			</div>
 			<div class="link">
 				<h1 class="title">BRANDON MOORE</h1><h2>Web Developer</h2>
@@ -21,10 +21,9 @@
 				<div class="img-respond">
 					<img src="https://res.cloudinary.com/thatcube/image/upload/v1513984172/me_500.jpg">
 				</div>
-				<p class="child">I'm a Web Development major at Alfred State College. I've recently finished all of my classes, achieving a 3.70 overall GPA. I switched majors from Mechanical Engineering to Web Development 2.5 years ago and I'm glad I did. I have a passion for development that I never really knew I had. I'm currently looking for a spring internship. Feel free to check out my <a href="https://github.com/thatcube" target="_blank">Github</a>, <a href="https://linkedin.com/in/bmoore46" target="_blank">LinkedIn</a>, or <a href="/Resume.pdf" target="_blank">resume</a>.<br><br>
+				<p class="child">I'm a web developer from Upstate New York. I've just recently finished all of my classes at Alfred State College. I started Web Development a few years ago and I'm glad I did. I have a passion for development that I never really knew I had prior to my education. I'm currently looking for job or a spring internship. Feel free to check out my <a href="https://github.com/thatcube" target="_blank">Github</a>, <a href="https://linkedin.com/in/bmoore46" target="_blank">LinkedIn</a>, or <a href="/Resume.pdf" target="_blank">resume</a>.<br><br>
 				When I'm not doing development work, I also enjoy running, playing soccer, and keeping up with the latest in technology.</p>
 				</div>
-				<!--<span>Skills</span>-->
 			</div>
 		</div>
 		<div class="project">
@@ -51,7 +50,7 @@
 			<div class="form">
 			<form method="POST" action="https://formspree.io/brandon-moore@live.com">
 				<label for="name">Name</label>
-				<textarea type="text" required name="name" placeholder="John Snow"></textarea>
+				<textarea type="text" required name="name" placeholder="Jon Snow"></textarea>
 				<label for="email">Email</label>				
 				<textarea required type="email" name="email" placeholder="example@email.com"></textarea>
 				<label for="message">Message</label>

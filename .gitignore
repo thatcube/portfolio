@@ -3,3 +3,5 @@ node_modules/
 npm-debug.log
 Resume.pdf
 favicon.ico
+.htaccess
+.gitignore
