@@ -5,7 +5,7 @@
 			<h2>I am a web developer from upstate New York. Check out my stuff.</h2>
 		</div>
 		<div id="particles" class="top">
-			<div class="topnav box">
+			<div class="topnav center-underline">
 				<a href="#about">About Me</a>
 				<a href="#projects">Projects</a>
 				<a href="#contact">Contact</a>
