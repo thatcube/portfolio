@@ -12,7 +12,9 @@ $(document).ready(function(){
 	    });
 	});
 });
+/*
 particlesJS.load('particles', 'src/particlesjs-config.json', function() {
-    console.log('Hey there! If you\'re interested in working with me, shoot me an email: brandon-moore@live.com');
+    console.log('Hey there! If you\'re interested in working with me, shoot me an email: hello@brandonnmoore.co');
     console.log('Thanks for checking out my stuff!');
 });
+*/
