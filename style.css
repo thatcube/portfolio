@@ -749,9 +749,6 @@ textarea,
 	.container {
 		max-width: 80%;
 	}
-	.about p {
-		max-width: 75%;
-	}
 	.title {
 		font-size: 10.5vw;
 	}
@@ -869,7 +866,7 @@ textarea,
 		padding-top: 65px;
 	}
 	.about p {
-		max-width: 100%;
+		width: 100%;
 	}
 	.title::before {
 		top: 50%;
