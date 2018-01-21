@@ -368,8 +368,8 @@ span {
     display: table;
 }
 
-.card-bottom:hover,
-.card:focus {
+.card-bottom:hover, .card-bottom:focus, .card-bottom:active,
+.card:focus, .card:active, .card:hover {
     opacity: 1;
 }
 
@@ -1019,6 +1019,16 @@ textarea,
     .card-bottom {
         font-size: 16pt;
         line-height: 1.6em;
+        opacity: 1;
+        bottom: 200px;
+        top: 100%;
+        height: 150px;
+        background: rgb(29, 29, 29);
+        font-size: 12pt;
+        padding: 20px;
+    }
+    .card {
+        margin-bottom: 180px;
     }
     .contact .email a {
         font-size: 12pt;
@@ -1079,13 +1089,14 @@ textarea,
         padding: 90px 5% 90px 5%;
     }
 }
-
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 650px) {
     .card-bottom {
-        font-size: 1.3em;
+        height: 200px;
+    }
+    .card {
+        margin-bottom: 220px;
     }
 }
-
 @media screen and (max-width: 550px) {
     .card {
         width: 100%;
@@ -1159,6 +1170,9 @@ textarea,
         width: 100%;
         text-align: center;
     }
+    .email {
+        line-height: 0.7em;
+    }
     .contact .email a {
         font-size: 14pt;
         text-align: center;
@@ -1182,7 +1196,14 @@ textarea,
         font-size: 4.5rem;
     }
 }
-
+@media screen and (max-width: 400px) {
+    .card {
+        margin-bottom: 230px;
+    }
+    .card-bottom {
+        height: 210px;
+    }
+}
 @media screen and (max-width: 340px) {
     .topnav a {
         font-size: 1.55rem;
