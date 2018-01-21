@@ -12,6 +12,18 @@ $(document).ready(function(){
 	    });
 	});
 });
+new TypeIt('.type-it', {
+	speed: 90,
+	strings: ["web designer", "full stack developer", "UX/UI enthusiast"],
+	autoStart: false,
+	lifeLike: true,
+	loop: true,
+	breakLines: false,
+	startDelay: 2000,
+	nextStringDelay: 3000,
+	loopDelay: 3000
+})
+
 /*
 particlesJS.load('particles', 'src/particlesjs-config.json', function() {
     console.log('Hey there! If you\'re interested in working with me, shoot me an email: hello@brandonnmoore.co');
