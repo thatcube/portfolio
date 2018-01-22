@@ -14,41 +14,41 @@ $(document).ready(function(){
 });
 var type = new TypeIt('.type-it', {
 	speed: 90,
-	strings: ["web <em>designer</em>", "full stack <strong>developer</strong>", "<strong>UX/UI</strong> enthusiast"],
+	strings: ["web <em id=\"designer\">designer&nbsp;</em>", "full stack <em id=\"developer\">developer</em>", "<em id=\"uxui\">UX/UI&nbsp;</em> enthusiast"],
 	autoStart: true,
 	lifeLike: true,
 	loop: true,
 	breakLines: false,
 	startDelay: 1500,
-	nextStringDelay: 1000
+	nextStringDelay: 2000
 });
 //-- Pause 
 setTimeout(() => {
 	type.freeze();
-  }, 3000);
+  }, 3200);
   
 //-- Resume
 setTimeout(() => {
 type.unfreeze();
-}, 5000);
+}, 6000);
 //-- pause
 setTimeout(() => {
 type.freeze();
-}, 8500);
+}, 10500);
 //-- resume
 setTimeout(() => {
 	type.unfreeze();
-  }, 10500);
+  }, 13500);
 
 //-- pause
 setTimeout(() => {
 	type.freeze();
-	}, 14000);
+	}, 17800);
 
 //-- resume
 setTimeout(() => {
 	type.unfreeze();
-  }, 16000);
+  }, 21000);
 
 /*
 particlesJS.load('particles', 'src/particlesjs-config.json', function() {

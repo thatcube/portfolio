@@ -813,7 +813,7 @@ textarea,
     font-weight: 100;
     position: absolute;
     color: rgb(0, 195, 255);
-    margin-top: -1.9vw;
+    margin-top: -1.4vw;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.35vw;
 }
@@ -844,11 +844,25 @@ textarea,
     padding-bottom: 50px;
 }
 .bannerText em {
-    font-family: 'Pacifico', sans-serif;
-    font-weight: 100;
-    line-height: 0px;
-    font-size: 7.8vw;
     font-style: normal;
+    font-weight: normal;
+    line-height: 0px;
+    background: linear-gradient(90deg,rgb(0, 195, 255),#706cf5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.bannerText #designer {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 8vw;
+    margin-right: -1.2vw;
+}
+
+.bannerText #developer {
+    font-family: monospace;
+    font-size: 7.5vw;
+}
+.bannerText #uxui {
+    font-family: 'Zilla Slab Highlight', sans-serif;
 }
 
 .title {
@@ -1145,6 +1159,9 @@ textarea,
     }
     h2 {
         font-size: 9vw;
+    }
+    .learn a {
+        font-size: .75em;
     }
     /*
       .top {
