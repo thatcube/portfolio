@@ -86,7 +86,7 @@ span {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
             clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
   }
-  .about-background {
+  .bio-background {
       -webkit-clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 92%);
               clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 92%);
   }
@@ -212,7 +212,7 @@ span {
 
 /* ABOUT ME SECTION */
 
-.about {
+.bio {
     padding: 90px 15% 90px 15%;
     font-family: 'Open Sans', sans-serif;
     font-size: 4rem;
@@ -222,7 +222,7 @@ span {
     margin: auto;
 }
 
-.about img {
+.bio img {
     -o-object-fit: cover;
     object-fit: cover;
     border-radius: 50%;
@@ -230,7 +230,7 @@ span {
     border: 2px solid #a0a0a0;
 }
 
-.about p {
+.bio p {
     font-size: 2rem;
     line-height: 2.7rem;
     font-family: 'Open Sans', sans-serif;
@@ -239,7 +239,7 @@ span {
     width: 67%;
 }
 
-.about a {
+.bio a {
     text-decoration: none;
     color: rgb(249, 240, 255);
     -webkit-transition: all .35s ease-in-out;
@@ -247,18 +247,18 @@ span {
     transition: all .35s ease-in-out;
 }
 
-.about a:hover {
+.bio a:hover {
     color: rgb(0, 195, 255);
     -webkit-transition: all .35s ease-in-out;
     -o-transition: all .35s ease-in-out;
     transition: all .35s ease-in-out;
 }
 
-.about-background {
+.bio-background {
     background: rgb(36, 33, 41);
 }
 
-.about span {
+.bio span {
     color: rgb(0, 195, 255);
 }
 
@@ -813,7 +813,7 @@ textarea,
     font-weight: 100;
     position: absolute;
     color: rgb(0, 195, 255);
-    margin-top: -2.9vw;
+    margin-top: -1.9vw;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.35vw;
 }
@@ -842,6 +842,13 @@ textarea,
     display: table-cell;
     vertical-align: middle;
     padding-bottom: 50px;
+}
+.bannerText em {
+    font-family: 'Pacifico', sans-serif;
+    font-weight: 100;
+    line-height: 0px;
+    font-size: 7.8vw;
+    font-style: normal;
 }
 
 .title {
@@ -986,7 +993,7 @@ textarea,
     .title {
         font-size: 10.5vw;
     }
-    .about {
+    .bio {
         padding: 90px 10% 90px 10%;
     }
     .contact .email a {
@@ -1026,9 +1033,11 @@ textarea,
         background: rgb(29, 29, 29);
         font-size: 12pt;
         padding: 20px;
+        -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
     }
     .card {
-        margin-bottom: 180px;
+        margin-bottom: 185px;
     }
     .contact .email a {
         font-size: 12pt;
@@ -1085,7 +1094,7 @@ textarea,
     .form {
         width: 100%;
     }
-    .about {
+    .bio {
         padding: 90px 5% 90px 5%;
     }
 }
@@ -1094,7 +1103,7 @@ textarea,
         height: 200px;
     }
     .card {
-        margin-bottom: 220px;
+        margin-bottom: 225px;
     }
 }
 @media screen and (max-width: 550px) {
@@ -1117,12 +1126,13 @@ textarea,
         width: 100%;
         padding: 0 5% 0 5%;
     }
-    .about {
+    .bio {
         padding-bottom: 25px;
         padding-top: 65px;
     }
-    .about p {
+    .bio p {
         width: 100%;
+        font-size: 16px;
     }
     .title::before {
         top: 50%;
@@ -1141,7 +1151,7 @@ textarea,
           -webkit-clip-path: polygon(0 0, 100% 4%, 100% 95%, 0 100%);
                   clip-path: polygon(0 0, 100% 4%, 100% 95%, 0 100%);
       }
-      .about-background {
+      .bio-background {
           -webkit-clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 96%);
                   clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 96%);
       }
@@ -1157,6 +1167,9 @@ textarea,
     .topnav a {
         font-size: 1.75rem;
         margin-top: 0px;
+    }
+    .topnav {
+        right: 0px;
     }
     .card-bottom {
         font-size: .94em;
@@ -1187,18 +1200,18 @@ textarea,
     .projectTitle {
         font-size: 2.1rem;
     }
-    .about span {
+    .bio span {
         padding-bottom: 50px;
     }
     .contact span,
-    .about span,
+    .bio span,
     .projects span {
         font-size: 4.5rem;
     }
 }
 @media screen and (max-width: 400px) {
     .card {
-        margin-bottom: 230px;
+        margin-bottom: 235px;
     }
     .card-bottom {
         height: 210px;
@@ -1211,11 +1224,11 @@ textarea,
     .child {
         font-size: 1rem;
     }
-    .about p {
+    .bio p {
         font-size: 1.35rem;
     }
     .contact span,
-    .about span,
+    .bio span,
     .projects span {
         font-size: 4rem;
     }

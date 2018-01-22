@@ -12,17 +12,43 @@ $(document).ready(function(){
 	    });
 	});
 });
-new TypeIt('.type-it', {
+var type = new TypeIt('.type-it', {
 	speed: 90,
-	strings: ["web designer", "full stack developer", "UX/UI enthusiast"],
-	autoStart: false,
+	strings: ["web <em>designer</em>", "full stack <strong>developer</strong>", "<strong>UX/UI</strong> enthusiast"],
+	autoStart: true,
 	lifeLike: true,
 	loop: true,
 	breakLines: false,
-	startDelay: 2000,
-	nextStringDelay: 3000,
-	loopDelay: 3000
-})
+	startDelay: 1500,
+	nextStringDelay: 1000
+});
+//-- Pause 
+setTimeout(() => {
+	type.freeze();
+  }, 3000);
+  
+//-- Resume
+setTimeout(() => {
+type.unfreeze();
+}, 5000);
+//-- pause
+setTimeout(() => {
+type.freeze();
+}, 8500);
+//-- resume
+setTimeout(() => {
+	type.unfreeze();
+  }, 10500);
+
+//-- pause
+setTimeout(() => {
+	type.freeze();
+	}, 14000);
+
+//-- resume
+setTimeout(() => {
+	type.unfreeze();
+  }, 16000);
 
 /*
 particlesJS.load('particles', 'src/particlesjs-config.json', function() {
