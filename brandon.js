@@ -19,7 +19,7 @@ var type = new TypeIt('.type-it', {
 	lifeLike: true,
 	loop: true,
 	breakLines: false,
-	startDelay: 1500,
+	startDelay: 3500,
 	nextStringDelay: 2000
 });
 //-- Pause 
@@ -43,12 +43,12 @@ setTimeout(() => {
 //-- pause
 setTimeout(() => {
 	type.freeze();
-	}, 17800);
+	}, 17850);
 
 //-- resume
 setTimeout(() => {
 	type.unfreeze();
-  }, 21000);
+  }, 21500);
 
 /*
 particlesJS.load('particles', 'src/particlesjs-config.json', function() {

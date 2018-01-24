@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,17 +9,203 @@
     <meta name="author" content="Brandon Moore" />
     <meta name="description" content="Brandon Moore's portfolio: a collection of his work.">
     <meta name="keywords" content="Brandon Moore, Portfolio, Newfield, Web Developer, Alfred, Software Developer">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Oxygen:700" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">    
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/thatcube/portfolio@1.2.0/style.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300|Zilla+Slab+Highlight|Pacifico|Didact+Gothic|Open+Sans:300,400,700|Oxygen:300,700" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/thatcube/portfolio@1.3.1/style.css">
 </head>
+
 <body>
-    <main id="app"></main>
-    <script src="https://cdn.jsdelivr.net/gh/thatcube/portfolio@1.2.0/dist/build.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/thatcube/portfolio@1.2.0/dist/build.js.map"></script>
+    <div class="top">
+        <!--<img class="logo-img" alt="Brandon Moore logo" height="75px" src="https://res.cloudinary.com/thatcube/image/upload/v1515447714/cube_mwdov5.png">-->
+        <div class="topnav hover-underline">
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="bannerText">
+            <h1 class="title">Hi, I'm Brandon.
+                <br>
+                <h2><i id="noitalics">I'm a </i><i id="noitalics" class="type-it"></i></h2>
+            </h1>
+        </div>
+        <div class="learn">
+            <a class="hover-underline" href="#bio">learn more about what I do
+                <br>
+                <b>
+                    <i class="fa fa-chevron-down"></i>
+                    <b>
+            </a>
+        </div>
+    </div>
+    <div id="bio" class="bio-background">
+        <div class="bio">
+            <span>Bio</span>
+            <div class="respond">
+                <div class="img-respond">
+                    <img alt="Picture of Brandon Moore" src="https://res.cloudinary.com/thatcube/image/upload/c_scale,h_250/v1513984172/me_500.jpg">
+                </div>
+                <p class="child">I'm a web designer, full stack developer, and UX/UI enthusiast from Upstate New York. I'm fresh out of college and currently looking for a job. Feel free to check out my
+                    <a href="https://github.com/thatcube" target="_blank">Github</a>,
+                    <a href="https://linkedin.com/in/bmoore46" target="_blank">LinkedIn</a>, or
+                    <a href="/Resume.pdf" target="_blank">resume</a>.
+                    <br>
+                    <br> When I'm not doing development work, I also enjoy running, playing soccer, and keeping up with the latest
+                    in technology.</p>
+            </div>
+        </div>
+    </div>
+    <div class="project">
+        <div class="projects">
+            <span id="projects">Projects</span>
+        </div>
+        <div class="outer-container">
+        <div class="container">
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://res.cloudinary.com/thatcube/image/upload/v1513920125/vacation_small.jpg" :alt="project.title">
+                </div>
+                <div class="projectTitle">
+                    Vacation Reviews
+                </div>
+                <div class="card-bottom">
+                    <div class="card-text">A PHP web app built using the
+                        <a href="https://codeigniter.com">
+                            <b>CodeIgniter</b>
+                        </a> framework. This app allows users to create and review vacation destinations. All user/vacation data
+                        is stored using a
+                        <a href="https://www.mysql.com">
+                            <b>MySQL</b>
+                        </a> database.</div>
+                    <br>
+                    <br>
+                    <a class="github" target="_blank" href="https://github.com/thatcube/VacationReview">
+                        <button>
+                            <i class="fab fa-github"></i> GitHub</button>
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://res.cloudinary.com/thatcube/image/upload/v1513920126/event_small.png">
+                </div>
+                <div class="projectTitle">
+                    Events Manager
+                </div>
+                <div class="card-bottom">
+                    <div class="card-text">An event management app with full authentication for planning and managing events. It was built using
+                        <a href="https://vuejs.org/">
+                            <b>Vue,</b>
+                        </a>
+                        <a href="https://vuetifyjs.com">
+                            <b>Vuetify,</b>
+                        </a> and
+                        <a href="https://firebase.google.com">
+                            <b>Firebase</b></a>.</div>
+                    <br>
+                    <br>
+                    <a class="github" target="_blank" href="https://github.com/thatcube/EventsManager">
+                        <button>
+                            <i class="fab fa-github"></i> GitHub</button>
+                    </a>
+                    <a class="livedemo" target="_blank" href="http://events.brandonmoore.co/">
+                        <button>
+                            <i class="fas fa-external-link-alt"></i> Demo</button>
+                    </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://res.cloudinary.com/thatcube/image/upload/v1513920126/arcade_small.jpg" :alt="project.title">
+                </div>
+                <div class="projectTitle">
+                    Arcade Cabinet
+                </div>
+                <div class="card-bottom">
+                    <div class="vertical-align">For a project management class, I worked in an
+                        <a href="https://en.wikipedia.org/wiki/Agile_software_development">
+                            <b>agile</b>
+                        </a> environment with weekly
+                        <a href="https://www.scrum.org/resources/what-is-scrum">
+                            <b>scrum</b>
+                        </a> meetings to create a table-top arcade cabinet. The arcade cabinet was created using a
+                        <a href="https://www.raspberrypi.org/">
+                            <b>Rasberry Pi</b>
+                        </a> and
+                        <a href="https://retropie.org.uk/">
+                            <b>RetroPie</b>
+                        </a> to manage and emulate games.</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://res.cloudinary.com/thatcube/image/upload/v1513920125/restaurant_small.png" :alt="project.title">
+                </div>
+                <div class="projectTitle">
+                    Restaurant Reviews
+                </div>
+                <div class="card-bottom">
+                    <div class="card-text">A
+                        <a href="http://rubyonrails.org">
+                            <b>Ruby on Rails</b>
+                        </a> CMS that allows users to add and review their favorite (or least favorite) restaurants. Styled using
+                        <a href="https://getbootstrap.com/">
+                            <b>Bootstrap</b>
+                        </a> and some
+                        <a href="http://sass-lang.com/"><b>Sass</b></a>. Has full user authentication thanks to the
+                        <a href="https://github.com/plataformatec/devise"><b>devise gem</b></a>.
+                        </div>
+                    <br>
+                    <br>
+                    <a class="github" target="_blank" href="https://github.com/thatcube/RestaurantReview">
+                        <button>
+                            <i class="fab fa-github"></i> GitHub</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div id="contact" class="contact">
+        <span class="contactspan">get in Touch</span>
+        <div class="contactsection">
+            <div class="form">
+                <form method="POST" action="https://formspree.io/brandon-moore@live.com">
+                    <div class="group">
+                        <label for="name">Name</label>
+                        <input type="text" required name="name" placeholder="Jon Snow" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'Jon Snow'">
+                        <span class="bar"></span>
+                    </div>
+                    <div class="group">
+                        <label for="email">Email</label>
+                        <input required type="email" name="email" placeholder="example@email.com" onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = 'example@email.com'">
+                        <span class="bar"></span>
+                    </div>
+                    <label for="message">Message</label>
+                    <textarea id="message" required name="message" placeholder="Type your message here..." onfocus="this.placeholder = ''"
+                    onblur="this.placeholder = 'Type your message here...'"></textarea>
+                    <div class="button-center">
+                        <button class="send-btn" type="submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+            <div class="contactinfo">
+                <div class="email">
+                    <a href="mailto:brandon-moore@live.com"><i class="far fa-envelope"></i> &nbsp;brandon-moore@live.com</a>
+                    <br>
+                    <a href="/Resume.pdf"><i class="fas fa-file-alt"></i> &nbsp;Resume</a>
+                    <br>
+                    <a href="https://linkedin.com/in/bmoore46"><i class="fab fa-linkedin"></i> &nbsp;LinkedIn</a>
+                    <br>
+                    <a href="https://github.com/thatcube"><i class="fab fa-github"></i> &nbsp;GitHub&nbsp;&nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/thatcube/portfolio@1.2.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@5.4.1/dist/typeit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/thatcube/portfolio@1.3.1/brandon.js"></script>
 </body>
+
 </html>

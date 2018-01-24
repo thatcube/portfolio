@@ -41,7 +41,7 @@ body {
     /*background-image: url("https://res.cloudinary.com/thatcube/image/upload/v1513916683/space_better_j1twfe.jpg");*/
     z-index: -1;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: table;
 }
 
@@ -106,7 +106,7 @@ span {
 .topnav {
     position: absolute;
     right: 7vw;
-    top: 30px;
+    top: 3.3vw;
     z-index: 1;
 }
 
@@ -138,8 +138,10 @@ span {
 
 .logo-img {
     position: absolute;
-    transform: translate(50vw, 50vh);
+    top: 4.3vw;
+    left: 4vw;
     filter: blur(0px);
+    height: 55px;
 }
 
 .learn {
@@ -151,11 +153,10 @@ span {
     margin-right: auto;
     left: 0;
     right: 0;
-    cursor: pointer;
 }
 
 .learn b {
-    color: rgb(0, 195, 255);
+    color: rgb(84, 166, 194);
     -webkit-transition: all .35s ease-in-out;
     -o-transition: all .35s ease-in-out;
     transition: all .35s ease-in-out;
@@ -165,14 +166,14 @@ span {
     text-decoration: none;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    color: rgb(255, 255, 255);
+    color: rgb(175, 175, 175);
     -webkit-transition: all .35s ease-in-out;
     -o-transition: all .35s ease-in-out;
     transition: all .35s ease-in-out;
 }
 
 .learn a:hover {
-    color: rgb(0, 195, 255);
+    color: rgb(255, 255, 255);
 }
 
 .hover-underline a {
@@ -193,6 +194,7 @@ span {
     right: 50%;
     bottom: 13px;
     background: rgb(0, 195, 255);
+    /*background: linear-gradient(90deg,#706cf5, rgb(0, 195, 255));*/
     height: 1px;
     -webkit-transition-property: left, right;
     transition-property: left, right;
@@ -205,8 +207,8 @@ span {
 .hover-underline a:hover:before,
 .hover-underline a:focus:before,
 .hover-underline a:active:before {
-    left: 19px;
-    right: 17px;
+    left: 20px;
+    right: 18px;
 }
 
 
@@ -255,7 +257,7 @@ span {
 }
 
 .bio-background {
-    background: rgb(36, 33, 41);
+    background: rgb(26, 26, 26);
 }
 
 .bio span {
@@ -274,7 +276,7 @@ span {
 }
 
 .project {
-    background: #4c484e;
+    background: #2b2b2b;
 }
 
 .projectTitle {
@@ -301,11 +303,11 @@ span {
 }
 
 .github button {
-    left: 10px;
+    left: 13px;
 }
 
 .livedemo button {
-    right: 10px;
+    right: 13px;
 }
 
 .card {
@@ -383,7 +385,7 @@ span {
     transition: all .20s ease-in-out;
     padding: 5px 15px 5px 15px;
     position: absolute;
-    bottom: 10px;
+    bottom: 13px;
     font-family: 'Open Sans', 'Oxygen', sans-serif;
     font-weight: 400;
     outline: none;
@@ -471,7 +473,7 @@ span {
     font-size: 4rem;
     text-align: left;
     color: #a0a0a0;
-    background: #221e25;
+    background: rgb(26, 26, 26);
     border-bottom: 1px solid rgb(0, 195, 255);
 }
 
@@ -841,13 +843,13 @@ textarea,
     /* Standard */
     display: table-cell;
     vertical-align: middle;
-    padding-bottom: 50px;
+    padding-bottom: 11vw;
 }
 .bannerText em {
     font-style: normal;
     font-weight: normal;
     line-height: 0px;
-    background: linear-gradient(90deg,rgb(0, 195, 255),#706cf5);
+    background: linear-gradient(90deg,#00c3ff,#706cf5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1050,6 +1052,15 @@ textarea,
         -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.65);
     }
+    .github button {
+        left: 20px;
+    }
+    .card-bottom button {
+        bottom: 20px;
+    }
+    .livedemo button {
+        right: 20px;
+    }
     .card {
         margin-bottom: 185px;
     }
@@ -1066,8 +1077,8 @@ textarea,
         -webkit-transform: translate3d(0, -1.7vh, 0);
         transform: translate3d(0, -1.7vh, 0);
     }
-    .topnav a {
-        margin-right: 0;
+    .topnav {
+        margin-right: 20px;
     }
     .contactinfo {
         width: 100%;
@@ -1188,6 +1199,10 @@ textarea,
     .topnav {
         right: 0px;
     }
+    .logo-img {
+        height: 45px;
+        top: 6vw;
+    }
     .card-bottom {
         font-size: .94em;
         line-height: 1.5em;
@@ -1214,6 +1229,9 @@ textarea,
     .bannerText h2 {
         margin-left: 7vw;
     }
+    .logo-img {
+        left: 7vw;
+    }
     .projectTitle {
         font-size: 2.1rem;
     }
@@ -1224,6 +1242,13 @@ textarea,
     .bio span,
     .projects span {
         font-size: 4.5rem;
+    }
+    .bar:before,
+    .bar:after {
+        bottom: 12px;
+        transition: 0.8s ease all;
+        -moz-transition: 0.8s ease all;
+        -webkit-transition: 0.8s ease all;
     }
 }
 @media screen and (max-width: 400px) {
