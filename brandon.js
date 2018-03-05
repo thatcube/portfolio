@@ -19,9 +19,10 @@ var type = new TypeIt('.type-it', {
 	lifeLike: true,
 	loop: true,
 	breakLines: false,
-	startDelay: 3500,
-	nextStringDelay: 2000
+	startDelay: 1500,
+	nextStringDelay: 3000
 });
+/*
 //-- Pause 
 setTimeout(() => {
 	type.freeze();
@@ -49,6 +50,7 @@ setTimeout(() => {
 setTimeout(() => {
 	type.unfreeze();
   }, 21500);
+*/
 
 /*
 particlesJS.load('particles', 'src/particlesjs-config.json', function() {

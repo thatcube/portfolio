@@ -34,8 +34,8 @@ body {
 }
 
 .top {
-    background: #292929;
-    background-image: url(https://res.cloudinary.com/thatcube/image/upload/v1515997146/keyboard_darker_akbzc7.jpg);
+    background: #222222;
+    /* background-image: url(https://res.cloudinary.com/thatcube/image/upload/v1515997146/keyboard_darker_akbzc7.jpg); */
     background-size: cover;
     background-repeat: no-repeat;
     /*background-image: url("https://res.cloudinary.com/thatcube/image/upload/v1513916683/space_better_j1twfe.jpg");*/
@@ -114,7 +114,8 @@ span {
     font-family: 'Didact Gothic', 'Open Sans', sans-serif;
     font-weight: 100;
     padding: 20px;
-    font-size: 2.5rem;
+    font-size: 14px;
+    font-size: calc(18px + 0.25vw);
     color: rgb(0, 195, 255);
     text-decoration: none;
     display: inline-block;
@@ -139,7 +140,7 @@ span {
 .logo-img {
     position: absolute;
     top: 4.3vw;
-    left: 4vw;
+    left: 4.7vw;
     filter: blur(0px);
     height: 55px;
 }
@@ -832,7 +833,7 @@ textarea,
     outline: none;
     text-decoration: none;
     font-size: 9vw;
-    color: rgb(255, 255, 255);
+    color: rgb(233, 233, 233);
     -webkit-user-select: none;
     /* Safari */
     -moz-user-select: none;
@@ -985,7 +986,25 @@ textarea,
     flex-flow: row wrap;
     width: 40%;
 }
-
+@media screen and (min-width: 1900px) {
+    .title {
+        font-size: 130px;
+        letter-spacing: -10px;
+    }
+    .topnav a {
+        font-size: 24px;
+    }
+    .bannerText h2 {
+        font-size: 100px;
+    }
+    .bannerText #designer {
+        font-size: 110px;
+        margin-right: -20px;
+    }
+    .bannerText #developer {
+        font-size: 105px;
+    }
+}
 @media screen and (max-width: 1200px) {
     .title::before {
         top: 50%;
