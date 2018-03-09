@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Brandon Moore - Portfolio</title>
-    <meta name="author" content="Brandon Moore" />
-    <meta name="description" content="Brandon Moore's portfolio: a collection of his work.">
-    <meta name="keywords" content="Brandon Moore, Portfolio, Newfield, Web Developer, Alfred, Software Developer">
-    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300|Zilla+Slab+Highlight|Pacifico|Didact+Gothic|Open+Sans:300,400,700|Oxygen:300,700" rel="stylesheet">
+    <title>Brandon C Moore - Portfolio</title>
+    <meta name="author" content="Brandon C. Moore" />
+    <meta name="description" content="Brandon C. Moore's portfolio: a collection of his work.">
+    <meta name="keywords" content="Brandon C. Moore, Brandon Moore, Portfolio, Newfield, Web Developer, Alfred, Software Developer, UX/UI, Front-end, Frontend">
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Oxygen|Pacifico|Zilla+Slab+Highlight" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
@@ -27,6 +27,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -34,14 +35,16 @@
     <div class="top">
         <img class="logo-img" alt="Brandon Moore logo" src="https://res.cloudinary.com/thatcube/image/upload/c_scale,w_150/v1516777751/logo.png">
         <div class="topnav hover-underline">
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#projects"><button class="topnav-btn">Projects</button></a>
+            <a href="#contact"><button class="topnav-btn">Contact</button></a>
         </div>
         <div class="bannerText">
-            <h1 class="title">Hi, I'm Brandon.
-                <br>
-                <h2><i id="noitalics">I'm a </i><i id="noitalics" class="type-it"></i></h2>
-            </h1>
+            <div class="banner-container">
+                <h1 class="title">Hi, I'm Brandon.
+                    <br>
+                    <h2><i id="noitalics">I'm a </i><i id="noitalics" class="type-it"></i></h2>
+                </h1>
+            </div>
         </div>
         <div class="learn">
             <a class="hover-underline" href="#bio">learn more about what I do
@@ -59,12 +62,12 @@
                 <div class="img-respond">
                     <img alt="Picture of Brandon Moore" src="https://res.cloudinary.com/thatcube/image/upload/c_scale,h_250/v1513984172/me_500.jpg">
                 </div>
-                <p class="child">I'm a web designer, full stack developer, and UX/UI enthusiast from Upstate New York. I'm currently a Software Development Intern at CBORD. If you'd like to chat, please <a href="#contact">contact me</a>. Feel free to check out my
+                <p class="child">To put it simply, I'm a UX/UI guy. I love working on the front end, and creating eye-pleasing views that even your grandma will understand. At the moment, I'm a Software Development Intern at CBORD, mainly focusing on improving the interface of their software. If you'd like to chat, please <a href="#contact">contact me</a>. Also, don't be afraid to check out my
                     <a href="https://github.com/thatcube" target="_blank">Github</a>,
                     <a href="https://linkedin.com/in/bmoore46" target="_blank">LinkedIn</a>, or
                     <a href="/Resume.pdf" target="_blank">resume</a>.
                     <br>
-                    <br> When I'm not doing development work, I also enjoy running, playing soccer, and keeping up with the latest
+                    <br> When I'm not doing development work, I also enjoy running, playing soccer, watching TV shows, and keeping up with the latest
                     in technology.</p>
             </div>
         </div>
@@ -206,15 +209,13 @@
                 </form>
             </div>
             <div class="contactinfo">
-                <div class="email">
-                    <a href="mailto:brandon-moore@live.com"><i class="far fa-envelope"></i> &nbsp;brandon-moore@live.com</a>
-                    <br>
-                    <a href="/Resume.pdf"><i class="fas fa-file-alt"></i> &nbsp;Resume</a>
-                    <br>
-                    <a href="https://linkedin.com/in/bmoore46"><i class="fab fa-linkedin"></i> &nbsp;LinkedIn</a>
-                    <br>
-                    <a href="https://github.com/thatcube"><i class="fab fa-github"></i> &nbsp;GitHub&nbsp;&nbsp;</a>
-                </div>
+                <ul class="email">
+                    <li><a target="_blank" href="mailto:brandon-moore@live.com"><i class="far fa-envelope"></i> &nbsp;Email</a></li>
+                    <li><a target="_blank" href="/Resume.pdf"><i class="fas fa-file-alt"></i> &nbsp;Resume</a></li>
+                    <li><a target="_blank" href="https://linkedin.com/in/bmoore46"><i class="fab fa-linkedin"></i> &nbsp;LinkedIn</a></li>
+                    <li><a target="_blank" href="https://github.com/thatcube"><i class="fab fa-github"></i> &nbsp;GitHub&nbsp;&nbsp;</a></li>
+                    <li><a class="phone"><i class="fas fa-phone"></i> &nbsp;Phone</a></li>
+                </ul>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 * {
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Nunito', -apple-system, sans-serif;
     -webkit-transition: width 1s ease-in-out, left 1s ease-in-out;
     -o-transition: width 1s ease-in-out, left 1s ease-in-out;
     transition: width 1s ease-in-out, left 1s ease-in-out;
@@ -9,6 +9,7 @@
     -o-transition: height 0.25s ease-in-out, left 1s ease-in-out;
     transition: height 0.25s ease-in-out, left 1s ease-in-out;
     text-rendering: optimizeLegibility;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -24,7 +25,7 @@ html {
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Nunito', -apple-system, sans-serif;
     font-size: 1.6rem;
     height: 100%;
     position: relative;
@@ -34,8 +35,11 @@ body {
 }
 
 .top {
-    background: #222222;
-    /* background-image: url(https://res.cloudinary.com/thatcube/image/upload/v1515997146/keyboard_darker_akbzc7.jpg); */
+    background: #1c2430;
+    background-image: url(https://res.cloudinary.com/thatcube/image/upload/q_100/v1520311437/bcm-portfolio-bg.jpg);
+    /*background-image: url(https://res.cloudinary.com/thatcube/image/upload/v1515997146/keyboard_darker_akbzc7.jpg);
+    background-image: url(https://img.wallpapersafari.com/desktop/1680/1050/90/69/2bLwnf.jpg);
+    */
     background-size: cover;
     background-repeat: no-repeat;
     /*background-image: url("https://res.cloudinary.com/thatcube/image/upload/v1513916683/space_better_j1twfe.jpg");*/
@@ -44,7 +48,7 @@ body {
     width: 100%;
     display: table;
 }
-
+/*
 .top::after {
     content: "";
     display: block;
@@ -57,7 +61,7 @@ body {
     background-repeat: no-repeat;
     background-position: center top;
 }
-
+*/
 *,
 *:before,
 *:after {
@@ -72,7 +76,6 @@ span {
     /* position the left edge of the element at the middle of the parent */
     transform: translate(-50%, -50%);
     padding-bottom: 20px;
-    font-family: 'Didact Gothic', sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: 40pt;
     text-transform: lowercase;
@@ -106,12 +109,11 @@ span {
 .topnav {
     position: absolute;
     right: 7vw;
-    top: 3.3vw;
+    top: 4.5vw;
     z-index: 1;
 }
-
+/*
 .topnav a {
-    font-family: 'Didact Gothic', 'Open Sans', sans-serif;
     font-weight: 100;
     padding: 20px;
     font-size: 14px;
@@ -135,6 +137,55 @@ span {
     transition-property: transform, -webkit-transform;
     cursor: pointer;
     text-transform: lowercase;
+}*/
+.topnav-btn {
+    display: inline-block;
+    line-height: 35px;
+    margin: 8px;
+    padding: 0 15px;
+    font-size: 19px;
+    position: relative;
+    opacity: 0.999;
+    background-color: transparent;
+    border: 1px solid #6868685d;
+    color: #b8b8b8;
+    cursor: pointer;
+    text-decoration: none;
+}
+.topnav-btn:hover {
+    color: rgb(0, 195, 255);
+    text-decoration: none;
+
+}
+.topnav-btn:before, .topnav-btn:after {
+    content: '';
+    border-style: solid;
+    position: absolute;
+    z-index: 5;
+    box-sizing: border-box;
+    transition: 300ms all;
+    border-color: rgb(0, 195, 255);
+  }
+.topnav-btn:before {
+    width: 0;
+    height: 100%;
+    border-width: 1px 0 1px 0;
+    top: 0;
+    left: 0;
+    transition-delay: 0.05s;
+}
+.topnav-btn:after {
+    width: 100%;
+    height: 0;
+    border-width: 0 1px 0 1px;
+    top: 0;
+    left: 0;
+}
+.topnav-btn:hover:before {
+    width: 100%
+}
+.topnav-btn:hover:after {
+    height: 100%;
 }
 
 .logo-img {
@@ -165,7 +216,6 @@ span {
 
 .learn a {
     text-decoration: none;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     color: rgb(175, 175, 175);
     -webkit-transition: all .35s ease-in-out;
@@ -176,7 +226,7 @@ span {
 .learn a:hover {
     color: rgb(255, 255, 255);
 }
-
+/*
 .hover-underline a {
     display: inline-block;
     vertical-align: middle;
@@ -196,7 +246,7 @@ span {
     bottom: 13px;
     background: rgb(0, 195, 255);
     /*background: linear-gradient(90deg,#706cf5, rgb(0, 195, 255));*/
-    height: 1px;
+   /* height: 1px;
     -webkit-transition-property: left, right;
     transition-property: left, right;
     -webkit-transition-duration: 0.3s;
@@ -211,13 +261,12 @@ span {
     left: 20px;
     right: 18px;
 }
-
+*/
 
 /* ABOUT ME SECTION */
 
 .bio {
     padding: 90px 15% 90px 15%;
-    font-family: 'Open Sans', sans-serif;
     font-size: 4rem;
     text-align: left;
     color: #bebebe;
@@ -236,7 +285,6 @@ span {
 .bio p {
     font-size: 2rem;
     line-height: 2.7rem;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     padding-left: 4%;
     width: 67%;
@@ -258,18 +306,23 @@ span {
 }
 
 .bio-background {
-    background: rgb(26, 26, 26);
+    background: #111316;
 }
 
 .bio span {
     color: rgb(0, 195, 255);
 }
 
+::selection {
+    background: rgb(0, 195, 255); /* WebKit/Blink Browsers */
+  }
+::-moz-selection {
+    background: rgba(0, 195, 255, 0.301); /* Gecko Browsers */
+}
 
 /*PROJECTS SECTION */
 
 .projects {
-    font-family: 'Open Sans', sans-serif;
     font-size: 4rem;
     text-align: left;
     color: #a0a0a0;
@@ -277,13 +330,14 @@ span {
 }
 
 .project {
-    background: #2b2b2b;
+    background: #232c36;
 }
 
 .projectTitle {
     position: absolute;
     left: 0; right: 0;
     top: 45%;
+    font-family: 'Oxygen', -apple-system, sans-serif;
     letter-spacing: 0.04em;
     text-align: center;
     margin: auto;
@@ -357,7 +411,6 @@ span {
     color: rgb(255, 255, 255);
     background: rgba(5, 5, 5, 0.945);
     font-size: 18px;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     height: 100%;
     line-height: 3.4rem;
@@ -387,7 +440,6 @@ span {
     padding: 5px 15px 5px 15px;
     position: absolute;
     bottom: 13px;
-    font-family: 'Open Sans', 'Oxygen', sans-serif;
     font-weight: 400;
     outline: none;
     border: 2px solid;
@@ -439,7 +491,6 @@ span {
     white-space: nowrap;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    font-family: 'Oxygen', 'Open Sans', sans-serif;
     margin-bottom: -15px;
 }
 
@@ -470,12 +521,30 @@ span {
 
 .contact {
     padding: 80px 0 40px 0;
-    font-family: 'Open Sans', sans-serif;
     font-size: 4rem;
     text-align: left;
     color: #a0a0a0;
-    background: rgb(26, 26, 26);
+    background: #1c2025;
     border-bottom: 1px solid rgb(0, 195, 255);
+    position: relative;
+}
+.contact::after, .contact::before {
+    height:100%;
+    content:'';
+    position: absolute;
+    top: 0;
+}
+.contact::after {
+    right: 0;
+    background-color: red;
+    z-index: -1;
+    width: 50%
+}
+.contact::before {
+    left: 0;
+    background-color: #1c2430;
+    width:50%;
+    clip-path: polygon(0 0, 39% 0, 100% 100%, 0% 100%);
 }
 
 .contact span {
@@ -492,21 +561,82 @@ span {
     padding: 20px 15% 0 15%;
     max-width: 2200px;
     margin: auto;
+    z-index: 9999;
 }
 
-.contact .email a {
-    font-size: 20pt;
-    font-family: 'Open Sans', 'sans-serif';
+.contact .email li {
+    font-size: 20px;
     font-weight: 300;
-    text-align: left;
     position: relative;
+    display: block;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+}
+.contact .email li a {
+    font-size: 20px;
+    font-weight: 300;
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    padding: 24px 10px;
+    text-align: left;
+    width: 100%;
+    clip-path: polygon(0 0, 32% 0, 46% 100%, 0% 100%);
 }
 
+.contact .email > li:nth-child(1) > a:nth-child(1) {
+    margin-left: 1vw;
+}
+.contact .email > li:nth-child(2) > a:nth-child(1) {
+    margin-left: 4.5vw;
+}
+.contact .email > li:nth-child(3) > a:nth-child(1) {
+    margin-left: 8.5vw;
+}
+.contact .email > li:nth-child(4) > a:nth-child(1) {
+    margin-left: 12.5vw;
+}
+.contact .email > li:nth-child(5) > a:nth-child(1) {
+    margin-left: 16vw;
+    clip-path: polygon(0 0, 42% 0, 54% 100%, 0% 100%);
+}
+.contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
+    margin-left: 14.5vw;
+}
+
+.contact .email li:first-of-type {
+    border-top: none;
+}
+
+/* .contact .email a:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.445);
+}
+.email a.nopointer:hover {
+    background: rgba(0, 0, 0, 0.185);
+} */
 .email {
     -webkit-font-smoothing: antialiased;
     text-align: left;
-    padding-left: 4vw;
-    margin-top: 20px;
+    margin-left: 0;
+    margin-top: 40px;
+    margin-right: 40px;
+    /*border: 1px solid rgba(128, 128, 128, 0.438);*/
+    padding-left: 0;
+}
+.email li {
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+}
+.email br {
+    display: block;
+    margin: 0px auto;
+}
+.email .fa {
+    left: 0;
+    position: absolute;
 }
 
 .contactinfo {
@@ -574,6 +704,16 @@ span {
     border-radius: 10px;
     margin-left: -20px;
     bottom: 0px;
+}
+a.phone {
+    cursor: pointer;
+}
+a.phone.nopointer:hover {
+    color: white;
+}
+.nopointer {
+    cursor: auto !important;
+    clip-path: none;
 }
 
 .hidden {
@@ -643,6 +783,8 @@ span {
 .bar:after {
     content: '';
     height: 3px;
+    left: calc(0% + 1px);
+    
     width: 0;
     bottom: 10px;
     position: absolute;
@@ -653,12 +795,12 @@ span {
 }
 
 .bar:before {
-    left: 0%;
+    left: calc(0% + 1px);
 }
 
 input:focus~.bar:before,
 input:focus~.bar:after {
-    width: 100%;
+    width: calc(100% - 2px);
 }
 
 input[type=text],
@@ -679,10 +821,11 @@ textarea {
     -webkit-transition: all 0.30s ease-in-out;
     -o-transition: all 0.30s ease-in-out;
     transition: all 0.30s ease-in-out;
-    background: #4c484e;
+    background: #15181b;
     color: rgb(255, 255, 255);
     display: block;
     padding: 15px;
+    border: 1px solid #252b31;
 }
 
 input[type=text],
@@ -694,20 +837,20 @@ textarea {
 textarea#message {
     height: 100px;
 }
-
+/*
 input[type=text]:focus,
 input[type=email]:focus,
 textarea:focus {
-    background-color: #59555c;
-}
+    background-color: #25272b;
+} */
 
 .send-btn {
-    background-image: linear-gradient(90deg,#221e25,#221e25);
+    background-color: #1c2025;
     background-size: 100%;
     display: inline-block;
     position: relative;
     color: rgb(255, 255, 255);
-    padding: 7px 17px 12px 17px;
+    padding: 12px 17px 12px 17px;
     border: 2px solid;
     border-radius: 0px;
     cursor: pointer;
@@ -716,7 +859,6 @@ textarea:focus {
     outline: none;
     z-index: 100;
     font-weight: 400;
-    font-family: 'Didact Gothic', 'Open Sans', sans-serif;
     margin-left: auto;
     margin-right: auto;
     -webkit-border-image: -webkit-linear-gradient(left,rgb(0, 195, 255),#706cf5);
@@ -762,15 +904,15 @@ textarea:focus {
 
 label {
     font-size: 2rem;
-    font-family: 'Open Sans', sans-serif;
     color: rgb(248, 248, 248);
     font-weight: 100;
-    padding-left: 1px;
+    padding: 12px 0 0 3px;
 }
 
 .form {
     width: 50%;
     color: #d3d3d3;
+    z-index: 1;
 }
 
 input::-webkit-input-placeholder,
@@ -812,11 +954,10 @@ textarea,
 
 .bannerText h2 {
     font-size: 7vw;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 100;
     position: absolute;
     color: rgb(0, 195, 255);
-    margin-top: -1.4vw;
+    margin-top: -0.5vw;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.35vw;
 }
@@ -826,7 +967,8 @@ textarea,
     text-transform: none;
 }
 .ti-cursor {
-    margin-left: -1.5vw;
+    margin-left: -1.2vw;
+    display: block;
 }
 
 .bannerText {
@@ -856,6 +998,7 @@ textarea,
 }
 .bannerText #designer {
     font-family: 'Pacifico', sans-serif;
+    letter-spacing: normal;
     font-size: 8vw;
     margin-right: -1.2vw;
 }
@@ -863,9 +1006,11 @@ textarea,
 .bannerText #developer {
     font-family: monospace;
     font-size: 7.5vw;
+    letter-spacing: -0.2vw
 }
 .bannerText #uxui {
     font-family: 'Zilla Slab Highlight', sans-serif;
+    letter-spacing: normal;
 }
 
 .title {
@@ -975,6 +1120,11 @@ textarea,
     left: 0;
     right: 0;
     margin: auto;
+    transition: .3s transform;
+    box-shadow: 0px 3px 15px #000000;
+}
+.img-respond img:hover {
+    transform: scale(1.05);
 }
 
 .childtwo {
@@ -986,23 +1136,47 @@ textarea,
     flex-flow: row wrap;
     width: 40%;
 }
+@media screen and (min-width: 2500px) {
+    .contactinfo {
+        transform: translateX(-12vw);
+    }
+}
 @media screen and (min-width: 1900px) {
+    .banner-container {
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
+        width: 1450px; 
+        margin-bottom: 9rem;
+    }
+    .title, .bannerText h2 {
+        margin-left: 0;
+        padding-left: 200px;
+    }
     .title {
-        font-size: 130px;
-        letter-spacing: -10px;
+        font-size: 160px;
+        letter-spacing: -9px;
     }
     .topnav a {
         font-size: 24px;
     }
     .bannerText h2 {
         font-size: 100px;
+        letter-spacing: -3px;
+        padding-top: 5px;
     }
     .bannerText #designer {
-        font-size: 110px;
+        font-size: 115px;
         margin-right: -20px;
+        letter-spacing: normal;
     }
     .bannerText #developer {
-        font-size: 105px;
+        font-size: 115px;
+        letter-spacing: -6px;
+    }
+    .ti-cursor {
+        margin-left: -35px;
     }
 }
 @media screen and (max-width: 1200px) {
@@ -1037,8 +1211,27 @@ textarea,
     .card-bottom {
         font-size: 15px;
     }
-    .email {
-        padding-left: 0.5vw;
+    .contact .email li a {
+        clip-path: polygon(0 0, 40% 0, 52% 100%, 0% 100%);
+    }
+    .contact .email > li:nth-child(1) > a:nth-child(1) {
+        margin-left: 0vw;
+    }
+    .contact .email > li:nth-child(2) > a:nth-child(1) {
+        margin-left: 2.5vw;
+    }
+    .contact .email > li:nth-child(3) > a:nth-child(1) {
+        margin-left: 5vw;
+    }
+    .contact .email > li:nth-child(4) > a:nth-child(1) {
+        margin-left: 9.5vw;
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1) {
+        clip-path: polygon(0 0, 52% 0, 64% 100%, 0% 100%);
+        margin-left: 14vw;
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
+        margin-left: 10vw;
     }
 }
 
@@ -1086,6 +1279,15 @@ textarea,
     .contact .email a {
         font-size: 12pt;
     }
+    .contact .email li a {
+        clip-path: polygon(0 0, 48% 0, 62% 100%, 0% 100%);
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1) {
+        clip-path: polygon(0 0, 73% 0, 79% 100%, 0% 100%);
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
+        margin-left: 8vw;
+    }
 }
 
 @media screen and (max-width: 769px) {
@@ -1098,6 +1300,9 @@ textarea,
     }
     .topnav {
         margin-right: 20px;
+    }
+    .top {
+        background-image: none;
     }
     .contactinfo {
         width: 100%;
@@ -1123,6 +1328,7 @@ textarea,
         margin-top: 50px;
         margin-bottom: -10px;
         padding-right: 0px;
+        margin-right: 0;
         text-align: center;
     }
     .contact .email a {
@@ -1140,6 +1346,39 @@ textarea,
     }
     .bio {
         padding: 90px 5% 90px 5%;
+    }
+    .image-respond img {
+        max-width: 250px;
+    }
+    .contact .email > li:nth-child(1) > a:nth-child(1) {
+        margin-left: 0;
+    }
+    .contact .email > li:nth-child(2) > a:nth-child(1) {
+        margin-left: 0;
+    }
+    .contact .email > li:nth-child(3) > a:nth-child(1) {
+        margin-left: 0;
+    }
+    .contact .email > li:nth-child(4) > a:nth-child(1) {
+        margin-left: 0;
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1) {
+        margin-left: 0;
+        clip-path: none;
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
+        margin-left: 0;
+    }
+    .contact .email li a {
+        clip-path: none;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .contact::before {
+        z-index: -2;
+    }
+    .contact {
+        padding-bottom: 30px;
     }
 }
 @media screen and (max-width: 650px) {

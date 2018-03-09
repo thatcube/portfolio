@@ -14,7 +14,7 @@ $(document).ready(function(){
 });
 var type = new TypeIt('.type-it', {
 	speed: 90,
-	strings: ["web <em id=\"designer\">designer&nbsp;</em>", "full stack <em id=\"developer\">developer</em>", "<em id=\"uxui\">UX/UI&nbsp;</em> enthusiast"],
+	strings: ["web <em id=\"designer\">designer&nbsp;</em>", "front-end <em id=\"developer\">developer</em>", "<em id=\"uxui\">UX/UI&nbsp;</em>enthusiast"],
 	autoStart: true,
 	lifeLike: true,
 	loop: true,
@@ -22,6 +22,17 @@ var type = new TypeIt('.type-it', {
 	startDelay: 1500,
 	nextStringDelay: 3000
 });
+var phone = $(".phone");
+
+phone.on("click touchstart", function(event) {
+	if (phone.hasClass('nopointer')) {
+		event.stopPropagation();
+	} else  {
+		phone.html('<i class="fas fa-phone"></i> 607-342-1509');
+		phone.addClass('nopointer');
+	}
+});
+
 /*
 //-- Pause 
 setTimeout(() => {
