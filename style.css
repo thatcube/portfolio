@@ -550,6 +550,7 @@ span {
     color: #a0a0a0;
     background: #1c2025;
     border-bottom: 1px solid rgb(0, 195, 255);
+    border-top: 1px solid #323c4c;
     position: relative;
 }
 .contact::after, .contact::before {
