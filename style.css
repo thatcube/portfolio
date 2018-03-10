@@ -9,7 +9,8 @@
     -o-transition: height 0.25s ease-in-out, left 1s ease-in-out;
     transition: height 0.25s ease-in-out, left 1s ease-in-out;
     text-rendering: optimizeLegibility;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 :focus, :hover {
     outline: none;
@@ -78,7 +79,9 @@ span {
     position: absolute;
     left: 50%;
     /* position the left edge of the element at the middle of the parent */
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     padding-bottom: 20px;
     -webkit-font-smoothing: antialiased;
     font-size: 40pt;
@@ -166,7 +169,10 @@ span {
     border-style: solid;
     position: absolute;
     z-index: 5;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-transition: 300ms all;
+    -o-transition: 300ms all;
     transition: 300ms all;
     border-color: rgb(0, 195, 255);
   }
@@ -176,7 +182,9 @@ span {
     border-width: 1px 0 1px 0;
     top: 0;
     left: 0;
-    transition-delay: 0.05s;
+    -webkit-transition-delay: 0.05s;
+         -o-transition-delay: 0.05s;
+            transition-delay: 0.05s;
 }
 .topnav-btn:after {
     width: 100%;
@@ -196,7 +204,8 @@ span {
     position: absolute;
     top: 4.3vw;
     left: 4.7vw;
-    filter: blur(0px);
+    -webkit-filter: blur(0px);
+            filter: blur(0px);
     height: 55px;
 }
 
@@ -317,6 +326,10 @@ span {
     color: rgb(0, 195, 255);
 }
 
+::-moz-selection {
+    background: rgba(0, 195, 255, 0.301); /* WebKit/Blink Browsers */
+}
+
 ::selection {
     background: rgba(0, 195, 255, 0.301); /* WebKit/Blink Browsers */
 }
@@ -348,6 +361,9 @@ span {
     text-transform: uppercase;
     font-size: 1.8em;
     color: rgb(255, 255, 255);
+    background: -webkit-gradient(linear, right top, left top, from(#00c3ff94), to(#716cf598));
+    background: -webkit-linear-gradient(right, #00c3ff94 0%, #716cf598 100%);
+    background: -o-linear-gradient(right, #00c3ff94 0%, #716cf598 100%);
     background: linear-gradient(to left, #00c3ff94 0%, #716cf598 100%);
     -webkit-transition: all .35s ease-in-out;
     -o-transition: all .35s ease-in-out;
@@ -452,6 +468,7 @@ span {
     -o-border-image: -o-linear-gradient(right,rgb(0, 195, 255),#706cf5);
     border-image: -o-linear-gradient(right,rgb(0, 195, 255),#706cf5);
     border-image: -webkit-gradient(linear,left top,right top,from(rgb(0, 195, 255)),to(#706cf5));
+    border-image: -webkit-gradient(linear,left top, right top,from(rgb(0, 195, 255)),to(#706cf5));
     border-image: linear-gradient(90deg,rgb(0, 195, 255),#706cf5);
     border-image-slice: 3;
     -webkit-transition: all .25s ease-in-out;
@@ -463,6 +480,9 @@ span {
 .card-bottom button:before {
     color: rgba(5, 5, 5, 0.945);
     display: block;
+    background-image: -webkit-gradient(linear,left top, right top,from(rgb(0, 195, 255)),to(#706cf5));
+    background-image: -webkit-linear-gradient(left,rgb(0, 195, 255),#706cf5);
+    background-image: -o-linear-gradient(left,rgb(0, 195, 255),#706cf5);
     background-image: linear-gradient(90deg,rgb(0, 195, 255),#706cf5);
     border-radius: 0px;
     outline: none;
@@ -473,6 +493,8 @@ span {
     z-index: -100;
     opacity: 0;
     top: 0; left: 0;
+    -webkit-transition: opacity 0.45s;
+    -o-transition: opacity 0.45s;
     transition: opacity 0.45s;
 }
 .card-bottom button:hover:before{
@@ -541,13 +563,15 @@ span {
     background-color: #1d2430;
     z-index: 1;
     width: 50%;
-    clip-path: polygon(100% 0, 67% 0, 100% 59%);
+    -webkit-clip-path: polygon(100% 0, 67% 0, 100% 59%);
+            clip-path: polygon(100% 0, 67% 0, 100% 59%);
 }
 .contact::before {
     left: 0;
     background-color: #1c2430;
     width:50%;
-    clip-path: polygon(0 0, 39% 0, 100% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0 0, 39% 0, 100% 100%, 0% 100%);
+            clip-path: polygon(0 0, 39% 0, 100% 100%, 0% 100%);
 }
 
 .contact span {
@@ -556,9 +580,15 @@ span {
 }
 
 .contactsection {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap-reverse;
-    flex-direction: row-reverse;
+    -ms-flex-wrap: wrap-reverse;
+        flex-wrap: wrap-reverse;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
     margin-right: 10%;
     margin-top: 20px;
     padding: 20px 15% 0 15%;
@@ -585,7 +615,8 @@ span {
     padding: 24px 10px;
     text-align: left;
     width: 100%;
-    clip-path: polygon(0 0, 32% 0, 46% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0 0, 32% 0, 46% 100%, 0% 100%);
+            clip-path: polygon(0 0, 32% 0, 46% 100%, 0% 100%);
 }
 
 .contact .email > li:nth-child(1) > a:nth-child(1) {
@@ -602,7 +633,8 @@ span {
 }
 .contact .email > li:nth-child(5) > a:nth-child(1) {
     margin-left: 16vw;
-    clip-path: polygon(0 0, 42% 0, 54% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0 0, 42% 0, 54% 100%, 0% 100%);
+            clip-path: polygon(0 0, 42% 0, 54% 100%, 0% 100%);
 }
 .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
     margin-left: 14.5vw;
@@ -645,7 +677,9 @@ span {
 .contactinfo {
     width: 50%;
     padding: 5% 0 5% 0;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-bottom: 0 !important;
 }
 
@@ -675,8 +709,11 @@ span {
 }
 
 .icons {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     text-align: center;
     font-size: 2vw;
     cursor: pointer;
@@ -701,7 +738,10 @@ span {
     -webkit-transition: all .25s ease-in-out;
     -o-transition: all .25s ease-in-out;
     transition: all .25s ease-in-out;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     width: 32%;
     margin-right: 10px;
     border-radius: 10px;
@@ -716,7 +756,8 @@ a.phone.nopointer:hover {
 }
 .nopointer {
     cursor: auto !important;
-    clip-path: none;
+    -webkit-clip-path: none;
+            clip-path: none;
 }
 
 .hidden {
@@ -791,7 +832,11 @@ a.phone.nopointer:hover {
     width: 0;
     bottom: 10px;
     position: absolute;
+    background: -webkit-gradient(linear, left top, right top, from(#00c3ff), to(#706cf5));
+    background: -webkit-linear-gradient(left, #00c3ff 0%, #706cf5 100%);
+    background: -o-linear-gradient(left, #00c3ff 0%, #706cf5 100%);
     background: linear-gradient(to right, #00c3ff 0%, #706cf5 100%);
+    -o-transition: 0.5s ease all;
     transition: 0.5s ease all;
     -moz-transition: 0.5s ease all;
     -webkit-transition: 0.5s ease all;
@@ -816,9 +861,9 @@ textarea {
     resize: vertical;
     font-size: 1.5rem;
     outline: none;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
     border: none;
-    -webkit-border-radius: 0px;
     border-radius: 0px;
     -webkit-appearance: none;
     -webkit-transition: all 0.30s ease-in-out;
@@ -869,6 +914,7 @@ textarea:focus {
     -o-border-image: -o-linear-gradient(right,rgb(0, 195, 255),#706cf5);
     border-image: -o-linear-gradient(right,rgb(0, 195, 255),#706cf5);
     border-image: -webkit-gradient(linear,left top,right top,from(rgb(0, 195, 255)),to(#706cf5));
+    border-image: -webkit-gradient(linear,left top, right top,from(rgb(0, 195, 255)),to(#706cf5));
     border-image: linear-gradient(90deg,rgb(0, 195, 255),#706cf5);
     border-image-slice: 3;
     -webkit-transition: all .25s ease-in-out;
@@ -878,6 +924,9 @@ textarea:focus {
 }
 .send-btn:before {
     display: block;
+    background-image: -webkit-gradient(linear,left top, right top,from(rgb(0, 195, 255)),to(#706cf5));
+    background-image: -webkit-linear-gradient(left,rgb(0, 195, 255),#706cf5);
+    background-image: -o-linear-gradient(left,rgb(0, 195, 255),#706cf5);
     background-image: linear-gradient(90deg,rgb(0, 195, 255),#706cf5);
     border-radius: 0px;
     outline: none;
@@ -888,6 +937,8 @@ textarea:focus {
     z-index: -100;
     opacity: 0;
     top: 0; left: 0;
+    -webkit-transition: opacity 0.45s;
+    -o-transition: opacity 0.45s;
     transition: opacity 0.45s;
 }
 
@@ -995,6 +1046,9 @@ textarea,
     font-style: normal;
     font-weight: normal;
     line-height: 0px;
+    background: -webkit-gradient(linear,left top, right top,from(#00c3ff),to(#706cf5));
+    background: -webkit-linear-gradient(left,#00c3ff,#706cf5);
+    background: -o-linear-gradient(left,#00c3ff,#706cf5);
     background: linear-gradient(90deg,#00c3ff,#706cf5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1123,11 +1177,16 @@ textarea,
     left: 0;
     right: 0;
     margin: auto;
+    -webkit-transition: .3s transform;
+    -o-transition: .3s transform;
     transition: .3s transform;
-    box-shadow: 0px 3px 15px #000000;
+    -webkit-box-shadow: 0px 3px 15px #000000;
+            box-shadow: 0px 3px 15px #000000;
 }
 .img-respond img:hover {
-    transform: scale(1.025);
+    -webkit-transform: scale(1.025);
+        -ms-transform: scale(1.025);
+            transform: scale(1.025);
 }
 
 .childtwo {
@@ -1141,7 +1200,9 @@ textarea,
 }
 @media screen and (min-width: 2500px) {
     .contactinfo {
-        transform: translateX(-12vw);
+        -webkit-transform: translateX(-12vw);
+            -ms-transform: translateX(-12vw);
+                transform: translateX(-12vw);
     }
 }
 @media screen and (min-width: 1900px) {
@@ -1215,7 +1276,8 @@ textarea,
         font-size: 15px;
     }
     .contact .email li a {
-        clip-path: polygon(0 0, 40% 0, 52% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0 0, 40% 0, 52% 100%, 0% 100%);
+                clip-path: polygon(0 0, 40% 0, 52% 100%, 0% 100%);
     }
     .contact .email > li:nth-child(1) > a:nth-child(1) {
         margin-left: 0vw;
@@ -1230,7 +1292,8 @@ textarea,
         margin-left: 9.5vw;
     }
     .contact .email > li:nth-child(5) > a:nth-child(1) {
-        clip-path: polygon(0 0, 52% 0, 64% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0 0, 52% 0, 64% 100%, 0% 100%);
+                clip-path: polygon(0 0, 52% 0, 64% 100%, 0% 100%);
         margin-left: 14vw;
     }
     .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
@@ -1289,10 +1352,12 @@ textarea,
         font-size: 12pt;
     }
     .contact .email li a {
-        clip-path: polygon(0 0, 48% 0, 62% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0 0, 48% 0, 62% 100%, 0% 100%);
+                clip-path: polygon(0 0, 48% 0, 62% 100%, 0% 100%);
     }
     .contact .email > li:nth-child(5) > a:nth-child(1) {
-        clip-path: polygon(0 0, 73% 0, 79% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0 0, 73% 0, 79% 100%, 0% 100%);
+                clip-path: polygon(0 0, 73% 0, 79% 100%, 0% 100%);
     }
     .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
         margin-left: 8vw;
@@ -1377,17 +1442,19 @@ textarea,
     }
     .contact .email > li:nth-child(5) > a:nth-child(1) {
         margin-left: 0;
-        clip-path: none;
+        -webkit-clip-path: none;
+                clip-path: none;
     }
     .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
         margin-left: 0;
     }
     .contact .email li a {
-        clip-path: none;
+        -webkit-clip-path: none;
+                clip-path: none;
         text-align: center;
         padding: 10px 0;
     }
-    .contact::before {
+    .contact::before, .contact::after {
         z-index: -2;
     }
     .contact {
@@ -1517,6 +1584,7 @@ textarea,
     .bar:before,
     .bar:after {
         bottom: 12px;
+        -o-transition: 0.8s ease all;
         transition: 0.8s ease all;
         -moz-transition: 0.8s ease all;
         -webkit-transition: 0.8s ease all;
