@@ -885,12 +885,12 @@ textarea {
     padding: 15px;
     border: 1px solid #252b31;
 }
-
+/*
 input[type=text],
 input[type=email],
 textarea {
     margin-top: -2px;
-}
+}*/
 
 textarea#message {
     height: 100px;
@@ -1522,6 +1522,11 @@ textarea,
     .contact {
         padding-bottom: 30px;
     }
+    .topnav-btn {
+        font-size: 14px;
+        padding: 1.5px 18px;
+        margin-top: 10px;
+    }
 }
 @media screen and (max-width: 650px) {
     .card-bottom {
@@ -1568,8 +1573,9 @@ textarea,
         -webkit-transform: translate3d(0, -2vh, 0);
         transform: translate3d(0, -2vh, 0);
     }
-    h2 {
-        font-size: 9vw;
+    .bannerText h2 {
+        font-size: 8vw;
+        margin-top: 1vw;
     }
     .learn a {
         font-size: .75em;
