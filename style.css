@@ -971,6 +971,9 @@ label {
     color: rgb(248, 248, 248);
     font-weight: 100;
     padding: 12px 0 0 3px;
+    margin-bottom: -3px;
+    transform: translateY(5px);
+    display: inline-block;
 }
 
 .form {
@@ -1021,7 +1024,7 @@ textarea,
     font-weight: 100;
     position: absolute;
     color: rgb(0, 195, 255);
-    margin-top: 0;
+    margin-top: 3px;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.35vw;
 }
@@ -1328,6 +1331,7 @@ textarea,
     }
     .card-bottom {
         font-size: 15px;
+        line-height: 28px;
     }
     .contact .email li a {
         -webkit-clip-path: polygon(0 0, 40% 0, 52% 100%, 0% 100%);
@@ -1499,6 +1503,7 @@ textarea,
     }
     .contact .email > li:nth-child(4) > a:nth-child(1) {
         margin-left: 0;
+        margin-top: 45px;
     }
     .contact .email > li:nth-child(5) > a:nth-child(1) {
         margin-left: 0;
@@ -1526,6 +1531,9 @@ textarea,
         font-size: 14px;
         padding: 1.5px 18px;
         margin-top: 10px;
+    }
+    .email {
+        margin-top: 30px;
     }
 }
 @media screen and (max-width: 650px) {
