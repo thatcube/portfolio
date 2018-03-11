@@ -89,6 +89,8 @@ span {
     -webkit-font-smoothing: antialiased;
     font-size: 40pt;
     text-transform: lowercase;
+    width: 100%;
+    text-align: center;
 }
 
 
@@ -1066,6 +1068,7 @@ textarea,
     letter-spacing: normal;
     font-size: 8vw;
     margin-right: 0;
+    margin-bottom: -5px;
 }
 
 .bannerText #developer {
@@ -1479,14 +1482,20 @@ textarea,
     .image-respond img {
         max-width: 250px;
     }
+    .contact ul.email {
+        columns: 2;
+    }
     .contact .email > li:nth-child(1) > a:nth-child(1) {
         margin-left: 0;
+        padding-left: 25px;
     }
     .contact .email > li:nth-child(2) > a:nth-child(1) {
         margin-left: 0;
+        padding-left: 25px;
     }
     .contact .email > li:nth-child(3) > a:nth-child(1) {
         margin-left: 0;
+        padding-left: 25px;
     }
     .contact .email > li:nth-child(4) > a:nth-child(1) {
         margin-left: 0;
@@ -1498,6 +1507,8 @@ textarea,
     }
     .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
         margin-left: 0;
+        font-size: 16px;
+        line-height: 30px;
     }
     .contact .email li a {
         -webkit-clip-path: none;
@@ -1678,6 +1689,12 @@ textarea,
     }
     .icons s {
         font-size: 5vw;
+    }
+    .contact .email li a {
+        font-size: 16px;
+    }
+    .contact .email > li:nth-child(5) > a:nth-child(1).nopointer {
+        font-size: 13px;
     }
 }
 
