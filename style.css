@@ -1030,6 +1030,8 @@ textarea,
 
 .captcha {
     transition: .5s ease all;
+    float: right;
+    padding-top: 10px;
 }
 
 

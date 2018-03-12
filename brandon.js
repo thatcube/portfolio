@@ -36,7 +36,7 @@ phone.on("click touchstart", function(event) {
 
 var captcha = $(".captcha");
 var textArea = $("#message");
-textArea.on("touchstart click", function() {
+textArea.on("touchstart click focus", function() {
 	if (captcha.hasClass('hidden')) {
 		captcha.removeClass('hidden');
 	};
