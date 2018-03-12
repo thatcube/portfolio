@@ -1030,7 +1030,6 @@ textarea,
 
 .captcha {
     transition: .5s ease all;
-    float: right;
     padding: 10px 0 5px 0;
 }
 
@@ -1322,10 +1321,16 @@ textarea,
     .not-found a:hover {
         transform: scale(1.015);
     }
+    .captcha {
+        float: left;
+    }
 }
 @media screen and (max-width: 1399px) {
     .not-found a:hover {
         transform: scale(1.04);
+    }
+    .captcha {
+        float: right;
     }
 }
 
