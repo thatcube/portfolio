@@ -1146,6 +1146,17 @@ textarea,
     border-radius: 5px;
 }
 
+.success h4 b {
+    color: #69e569;
+    font-weight: normal;
+}
+.success h4 {
+    font-size: 50% !important;
+}
+.success a {
+    font-size: 40%;
+}
+
 
 .main {
     position: absolute;
