@@ -22,6 +22,7 @@ var type = new TypeIt('.type-it', {
 	startDelay: 1500,
 	nextStringDelay: 3000
 });
+
 var phone = $(".phone");
 
 phone.on("click touchstart", function(event) {
@@ -31,6 +32,14 @@ phone.on("click touchstart", function(event) {
 		phone.html('<i class="fas fa-phone"></i> 607-342-1509');
 		phone.addClass('nopointer');
 	}
+});
+
+var captcha = $(".captcha");
+var textArea = $("#message");
+textArea.on("touchstart click", function() {
+	if (captcha.hasClass('hidden')) {
+		captcha.removeClass('hidden');
+	};
 });
 
 /*

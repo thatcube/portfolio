@@ -1016,6 +1016,22 @@ textarea,
     caret-color: rgb(255, 255, 255);
 }
 
+.hidden {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    width: 0;
+    transition: .5s ease all;
+}
+
+.captcha {
+    transition: .5s ease all;
+}
+
 
 /* TOP SECTION */
 
