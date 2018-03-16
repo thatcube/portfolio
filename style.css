@@ -1045,7 +1045,21 @@ textarea,
     border-color: #5cff00 !important;
 }
 .swal2-popup .swal2-title {
-    color: #1aa51a !important;
+    color: #06fa2d !important;
+}
+.swal2-icon.swal2-success .swal2-success-fix {
+    left: 1.725em !important;
+}
+.swal2-icon.swal2-success [class^=swal2-success-line][class$=long] {
+    top: 2.3em !important;
+    right: .41em !important;
+}
+
+.swal2-icon.swal2-success [class^=swal2-success-line] {
+    background-color: #00ff2d; 
+}
+.swal2-icon.swal2-success .swal2-success-ring {
+    border: .25em solid rgba(92, 255, 0, 0.3);
 }
 
 /* TOP SECTION */
