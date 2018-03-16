@@ -1033,6 +1033,9 @@ textarea,
     padding: 10px 0 4px 0;
 }
 
+.swal2-popup {
+    color: white;
+}
 
 /* TOP SECTION */
 

@@ -47,7 +47,17 @@ $("form").submit(function(e) {
   
 	var $form = $(this);
 	$.post($form.attr("action"), $form.serialize()).then(function() {
-	  alert("thanks for your message friend");
+	  $form.reset();
+	  captcha.addClass('hidden');
+	  swal({title: 'Thanks!',
+	  type: 'success',
+	  html:
+		'Your message was submitted successfully.',
+	  showCloseButton: true,
+	  focusConfirm: false,
+	  confirmButtonText: 'Okay',
+	  background: '#1b212d',
+	  });
 	});
   });
 
