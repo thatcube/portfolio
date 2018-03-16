@@ -42,7 +42,7 @@ textArea.on("touchstart click focus", function() {
 	};
 });
 
-$("#my-form").submit(function(e) {
+$("form").submit(function(e) {
 	e.preventDefault();
   
 	var $form = $(this);
