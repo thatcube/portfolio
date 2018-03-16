@@ -47,7 +47,7 @@ $("form").submit(function(e) {
   
 	var $form = $(this);
 	$.post($form.attr("action"), $form.serialize()).then(function() {
-	  $form.reset();
+	  $form[0].reset();
 	  captcha.addClass('hidden');
 	  swal({title: 'Thanks!',
 	  type: 'success',
