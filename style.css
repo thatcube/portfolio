@@ -1034,8 +1034,10 @@ textarea,
     padding: 10px 0 4px 0;
 }
 
+/* form notification popup */
 .swal2-popup {
     color: white;
+    transition: 300ms ease transform;
     transform: scale(1.7);
 }
 .swal2-popup .swal2-content {
@@ -1054,7 +1056,6 @@ textarea,
     top: 2.3em !important;
     right: .41em !important;
 }
-
 .swal2-icon.swal2-success [class^=swal2-success-line] {
     background-color: #00ff2d; 
 }
