@@ -1035,6 +1035,9 @@ textarea,
 }
 
 /* form notification popup */
+.swal2-container {
+    font-size: 100% !important;
+}
 .swal2-popup {
     color: white;
     transition: 300ms ease transform;
