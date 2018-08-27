@@ -1,0 +1,49 @@
+@mixin button-standard($text-color, $background) {
+    color: $text-color;
+    background: $background;
+    &:hover, &:focus{
+        background: mix($background, $white, 90%);
+    }
+    &:hover {
+        box-shadow: 0 0.125em 0.625em 0 rgba(41, 41, 41, .3);
+        &:focus {
+            box-shadow: none;
+        }
+    }
+    &:active {
+        background: mix($background, $white, 80%);
+        box-shadow: none;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.1875em mix(rgba(0,0,0, 0.185), rgba($background, .35), 15%), 0 0.1875em 0.9375em rgba($background, 0.2), 0 0.125em 0.3125em rgba(0,0,0, 0.1);
+    }
+}
+
+@mixin button-outline($hover-text-color, $text-color, $background) {
+    background: transparent;
+    border: 0.125em solid;
+    border-color: $background;
+    color: $text-color;
+    transition: .2s ease color, .3s ease background, .3s ease box-shadow;
+    &:hover {
+        background: $background;
+        color: $hover-text-color;
+        box-shadow: none;
+    }
+}
+
+@mixin button-link($text-color) {
+    color: $text-color;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-decoration: underline;
+    &:hover, &:focus {
+        text-decoration: underline;
+        color: mix($text-color, $white, 80%);
+    }
+    &:focus {
+        outline: 0.0625em solid $text-color;
+    }
+}

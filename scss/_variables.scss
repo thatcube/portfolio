@@ -1,0 +1,27 @@
+$primary: #006cff;
+$dark: #1f1f1f;
+$white: #fff;
+$background: mix($primary, $white, 5%);
+
+$complementary: #007bff;
+$secondary: #d63665;
+
+// feedback colors
+$success: #008728;
+$info: #4ca5ff;
+$warning: #f7ba45;
+$danger: #b80000;
+
+// breakpoints
+$bp-xl: 65.625em; // 1050px
+$bp-lg: 56.25em;  // 900px
+$bp-md: 48em;     // 768px
+$bp-sm: 37.55em;  // 600px
+$bp-xs: 25em;     // 400px
+
+$box-shadow: 0 0.5rem 0.5rem 0 rgba(mix($primary, #ccc, 15%), 0.25), 0 0 0 0.0625rem mix($primary, white, 15%);
+
+// border radii
+$border-radius-small: .375rem;
+$border-radius-base: .625rem;
+$border-radius-large: 1rem;

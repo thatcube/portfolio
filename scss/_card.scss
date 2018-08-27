@@ -1,0 +1,44 @@
+.card {
+    border-radius: $border-radius-large;
+    box-shadow: $box-shadow;
+    background: $white;
+    margin-bottom: 2em;
+    color: $dark;
+
+    //reset line-height to fix placement of images
+    &__img {
+        border-radius: 0;
+        width: 100%;
+        //images can be placed at the top or bottom of a card
+        &.-top {
+            border-top-right-radius: $border-radius-large;
+            border-top-left-radius: $border-radius-large;
+            border-bottom: 0.0625em solid $background;
+        }
+        &.-bottom {
+            border-bottom-right-radius: $border-radius-large;
+            border-bottom-left-radius: $border-radius-large;
+        }
+    }
+    &__body {
+        padding: 1.875em;
+        @include until(sm) {
+            padding: 1rem;
+        }
+    }
+    &__text {
+        line-height: 2;
+    }
+    &__title {
+        font-weight: bold;
+        margin: 0;
+    }
+    &__subtitle {
+        font-weight: normal;
+    }
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

@@ -7,32 +7,33 @@ $(document).ready(function(){
 
 	    $('html, body').stop().animate({
 	        'scrollTop': $target.offset().top
-	    }, 900, 'swing', function () {
+	    }, 400, 'swing', function () {
 	        window.location.hash = target;
 	    });
 	});
 });
-var type = new TypeIt('.type-it', {
-	speed: 90,
-	strings: ["web <em id=\"designer\">designer&nbsp;</em>", "front-end <em id=\"developer\">developer</em>", "<em id=\"uxui\">UX/UI&nbsp;</em>enthusiast"],
-	autoStart: true,
-	lifeLike: true,
-	loop: true,
-	breakLines: false,
-	startDelay: 1500,
-	nextStringDelay: 3000
-});
 
-var phone = $(".phone");
+// var type = new TypeIt('.type-it', {
+// 	speed: 90,
+// 	strings: ["web <em id=\"designer\">designer&nbsp;</em>", "front-end <em id=\"developer\">developer</em>", "<em id=\"uxui\">UX/UI&nbsp;</em>enthusiast"],
+// 	autoStart: true,
+// 	lifeLike: true,
+// 	loop: true,
+// 	breakLines: false,
+// 	startDelay: 1500,
+// 	nextStringDelay: 3000
+// });
 
-phone.on("click touchstart", function(event) {
-	if (phone.hasClass('nopointer')) {
-		event.stopPropagation();
-	} else  {
-		phone.html('<i class="fas fa-phone"></i> 607-342-1509');
-		phone.addClass('nopointer');
-	}
-});
+// var phone = $(".phone");
+
+// phone.on("click touchstart", function(event) {
+// 	if (phone.hasClass('nopointer')) {
+// 		event.stopPropagation();
+// 	} else  {
+// 		phone.html('<i class="fas fa-phone"></i> 607-342-1509');
+// 		phone.addClass('nopointer');
+// 	}
+// });
 
 var captcha = $(".captcha");
 var textArea = $("#message");
