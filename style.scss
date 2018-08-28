@@ -50,19 +50,6 @@ header {
     padding: 10rem 0 15rem 0;
 }
 
-a {
-    color: $primary;
-    &:visited {
-        color: $primary;
-    }
-    &:hover {
-        color: mix($primary, $dark, 60%);
-    }
-    &:active {
-        color: $dark;
-    }
-}
-
 .hero-text {
     line-height: 1.2;
     span{
@@ -405,28 +392,6 @@ footer {
 
 .form {
     margin-top: -12rem;
-}
-
-input[type=text],
-input[type=email],
-select,
-textarea {
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    resize: vertical;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: none;
-    border-radius: $border-radius-base;
-    -webkit-appearance: none;
-    transition: all 0.30s ease-in-out;
-    display: block;
-    padding: 1rem;
-    border: 0.0625rem solid mix($background, $dark, 85%);
-    &:focus {
-        border-color: $primary;
-    }
 }
 
 .hidden {
