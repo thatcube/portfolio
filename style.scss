@@ -300,25 +300,34 @@ form .row {
     margin-top: -12rem;
 }
 .icons {
-    svg {
-        display: flex;
-        text-align: center;
-        min-width: 2.5rem;
-        min-height: 2.5rem;
-        padding: 0.625rem;
+    a {
+        padding: 1rem;
         border-radius: 3rem;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
         background: transparent;
         box-shadow: inset 0 0 0 0.125rem rgba($white, 0.5);
         color: $white;
         transition: .2s ease background, .2s ease color;
-        &:hover, &:focus {
-            color: $primary;
-            background: $white;
-        }
-        &:visited {
+        &:visited svg {
             color: $white;
         }
+        &:hover, &:focus {
+            svg {
+                color: $primary;
+            }
+            background: $white;
+        }
+    }
+    svg {
+        display: block;
+        text-align: center;
+        min-height: 1.25rem;
+        width: auto !important;
     }
     li {
         display: inline-block;
@@ -328,12 +337,27 @@ form .row {
     }
 }
 
+.chat {
+    stroke: $white;
+    width: 50%;
+    height: 50%;
+    @include until(sm) {
+        display: none;
+    }
+}
+
 footer {
     background: $primary;
     ul  {
         margin: 0;
     }
     p {
+        color: $white;
+    }
+    .heart {
+        width: 1rem;
+        height: 1rem;
+        margin-bottom: -0.125rem;
         color: $white;
     }
 }
@@ -408,7 +432,8 @@ footer {
 
 .captcha {
     transition: .5s ease all;
-    padding: 10px 0 4px 0;
+    margin-left: -2rem;
+    padding-bottom: 1rem;
 }
 
 /* form notification popup */

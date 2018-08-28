@@ -27,7 +27,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="style.min.css">
 </head>
 
@@ -68,7 +67,7 @@
                         <h2 class="skills__header">Front End Developer</h2>
                         <p class="skills__description">I love working on the front end and seeing my code come to life in the browser</p>
                         <h3 class="skills__subheader">I'm familiar with:</h3>
-                        <p class="skills__list">CSS, Sass, Less, JavaScript, Git, HTML, Angular, Vue.js</p>
+                        <p class="skills__list">CSS, Sass, JavaScript, Git, HTML, Angular, Vue.js, PHP</p>
                         <h3 class="skills__subheader">Tools I really like:</h3>
                         <p class="skills__list">VS Code</p>
                         <p class="skills__list">Codepen</p>
@@ -111,7 +110,7 @@
                 </a>
                 <div class="card__body">
                     <h3 class="card__title">Cubed CSS</h3>
-                    <p class="card__text">Currently a work in progress; Cubed CSS is a framework I wrote for easily creating lightweight, responsive, and accessible web interfaces.</p>
+                    <p class="card__text">This project is currently a work in progress; Cubed CSS is a framework I wrote in Sass for easily creating lightweight, responsive, and accessible web interfaces.</p>
                     <div class="card__buttons">
                         <a class="btn -outline -primary -round" target="_blank" href="https://github.com/thatcube/cubed-css">
                             <i class="fab fa-github"></i> GitHub
@@ -129,10 +128,8 @@
                     <h3 class="card__title">
                         Events Manager
                     </h3>
-                    <p class="card__text">An event management app with full authentication for planning and managing events. It was built using
-                        <strong>Vue.js,</strong>
-                        <strong>Vuetify</strong>, and
-                        <strong>Firebase</strong>.
+                    <p class="card__text">
+                        A simple event management app for planning and managing events. The front end was built using <strong>Vue.js</strong> and <strong>Vuetify</strong>. I used <strong>Google's Firebase</strong> for authentication and storing event data.
                     </p>
                     <div class="card__buttons">
                         <a class="btn -outline -primary -round" target="_blank" href="https://github.com/thatcube/EventsManager">
@@ -162,14 +159,7 @@
                         Vacation Reviews
                     </h3>
                     <p class="card__text">
-                        A PHP web app built using the
-                        <a href="https://codeigniter.com">
-                            <b>CodeIgniter</b>
-                        </a> framework. This app allows users to create and review vacation destinations. All user/vacation data
-                        is stored using a
-                        <a href="https://www.mysql.com">
-                            <b>MySQL</b>
-                        </a> database.
+                        A <strong>PHP</strong> web app built using the <strong>CodeIgniter</strong> framework. This app allows users to create and review vacation destinations. All user/vacation data is stored using a <strong>MySQL</strong> database.
                     </p>
                     <div class="card__buttons">
                         <a class="btn -outline -primary -round" target="_blank" href="https://github.com/thatcube/VacationReview">
@@ -183,8 +173,8 @@
     </section>
     <section id="contact" class="contact">
         <div class="container">
-            <div class="row">
-                <div class="card col-xs-12 col-sm-6">
+            <div class="row center-sm">
+                <div class="card start-xs col-xs-12 col-sm-6">
                     <div class="card__body">
                     <h2 class="card__title">Let's chat</h2>
                     <form class="row" name="contact" netlify method="POST" action="/form-success">
@@ -211,6 +201,17 @@
                     </form>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <svg class="chat" viewBox="0 0 58 59" stroke-width="3" fill="none" stroke-linecap="round">
+                        <title>Chat Bubble</title>
+                        <g transform="translate(2.000000, 2.000000)">
+                            <path d="M26.9706107,0.347866071 C12.0754824,0.347866071 0,12.4228643 0,27.3184768 C0,32.7297376 1.60009098,37.7648196 4.34372656,41.9879947 L1.31735176,51.8732164 L11.0641087,49.0942384 C15.5240294,52.357843 21.0204993,54.2886034 26.9706107,54.2886034 C41.8662232,54.2886034 53.9412214,42.2136051 53.9412214,27.3184768 C53.9412214,12.4228643 41.8662232,0.347866071 26.9706107,0.347866071 L26.9706107,0.347866071 Z"></path>
+                            <path d="M35.5054986,36.75 L18.4054982,36.75"></path>
+                            <path d="M35.5054986,28.75 L18.4054982,28.75"></path>
+                            <path d="M35.5054986,20.75 L18.4054982,20.75"></path>
+                        </g>
+                    </svg>
+                </div>
             </div>
         </div>
     </section>
@@ -219,11 +220,16 @@
             <div class="row center-xs">
                 <ul class="col-xs-12 icons">
                     <li><a target="_blank" href="mailto:brandon-moore@live.com"><span class="far fa-envelope"></span></a></li>
-                    <li><a target="_blank" title="Resume" href="/Resume.pdf"></a><span class="fas fa-file-alt"></span></li>
+                    <li><a target="_blank" title="Resume" href="/Resume.pdf"><span class="fas fa-file-alt"></span></a></li>
                     <li><a target="_blank" href="https://linkedin.com/in/bmoore46"><span class="fab fa-linkedin"></span></a></li>
                     <li><a target="_blank" href="https://github.com/thatcube"><span class="fab fa-github"></span></a></li>
                 </ul>
-                <p class="col-xs-12">Handcrafted with lots of coffee by Brandon - Copyright 2018</p>
+                <p class="col-xs-12">Handcrafted with 
+                    <svg class="heart" fill="#fff" viewBox="0 0 14 14">
+                        <title>Love</title>
+                        <path d="M12.7863608,1.99141695 C14.4045735,3.60962964 14.4045735,6.23410571 12.7864017,7.85131998 L7.00042973,13.6381514 L6.45041695,13.0881386 L1.21380196,7.85152357 C-0.404573521,6.23410571 -0.404573521,3.60962964 1.21380186,1.99125431 C2.80859861,0.397400666 5.37819966,0.373592394 7.00001452,1.91955599 C8.62250049,0.373571343 11.1925207,0.397576843 12.7863608,1.99141695 Z M11.6865797,6.75125421 C12.6970931,5.74133874 12.6970931,4.10203703 11.6864169,3.09136083 C10.6757408,2.08068463 9.03643904,2.08068463 8.02652357,3.09119804 L7.00083766,4.116884 L6.45086609,3.5678096 L5.97347643,3.09119804 C4.96353387,2.08065753 3.32488445,2.08065753 2.31358305,3.09136083 C1.30290685,4.10203703 1.30290685,5.74133874 2.31358305,6.75141695 L7.00034805,11.4381819 L11.6865797,6.75125421 Z"></path>
+                      </svg> 
+                      by Brandon - Copyright 2018</p>
             </div>
         </div>
     </footer>
