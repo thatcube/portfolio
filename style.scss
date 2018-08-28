@@ -460,7 +460,7 @@ footer {
     right: .41em !important;
 }
 .swal2-icon.swal2-success [class^=swal2-success-line] {
-    background-color: $success; 
+    background-color: $success !important; 
 }
 .swal2-icon.swal2-success .swal2-success-ring {
     border: .25em solid rgba($success, 0.25) !important;
