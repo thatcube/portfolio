@@ -432,7 +432,7 @@ footer {
 
 .captcha {
     transition: .5s ease all;
-    @include until(xs) {
+    @include until(sm) {
         margin-left: -2rem;
         padding-bottom: 1rem;
     }
