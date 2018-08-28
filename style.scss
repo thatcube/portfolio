@@ -283,6 +283,7 @@ header .topnav {
 section:last-of-type {
     color: $white;
     background: $primary;
+    padding: 0 0 1rem 0;
     h2 { 
         margin: 0;
         font-size: 2rem;
@@ -293,7 +294,7 @@ form .row {
     width: 100%;
 }
 .contact .card  {
-    margin-top: -12rem;
+    margin-top: -10rem;
 }
 .icons {
     a {
@@ -342,6 +343,23 @@ form .row {
     }
 }
 
+.wave {
+    z-index: -1;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    transform: translateY(-50%);
+    svg {
+        fill: $primary;
+        width: 102%;
+        margin-left: -1%;
+        height: auto;
+    }
+    svg.flip {
+        transform: rotate(180deg);
+    }
+}
 footer {
     background: $primary;
     ul  {
