@@ -55,9 +55,9 @@ $("form").submit(function(e) {
 	  html:
 		'Your message was submitted successfully.',
 	  showCloseButton: true,
-	  focusConfirm: false,
+	  focusConfirm: true,
 	  confirmButtonText: 'Okay',
-	  background: '#1b212d',
+	  background: '#fff',
 	  });
 	});
   });

@@ -7,9 +7,6 @@
     text-rendering: optimizeLegibility;
     box-sizing: border-box;
 }
-:focus, :hover {
-    outline: none;
-}
 
 h1 {
     margin: 0;
@@ -441,17 +438,19 @@ footer {
 /* form notification popup */
 
 .swal2-popup {
-    color: white;
+    background: $white !important;
     transition: 300ms ease transform;
+    border-radius: 1em !important;
+    box-shadow: $box-shadow;
 }
-.swal2-popup .swal2-content {
-    color: #dcdcdc !important;
-}
+// .swal2-popup .swal2-content {
+//     color: #dcdcdc !important;
+// }
 .swal2-icon.swal2-success {
-    border-color: #5cff00 !important;
+    border-color: $success !important;
 }
 .swal2-popup .swal2-title {
-    color: #06fa2d !important;
+    color: $success !important;
 }
 .swal2-icon.swal2-success .swal2-success-fix {
     left: 1.725em !important;
@@ -461,7 +460,7 @@ footer {
     right: .41em !important;
 }
 .swal2-icon.swal2-success [class^=swal2-success-line] {
-    background-color: #00ff2d; 
+    background-color: $success; 
 }
 .swal2-icon.swal2-success .swal2-success-ring {
     border: .25em solid rgba(92, 255, 0, 0.3);
