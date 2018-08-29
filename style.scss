@@ -339,8 +339,8 @@ form .row {
 //SVG Styles
 .chat {
     stroke: $white;
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
     @include until(sm) {
         display: none;
     }
