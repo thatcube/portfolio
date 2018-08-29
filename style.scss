@@ -323,7 +323,8 @@ form .row {
     svg {
         display: block;
         text-align: center;
-        min-height: 1.25rem;
+        height: 1.25em;
+        overflow: visible;
         width: auto !important;
     }
     li {
@@ -334,6 +335,8 @@ form .row {
     }
 }
 
+
+//SVG Styles
 .chat {
     stroke: $white;
     width: 50%;
@@ -341,6 +344,12 @@ form .row {
     @include until(sm) {
         display: none;
     }
+}
+
+.stroke-pen-icon {
+    fill: $white;
+    stroke-width:2;
+    stroke: $primary;
 }
 
 .wave {
@@ -359,6 +368,13 @@ form .row {
         transform: rotate(180deg);
     }
 }
+
+.svg-icon {
+    height: 1em;
+    color: inherit;
+    vertical-align: -.125em;
+}
+
 footer {
     background: $primary;
     ul  {
