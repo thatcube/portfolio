@@ -1,7 +1,11 @@
 $primary: #006cff;
+$black: #000;
 $dark: #1f1f1f;
 $white: #fff;
 $background: mix($primary, $white, 5%);
+$gray: #757575;
+$gray-light: mix($gray, $white, 50%);
+$gray-dark: mix($gray, $black, 50%);
 
 $complementary: #007bff;
 $secondary: #d63665;
