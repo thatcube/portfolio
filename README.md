@@ -1,2 +1,2 @@
 
-> Brandon Moore Portfolio - UX/UI Designer and Front End Developer
+> Brandon Moore's Portfolio - UX/UI Designer and Front End Developer
