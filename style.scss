@@ -64,7 +64,7 @@ header {
         transform: translateX(-0.25rem);
 
         @include until(sm) {
-            font-size: 3.5rem;
+            font-size: 3rem;
             letter-spacing: -0.15rem;
         }
     }
@@ -207,6 +207,10 @@ header .topnav {
         margin-bottom: 2rem;
         margin-left: 3rem;
         list-style: circle;
+        @include until(sm) {
+            font-size: 1rem;
+            margin-left: 2rem;
+        }
     }
 
     h2 {
@@ -231,7 +235,7 @@ header .topnav {
     line-height: 1.5;
     font-weight: 400;
     background: $white;
-    border-radius: 1rem;
+    border-radius: $border-radius-large;
     box-shadow: $box-shadow;
 
     &__column {
@@ -599,7 +603,7 @@ footer {
 .swal2-popup {
     background: $white !important;
     transition: 300ms ease transform;
-    border-radius: 1em !important;
+    border-radius: $border-radius-large !important;
     box-shadow: $box-shadow;
 }
 
