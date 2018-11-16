@@ -384,19 +384,19 @@ ul {
 }
 
 ::-moz-selection {
-    background: rgba($primary, 0.2);
-    /* WebKit/Blink Browsers */
+    background: $background-dark;
+    color: $white;
+    // WebKit/Blink Browsers 
 }
-
+::-moz-selection {
+    background: $background-dark;
+    color: $white;
+    // Gecko Browsers 
+}
 ::selection {
     background: $background-dark;
     color: $white;
-    /* WebKit/Blink Browsers */
-}
-
-::-moz-selection {
-    background: rgba($primary, 0.2);
-    /* Gecko Browsers */
+    // WebKit/Blink Browsers 
 }
 
 // PROJECTS SECTION 
@@ -409,7 +409,7 @@ ul {
     @include until(m) {
         grid-gap: 1rem;
         grid-template-columns: 1fr;
-        margin: 0 1rem;
+        // margin: 0 1rem;
     }
 
     padding-bottom: 2rem;
@@ -418,6 +418,7 @@ ul {
         display: grid;
         grid-template-rows: 1fr;
         border: 0.2rem solid $white;
+        margin-bottom: 0;
         .card-img {
             grid-row: 1;
         }
