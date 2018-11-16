@@ -33,8 +33,15 @@ body {
 section {
     padding: 5rem 0;
 
+    // ux/ui designer section
     &:first-of-type {
         z-index: 9999;
+
+        @include at-least(s) {
+            .designer-panels {
+                margin-right: 5%;
+            }
+        }
 
         .container {
             margin-top: 5rem;
@@ -62,22 +69,28 @@ section {
             font-size: 2.8rem;
         }
     }
+
     &:nth-of-type(2) {
         background: $background-dark;
+
         .wave svg {
             fill: $primary;
         }
+
         h2 {
             color: $white;
             font-size: 6rem;
         }
+
         .sub-header {
             color: $white;
+
             &:before {
                 background-color: $white;
             }
         }
     }
+
     &:nth-of-type(4) {
         color: $white;
     }
@@ -87,6 +100,7 @@ header {
     background: $background-dark;
     color: $white;
     padding: 10rem 0 15rem 0;
+
     @include until(s) {
         padding: 10rem 0 0 0;
     }
@@ -139,6 +153,7 @@ header {
 
 .portrait {
     max-height: 36rem;
+
     @include until(s) {
         max-height: 24rem;
         margin: 2rem 0 -2rem 0;
@@ -395,11 +410,13 @@ ul {
     color: $white;
     // WebKit/Blink Browsers 
 }
+
 ::-moz-selection {
     background: $background-dark;
     color: $white;
     // Gecko Browsers 
 }
+
 ::selection {
     background: $background-dark;
     color: $white;
@@ -426,6 +443,7 @@ ul {
         grid-template-rows: 1fr;
         border: 0.2rem solid $white;
         margin-bottom: 0;
+
         .card-img {
             grid-row: 1;
         }
@@ -433,9 +451,12 @@ ul {
         .card-body {
             grid-row: 2;
         }
+
         box-shadow: none;
         background: transparent;
-        .card-title, .card-body {
+
+        .card-title,
+        .card-body {
             color: $white;
         }
     }
@@ -469,15 +490,19 @@ form .row {
         box-shadow: none;
         border: 0.2rem solid $background-dark;
         background: transparent;
-        input, textarea {
+
+        input,
+        textarea {
             background: transparent;
             border-width: 0.2rem;
             border-color: $background-dark;
             font-weight: 600;
+
             &:focus {
                 box-shadow: 0 0 0 0.1rem $background-dark, 0 0.3rem 1rem rgba($background-dark, 0.25);
             }
         }
+
         ::placeholder {
             color: rgba($background-dark, 0.8);
             font-weight: normal;
@@ -501,9 +526,11 @@ form .row {
             margin: 0;
             font-weight: 500;
             font-size: 2.4rem;
+
             @include until(s) {
                 font-size: 1.6rem;
             }
+
             transition: .2s ease-in-out color;
         }
 
