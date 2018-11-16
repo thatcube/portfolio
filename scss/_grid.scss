@@ -3,6 +3,9 @@
   margin: 0 auto;
   position: relative;
   width: 100%;
+  @include until(l) {
+    padding: 0 5%;
+  }
 }
 
 section {

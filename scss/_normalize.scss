@@ -8,7 +8,10 @@ html {
   box-sizing: border-box;
   text-size-adjust: 100%;
 }
-
+img {
+  max-width: 100%;
+  object-fit: contain;
+}
 /*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
