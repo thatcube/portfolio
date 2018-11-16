@@ -1,0 +1,25 @@
+.sr-only {
+    position: absolute !important;
+    white-space: nowrap !important;
+    width: 0.001rem !important;
+    height: 0.001rem !important;
+    clip: rect(0,0,0,0)  !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+.no-padding-h {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.no-margin {
+    margin: 0 !important;
+}
+.margin-top {
+    margin-top: 1rem;
+}

@@ -1,31 +1,56 @@
-$primary: #006cff;
+// Every CSS measurement unit is REM-based. 1rem = 16px by default. 
+// You can calculate REM's by multiplying the normal, px value by 1/16 or 0.0625. 
+// For example, 8px is 0.5rem.
+// The advantage of using REM's is that someone can change their font-size on their browser, and the entire website will respond to that change
+
+//fonts
+$font-family-sans: 'Poppins', BlinkMacSystemFont, -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+
+//colors
 $black: #000;
-$dark: #1f1f1f;
 $white: #fff;
-$background: mix($primary, $white, 5%);
 $gray: #757575;
 $gray-light: mix($gray, $white, 50%);
 $gray-dark: mix($gray, $black, 50%);
 
-$complementary: #007bff;
-$secondary: #d63665;
+// $primary: #007fff;
+// $primary: #675ae8;
+$primary: #8B93FF;
+$primary-darker: #1935BF;
 
 // feedback colors
-$success: #00bb38;
+$success: #17cf73;
 $info: #4ca5ff;
-$warning: #ffa600;
-$danger: #ff0000;
+$warning: #f5bb46;
+$danger: #e22942;
+$dark: mix($white, $black, 10%);
 
-// breakpoints
-$bp-xl: 65.625em; // 1050px
-$bp-lg: 56.25em;  // 900px
-$bp-md: 48em;     // 768px
-$bp-sm: 37.55em;  // 600px
-$bp-xs: 25em;     // 400px
+// colors
+$yellow: #FFF78B;
+$blue: #8BCDFF;
+$purple: #BD8BFF;
+$pink: #F78BFF;
+$orange: #FF8B93;
 
-$box-shadow: 0 0.5rem 0.5rem 0 rgba(mix($primary, #ccc, 15%), 0.25), 0 0 0 0.0625rem mix($primary, white, 15%);
+$background: mix(mix($primary, $white, 5%), #eee, 50%);
+$background-light: mix(rgba($primary, 0.05), rgba($dark, 0.05), 50%);
+// $background-dark: mix($primary, $white, 2%);
+$background-dark: mix($white, $black, 10%);
 
 // border radii
-$border-radius-small: .375rem;
-$border-radius-base: .625rem;
+$border-radius-small: 0.6rem;
+$border-radius-base: 1.2rem;
 $border-radius-large: 2rem;
+
+
+// breakpoints
+$bp-xl: 1200px; // 1200px
+$bp-l: 992px; // 992px
+$bp-m: 768px; // 768px
+$bp-s: 576px; // 576px
+
+
+// layout variables
+$row-gap: 0.75rem;
+
+$box-shadow: 0 0.5rem 0.5rem 0 rgba(mix($primary, #ccc, 15%), 0.25), 0 0 0 0.1rem mix($primary, white, 15%);

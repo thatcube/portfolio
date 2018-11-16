@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="355px" viewBox="0 0 600 355" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>cubed css</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="84.5070423%" gradientTransform="translate(0.500000,0.500000),scale(0.591667,1.000000),translate(-0.500000,-0.500000)" id="radialGradient-1">
+            <stop stop-color="#166DFF" offset="0%"></stop>
+            <stop stop-color="#0346B8" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="cubed-css" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="background" fill="url(#radialGradient-1)" x="0" y="0" width="600" height="355"></rect>
+        <g id="cubed-logo" transform="translate(37.000000, 92.000000)" fill="#FFFFFF">
+            <polygon id="Shape" points="98.1322564 13.8975265 98.1322564 47.7349823 74.204947 34.139576 29.3791015 60.1219081 29.3791015 111.784452 74.204947 137.766784 98.1322564 124.171378 98.1322564 157.102473 74.204947 171 0 128.40106 0 42.9010601 74.204947 0 85.7909945 6.72944036"></polygon>
+            <polygon id="Path" fill-opacity="0.75" points="74.204947 48.6413428 98.1322564 62.1892074 98.1322564 109.279309 74.204947 122.962898 74.204947 85.5"></polygon>
+            <polygon id="Path" fill-opacity="0.75" points="119.33367 25.9823322 148.409894 42.9010601 148.409894 128.40106 119.33367 145.017668 119.33367 85.5"></polygon>
+        </g>
+        <text id="CubedCSS" font-family="Karla-Bold, Karla" font-size="72" font-weight="bold" fill="#FFFFFF">
+            <tspan x="214" y="205">Cubed</tspan>
+            <tspan x="431.368" y="205" fill-opacity="0.75">CSS</tspan>
+        </text>
+    </g>
+</svg>

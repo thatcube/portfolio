@@ -1,11 +1,11 @@
 input, textarea {
     appearance: none;
-    padding: 1em;
+    padding: 1.6rem;
     width: 100%;
-    height: 3em;
-    font-size: 1em;
+    min-height: 4.8rem;
+    font-size: 1.6rem;
     background: $white;
-    border: 0.0625rem solid mix($background, $dark, 85%);
+    border: 0.1rem solid mix($background, $dark, 85%);
     border-radius: $border-radius-base;
     box-shadow: none;
     transition: all .2s ease-in-out;
@@ -16,33 +16,34 @@ input, textarea {
     &.-primary {
         border-color: $primary;
         &:focus {
-            box-shadow: 0 0 0 0.0625rem $primary;
+            box-shadow: 0 0 0 0.1rem $primary;
         }
     }
     &.-success {
         border-color: $success;
         &:focus {
-            box-shadow: 0 0 0 0.0625rem $success;
+            box-shadow: 0 0 0 0.1rem $success;
         }
     }
     &.-warning {
         border-color: $warning;
         &:focus {
-            box-shadow: 0 0 0 0.0625rem $warning;
+            box-shadow: 0 0 0 0.1rem $warning;
         }
     }
     &.-danger {
         border-color: $danger;
         &:focus {
-            box-shadow: 0 0 0 0.0625rem $danger;
+            box-shadow: 0 0 0 0.1rem $danger;
         }
     }
 }
 textarea {
     height: auto;
+    resize: vertical;
 }
 label {
-    margin-top: 1em;
+    margin-top: 1.6rem;
     display: block;
+    font-size: 1.6rem;
 }
-

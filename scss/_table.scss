@@ -1,0 +1,15 @@
+@import 'variables';
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  th,
+  td {
+    border: 1px solid mix($background-light, $gray-light, 50%);
+    border-width: 0 0 1px;
+    padding: .5em .75em;
+    vertical-align: top;
+    text-align: left;
+  }
+}

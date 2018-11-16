@@ -16,16 +16,16 @@
     }
     &:focus {
         outline: none;
-        box-shadow: 0 0 0 0.1875em mix(rgba(0,0,0, 0.185), rgba($background, .35), 15%), 0 0.1875em 0.9375em rgba($background, 0.2), 0 0.125em 0.3125em rgba(0,0,0, 0.1);
+        box-shadow: 0 0 0 0.3em mix(rgba(0,0,0, 0.185), rgba($background, .35), 15%), 0 0.3em 0.9375em rgba($background, 0.2), 0 0.125em 0.5remem rgba(0,0,0, 0.1);
     }
 }
 
 @mixin button-outline($hover-text-color, $text-color, $background) {
     background: transparent;
-    border: 0.125em solid;
+    border: 0.2rem solid;
     border-color: $background;
     color: $text-color;
-    transition: .2s ease color, .3s ease background, .3s ease box-shadow;
+    transition: .3s ease-in-out background, .15s ease-in-out color;
     &:hover {
         background: $background;
         color: $hover-text-color;
@@ -38,7 +38,6 @@
     background: transparent;
     border: none;
     box-shadow: none;
-    text-decoration: underline;
     &:hover, &:focus {
         text-decoration: underline;
         color: mix($text-color, $white, 80%);

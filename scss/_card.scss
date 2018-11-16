@@ -1,44 +1,59 @@
 .card {
     border-radius: $border-radius-large;
-    box-shadow: $box-shadow;
+    // box-shadow: $box-shadow;
+    box-shadow: 0 3rem 5rem -3rem rgba($black, 0.25), 0 2rem 4rem 0 rgba($black, 0.05), 0 0 0 0.1rem mix($primary, white, 15%);;
+    display: block;
     background: $white;
     margin-bottom: 2em;
-    color: $dark;
+    transition: .3s ease-in-out box-shadow;
 
-    //reset line-height to fix placement of images
-    &__img {
+    &-img {
         border-radius: 0;
         width: 100%;
+
         //images can be placed at the top or bottom of a card
-        &.-top {
-            border-top-right-radius: $border-radius-large;
-            border-top-left-radius: $border-radius-large;
-            border-bottom: 0.0625em solid $background;
+        &.top {
+            border-top-right-radius: $border-radius-large - 0.3;
+            border-top-left-radius: $border-radius-large - 0.3;
         }
-        &.-bottom {
-            border-bottom-right-radius: $border-radius-large;
-            border-bottom-left-radius: $border-radius-large;
+
+        &.bottom {
+            border-bottom-right-radius: $border-radius-large - 0.3;
+            border-bottom-left-radius: $border-radius-large - 0.3;
         }
     }
-    &__body {
+
+    &-body {
         padding: 1.875em;
-        @include until(sm) {
-            padding: 1rem;
-        }
     }
-    &__text {
+
+    &-text {
         line-height: 2;
     }
-    &__title {
-        font-weight: bold;
-        margin: 0;
-    }
-    &__subtitle {
+
+    &-subtitle {
         font-weight: normal;
     }
-    &__buttons {
+
+    &-header {
+        padding: 1em 1.875em;
+    }
+
+    &-buttons {
         display: flex;
         justify-content: space-between;
         width: 100%;
+    }
+    &-title {
+        margin: 0;
+        color: $black;
+    }
+
+    &.-clickable {
+        &:hover {
+            box-shadow: 0 0.46875em 2.1875em rgba(90, 97, 105, .1), 0 0.9375em 1.40625em rgba(90, 97, 105, .1), 0 0.25em 0.53125em rgba(90, 97, 105, .12), 0 0.125em 0.3em rgba(90, 97, 105, .1);
+        }
+
+        cursor: pointer;
     }
 }

@@ -1,0 +1,75 @@
+input[type="radio"]+label {
+    cursor: pointer;
+    user-select: none;
+}
+
+td:not(:first-of-type) input[type="radio"]+label:before {
+    margin-left: 1em;
+}
+
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    +label {
+        &:before {
+            content: '';
+            background: white;
+            border-radius: 100%;
+            border: 0.1rem solid darken(white, 25%);
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            position: relative;
+            margin-right: 0.3em;
+            vertical-align: top;
+            cursor: pointer;
+            text-align: center;
+            transition: all 250ms cubic-bezier(.27, .01, .38, 1.06);
+        }
+    }
+    &:checked {
+        +label {
+            &:before {
+                background-color: $primary;
+                box-shadow: inset 0 0 0 0.4rem white;
+            }
+        }
+        &:focus {
+            +label {
+                &:before {
+                    box-shadow: inset 0 0 0 0.4rem white, 0 0 0.5rem rgba(102, 175, 233, 0.6);
+                }
+            }
+        }
+    }
+    &:focus {
+        +label {
+            &:before {
+                outline: none;
+                border-color: $primary;
+                box-shadow: 0 0 0.5rem rgba(102, 175, 233, 0.6);
+            }
+        }
+    }
+    &:disabled + label {
+        cursor: not-allowed;
+        opacity: 0.6;
+        &:before {
+            cursor: not-allowed;
+        }
+    }
+    &:disabled {
+        +label {
+            &:before {
+                opacity: 0.4;
+            }
+        }
+    }
+    +label {
+        &:empty {
+            &:before {
+                margin-right: 0;
+            }
+        }
+    }
+}

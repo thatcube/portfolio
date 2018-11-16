@@ -1,0 +1,113 @@
+@import 'mixins/button';
+.btn {
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    border-radius: $border-radius-base;
+    transition: .3s ease-in-out box-shadow;
+    padding: 0.75rem 2rem;
+    font-size: 1.6rem;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    text-transform: none;
+    white-space: nowrap;
+    border: 0.1rem solid transparent;
+    &:hover {
+        text-decoration: none;
+    }
+    &.primary {
+        @include button-standard($white, $primary);
+        &.outline {
+            @include button-outline($white, $primary, $primary);
+        }
+        &.link {
+            @include button-link($primary);
+        }
+    }
+    &.success {
+        @include button-standard($white, $success);
+        &.outline {
+            @include button-outline($white, $success, $success);
+        }
+        &.link {
+            @include button-link($success);
+        }
+    }
+    &.info {
+        @include button-standard($dark, $info);
+        &.outline {
+            @include button-outline($dark, mix($info, $dark, 47.5%), $info);
+        }
+        &.link {
+            @include button-link($info);
+        }
+    }
+    &.warning {
+        @include button-standard($dark, $warning);
+        &.outline {
+            @include button-outline($dark, mix($warning, $dark, 47.5%), $warning);
+        }
+        &.link {
+            @include button-link($danger);
+        }
+    }
+    &.danger {
+        @include button-standard($white, $danger);
+        &.outline {
+            @include button-outline($white, $danger, $danger);
+        }
+        &.link {
+            @include button-link($danger);
+        }
+    }
+    &.light {
+        @include button-standard($dark, $white);
+        &.outline {
+            @include button-outline($dark, $white, $white);
+        }
+        &.link {
+            @include button-link($white);
+        }
+    }
+    &.dark {
+        @include button-standard($white, $dark);
+        &.outline {
+            @include button-outline($white, $dark, $dark);
+        }
+        &.link {
+            @include button-link($dark);
+        }
+    }
+    &.round {
+        border-radius: 10rem;
+        padding: 0.75em 2.5em;
+    }
+    &.square {
+        border-radius: 0;
+    }
+    &.xs {
+        font-size: 0.75em;
+        padding: 0.5em 1em;
+    }
+    &.sm {
+        font-size: 0.875rem;
+        padding: 0.625em 1.5em;
+    }
+    &.md {
+        font-size: 1rem;
+    }
+    &.lg {
+        font-size: 1.125rem;
+        padding: 0.875em 2.5em;
+    }
+    &.xl {
+        font-size: 1.25rem;
+        padding: 1em 3em;
+    }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
