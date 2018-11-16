@@ -87,6 +87,9 @@ header {
     background: $background-dark;
     color: $white;
     padding: 10rem 0 15rem 0;
+    @include until(s) {
+        padding: 10rem 0 0 0;
+    }
 }
 
 .sub-header {
@@ -118,8 +121,8 @@ header {
         font-weight: normal;
         letter-spacing: -0.4rem;
 
-        @include until(sm) {
-            font-size: 3rem;
+        @include until(s) {
+            font-size: 4rem;
             letter-spacing: -0.15rem;
         }
     }
@@ -128,7 +131,7 @@ header {
         font-weight: 300;
         letter-spacing: -0.1rem;
 
-        @include until(sm) {
+        @include until(s) {
             font-size: 1.6rem;
         }
     }
@@ -136,6 +139,10 @@ header {
 
 .portrait {
     max-height: 36rem;
+    @include until(s) {
+        max-height: 24rem;
+        margin: 2rem 0 -2rem 0;
+    }
 }
 
 ul {
@@ -494,6 +501,9 @@ form .row {
             margin: 0;
             font-weight: 500;
             font-size: 2.4rem;
+            @include until(s) {
+                font-size: 1.6rem;
+            }
             transition: .2s ease-in-out color;
         }
 
