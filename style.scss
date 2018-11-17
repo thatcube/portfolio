@@ -39,6 +39,7 @@ section {
     //     padding: 12rem 0 8rem 0;
     // }
     position: relative;
+    overflow: hidden;
 
     // ux/ui designer section
     &:first-of-type {
@@ -389,7 +390,6 @@ ul {
     grid-gap: 2rem;
 
     @include until(m) {
-        grid-gap: 1rem;
         grid-template-columns: 1fr;
         // margin: 0 1rem;
     }
