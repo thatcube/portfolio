@@ -12,6 +12,9 @@
 h1 {
     margin: 0;
 }
+h2 {
+    font-size: calc(2rem + 1.5vw);
+}
 
 html {
     height: 100%;
@@ -31,10 +34,10 @@ body {
 
 
 section {
-    padding: 20rem 0 8rem 0;
-    @include until(m) {
-        padding: 12rem 0 8rem 0;
-    }
+    padding: calc(11vw + 8rem) 0 8rem 0;
+    // @include until(m) {
+    //     padding: 12rem 0 8rem 0;
+    // }
     position: relative;
 
     // ux/ui designer section
@@ -49,10 +52,6 @@ section {
 
         color: $black;
 
-        h2 {
-            font-size: 6rem;
-        }
-
         background: $primary;
         position: relative;
     }
@@ -60,7 +59,6 @@ section {
     &:nth-of-type(3) {
         h2 {
             color: $black;
-            font-size: 2.8rem;
         }
     }
 
@@ -69,7 +67,6 @@ section {
 
         h2 {
             color: $white;
-            font-size: 6rem;
         }
 
         .sub-header {
@@ -268,10 +265,6 @@ ul {
             font-size: 1.6rem;
         }
     }
-
-    h2 {
-        font-size: 2rem;
-    }
 }
 
 .about-grid {
@@ -438,7 +431,6 @@ section:last-of-type {
 
     h2 {
         margin: 0;
-        font-size: 4rem;
     }
 }
 
