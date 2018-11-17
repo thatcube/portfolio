@@ -542,8 +542,9 @@ form .row {
     display: flex;
     overflow: hidden;
     position: absolute;
-    width: 100%;
-    top: -1rem;
+    top: -0.1rem;
+    left:0;
+    right:0;
 
     svg {
         width: 103%;
