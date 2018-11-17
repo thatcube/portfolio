@@ -1,160 +1,175 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 645 461">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 617 461">
   <defs>
-    <linearGradient id="a" x1="100%" x2="0%" y1="50%" y2="50%">
-      <stop offset="0%" stop-color="#C5C9FF"/>
-      <stop offset="100%" stop-color="#8B93FF"/>
+    <linearGradient id="a" x1="70.02%" x2="70.02%" y1="93.62%" y2="25.9%">
+      <stop offset="0%" stop-color="#DADDFF"/>
+      <stop offset="100%" stop-color="#B4BAFF"/>
     </linearGradient>
-    <linearGradient id="b" x1="50%" x2="49%" y1="0%" y2="139.5%">
+    <linearGradient id="b" x1="50%" x2="49.02%" y1="0%" y2="139.53%">
       <stop offset="0%" stop-color="#8BCDFF"/>
       <stop offset="100%" stop-color="#8B93FF"/>
     </linearGradient>
-    <linearGradient id="c" x1="0%" y1="50%" y2="50%">
+    <linearGradient id="c" x1="50%" x2="50%" y1="100%" y2="0%">
+      <stop offset="0%" stop-color="#B0B7FF"/>
+      <stop offset="100%" stop-color="#8D95FF"/>
+    </linearGradient>
+    <linearGradient id="d" x1="0%" y1="50%" y2="50%">
       <stop offset="0%" stop-color="#FF8B93"/>
       <stop offset="100%" stop-color="#F78BFF"/>
     </linearGradient>
-    <rect id="e" width="28" height="26.2" rx="5"/>
-    <filter id="d" width="200%" height="206.8%" x="-50%" y="-38.2%" filterUnits="objectBoundingBox">
-      <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
-      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
-      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-    </filter>
-    <rect id="g" width="28" height="26.2" y="36.2" rx="5"/>
+    <linearGradient id="e" x1="34%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#929BFF"/>
+      <stop offset="100%" stop-color="#BFC3FF"/>
+    </linearGradient>
+    <rect id="g" width="28" height="26.21" rx="5"/>
     <filter id="f" width="200%" height="206.8%" x="-50%" y="-38.2%" filterUnits="objectBoundingBox">
       <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
       <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
     </filter>
-    <rect id="i" width="28" height="26.2" y="72.4" rx="5"/>
+    <rect id="i" width="28" height="26.21" y="36.2" rx="5"/>
     <filter id="h" width="200%" height="206.8%" x="-50%" y="-38.2%" filterUnits="objectBoundingBox">
       <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
       <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
     </filter>
-    <rect id="k" width="28" height="26.2" y="108.6" rx="5"/>
+    <rect id="k" width="28" height="26.21" y="72.39" rx="5"/>
     <filter id="j" width="200%" height="206.8%" x="-50%" y="-38.2%" filterUnits="objectBoundingBox">
       <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
       <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
     </filter>
-    <rect id="m" width="28" height="26.2" y="144.8" rx="5"/>
+    <rect id="m" width="28" height="26.21" y="108.59" rx="5"/>
     <filter id="l" width="200%" height="206.8%" x="-50%" y="-38.2%" filterUnits="objectBoundingBox">
       <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
       <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
     </filter>
-    <filter id="n" width="155.5%" height="178.9%" x="-27.8%" y="-39.5%" filterUnits="objectBoundingBox">
+    <rect id="o" width="28" height="26.21" y="144.79" rx="5"/>
+    <filter id="n" width="200%" height="206.8%" x="-50%" y="-38.2%" filterUnits="objectBoundingBox">
+      <feOffset dy="4" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    </filter>
+    <filter id="p" width="155.5%" height="178.9%" x="-27.8%" y="-39.5%" filterUnits="objectBoundingBox">
       <feOffset dy="10" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="10"/>
-      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
       <feMerge>
         <feMergeNode in="shadowMatrixOuter1"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <linearGradient id="q" x1="100%" x2="0%" y1="50%" y2="50%">
-      <stop offset="0%" stop-color="#AEB4FF"/>
-      <stop offset="100%" stop-color="#A2A8FF"/>
+    <linearGradient id="q" x1="100%" x2=".97%" y1="50%" y2="50%">
+      <stop offset="0%" stop-color="#DADDFF"/>
+      <stop offset="100%" stop-color="#B4BAFF"/>
     </linearGradient>
-    <rect id="p" width="126" height="89" rx="9.6"/>
-    <filter id="o" width="127.8%" height="139.3%" x="-13.9%" y="-14%" filterUnits="objectBoundingBox">
+    <linearGradient id="t" x1="100%" x2=".97%" y1="50%" y2="50%">
+      <stop offset="0%" stop-color="#DADDFF" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#B4BAFF" stop-opacity=".5"/>
+    </linearGradient>
+    <rect id="s" width="126" height="89" rx="9.6"/>
+    <filter id="r" width="127.8%" height="139.3%" x="-13.9%" y="-14%" filterUnits="objectBoundingBox">
       <feOffset dy="5" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="5"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
       <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
     </filter>
-    <filter id="r" width="155.5%" height="200%" x="-27.8%" y="-50%" filterUnits="objectBoundingBox">
+    <filter id="u" width="155.5%" height="200%" x="-27.8%" y="-50%" filterUnits="objectBoundingBox">
       <feOffset dy="10" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="10"/>
-      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
       <feMerge>
         <feMergeNode in="shadowMatrixOuter1"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
-  <g fill="none" fill-rule="evenodd" transform="translate(10 9)">
-    <circle cx="112" cy="309" r="8" fill="#000"/>
-    <circle cx="81" cy="347" r="12" stroke="#000" stroke-width="8"/>
-    <path stroke="#000" stroke-width="4" d="M597 47h20v20h-20z"/>
-    <path fill="#000" stroke="#000" stroke-width="4" d="M621 103h12v12h-12z"/>
-    <rect width="64" height="17" x="389" y="396" fill="#BD8BFF" rx="8.5"/>
-    <g transform="translate(166 74)">
-      <rect width="310" height="372" x="3" y="3" fill="url(#a)" stroke="#000" stroke-width="6" rx="24"/>
-      <path fill="url(#b)" stroke="#000" stroke-width="6" d="M3 97h310V24a21 21 0 0 0-21-21H24A21 21 0 0 0 3 24v73z"/>
-      <g fill="#4E527F" transform="translate(34 119)">
+  <g fill="none" fill-rule="evenodd" transform="translate(10 10)">
+    <g transform="translate(166 73)">
+      <rect width="316" height="378" fill="url(#a)" rx="24"/>
+      <path fill="url(#b)" d="M24 0h268a24 24 0 0 1 24 24v76H0V24A24 24 0 0 1 24 0z"/>
+      <g fill="url(#c)" transform="translate(34 119)">
         <rect width="67.3" height="80" rx="16"/>
-        <rect width="67.3" height="80" x="90.9" rx="16"/>
+        <rect width="67.3" height="80" x="90.85" rx="16"/>
         <rect width="67.3" height="80" x="181.7" rx="16"/>
       </g>
-      <g fill="#4E527F" fill-opacity=".5" transform="translate(34 207)">
+      <g fill="#B1B6FF" transform="translate(34 207)">
         <rect width="67.3" height="8" rx="4"/>
-        <rect width="26.9" height="8" y="16" rx="4"/>
-        <rect width="67.3" height="8" x="90.9" rx="4"/>
-        <rect width="26.9" height="8" x="90.9" y="16" rx="4"/>
+        <rect width="26.92" height="8" y="16" rx="4"/>
+        <rect width="67.3" height="8" x="90.85" rx="4"/>
+        <rect width="26.92" height="8" x="90.85" y="16" rx="4"/>
         <rect width="67.3" height="8" x="181.7" y="4" rx="4"/>
-        <rect width="26.9" height="8" x="181.7" y="20" rx="4"/>
+        <rect width="26.92" height="8" x="181.7" y="20" rx="4"/>
       </g>
-      <rect width="68" height="8" x="215" y="289" fill="#4E527F" fill-opacity=".5" rx="4"/>
-      <rect width="27" height="8" x="216" y="305" fill="#4E527F" fill-opacity=".5" rx="4"/>
-      <rect width="68" height="21" x="215" y="323" fill="url(#c)" rx="10.5"/>
-      <rect width="159" height="80" x="34" y="273" fill="#4E527F" rx="16"/>
-      <g fill="#FFF" fill-opacity=".3" transform="translate(34 22)">
+      <rect width="68" height="8" x="215" y="289" fill="#B1B6FF" rx="4"/>
+      <rect width="27" height="8" x="216" y="305" fill="#B1B6FF" rx="4"/>
+      <rect width="68" height="21" x="215" y="323" fill="url(#d)" rx="10.5"/>
+      <rect width="159" height="80" x="34" y="273" fill="url(#e)" rx="16"/>
+      <g fill="#FFF" fill-opacity=".25" transform="translate(34 22)">
         <rect width="54" height="8" rx="4"/>
         <rect width="54" height="8" x="67.5" rx="4"/>
         <rect width="54" height="8" x="135" rx="4"/>
       </g>
     </g>
-    <g transform="translate(508 169)">
-      <use fill="#000" filter="url(#d)" xlink:href="#e"/>
-      <use fill="#FFF78B" xlink:href="#e"/>
-    </g>
-    <g transform="translate(508 169)">
+    <g transform="translate(512 265)">
       <use fill="#000" filter="url(#f)" xlink:href="#g"/>
-      <use fill="#8BCDFF" xlink:href="#g"/>
+      <use fill="#FFF78B" xlink:href="#g"/>
     </g>
-    <g transform="translate(508 169)">
+    <g transform="translate(512 265)">
       <use fill="#000" filter="url(#h)" xlink:href="#i"/>
-      <use fill="#BD8BFF" xlink:href="#i"/>
+      <use fill="#8BCDFF" xlink:href="#i"/>
     </g>
-    <g transform="translate(508 169)">
+    <g transform="translate(512 265)">
       <use fill="#000" filter="url(#j)" xlink:href="#k"/>
-      <use fill="#F78BFF" xlink:href="#k"/>
+      <use fill="#BD8BFF" xlink:href="#k"/>
     </g>
-    <g transform="translate(508 169)">
+    <g transform="translate(512 265)">
       <use fill="#000" filter="url(#l)" xlink:href="#m"/>
-      <use fill="#FF8B93" xlink:href="#m"/>
+      <use fill="#F78BFF" xlink:href="#m"/>
     </g>
-    <g filter="url(#n)" transform="translate(378 1)">
-      <rect width="203" height="141" x="3" y="3" fill="url(#a)" stroke="#000" stroke-width="6" rx="16"/>
-      <path fill="#686EBF" stroke="#000" stroke-width="6" d="M3 21h203v-5a13 13 0 0 0-13-13H16A13 13 0 0 0 3 16v5z"/>
-      <circle cx="59" cy="81" r="40" fill="url(#c)"/>
-      <rect width="80" height="16" x="105" y="44" fill="#000" fill-opacity=".8" rx="8"/>
+    <g transform="translate(512 265)">
+      <use fill="#000" filter="url(#n)" xlink:href="#o"/>
+      <use fill="#FF8B93" xlink:href="#o"/>
+    </g>
+    <g filter="url(#p)" transform="translate(378)">
+      <rect width="209" height="147" fill="url(#q)" rx="16"/>
+      <path fill="#686EBF" d="M16 0h177a16 16 0 0 1 16 16v8H0v-8A16 16 0 0 1 16 0z"/>
+      <circle cx="59" cy="81" r="40" fill="url(#d)"/>
+      <rect width="80" height="16" x="105" y="44" fill="#000" fill-opacity=".75" rx="8"/>
       <rect width="56" height="8" x="129" y="109" fill="#000" fill-opacity=".5" rx="4"/>
       <rect width="42" height="8" x="143" y="96" fill="#000" fill-opacity=".5" rx="4"/>
-      <circle cx="19" cy="12" r="4" fill="#000"/>
-      <circle cx="32" cy="12" r="4" fill="#000"/>
+      <circle cx="19" cy="12" r="4" fill="#45497F"/>
+      <circle cx="32" cy="12" r="4" fill="#45497F"/>
     </g>
-    <g transform="matrix(-1 0 0 1 126 188)">
-      <use fill="#000" filter="url(#o)" xlink:href="#p"/>
-      <use fill="url(#q)" xlink:href="#p"/>
-      <path fill="#747BD5" d="M9.6 0h106.8c5.3 0 9.6 4.3 9.6 9.6v5H0v-5C0 4.3 4.3 0 9.6 0z"/>
-      <ellipse cx="35.6" cy="49" fill="url(#c)" fill-opacity=".5" rx="24.1" ry="24.2"/>
-      <rect width="48.2" height="9.7" x="63.3" y="26.6" fill="#000" fill-opacity=".3" rx="4.8"/>
-      <rect width="33.8" height="4.8" x="77.8" y="66" fill="#000" fill-opacity=".1" rx="2.4"/>
-      <rect width="25.3" height="4.8" x="86.2" y="58.1" fill="#000" fill-opacity=".1" rx="2.4"/>
-      <ellipse cx="11.5" cy="7.3" fill="#000" rx="2.4" ry="2.4"/>
-      <ellipse cx="19.3" cy="7.3" fill="#000" rx="2.4" ry="2.4"/>
+    <g transform="matrix(-1 0 0 1 126 187)">
+      <use fill="#000" filter="url(#r)" xlink:href="#s"/>
+      <use fill="url(#t)" fill-opacity=".25" xlink:href="#s"/>
+      <path fill="#747BD5" d="M9.6 0h106.8c5.3 0 9.6 4.3 9.6 9.6v4.93H0V9.6C0 4.3 4.3 0 9.6 0z"/>
+      <ellipse cx="35.57" cy="49.04" fill="url(#d)" fill-opacity=".4" rx="24.11" ry="24.22"/>
+      <rect width="48.23" height="9.69" x="63.3" y="26.64" fill="#000" fill-opacity=".15" rx="4.8"/>
+      <rect width="33.76" height="4.84" x="77.77" y="65.99" fill="#000" fill-opacity=".1" rx="2.42"/>
+      <rect width="25.32" height="4.84" x="86.21" y="58.12" fill="#000" fill-opacity=".1" rx="2.42"/>
+      <ellipse cx="11.45" cy="7.27" fill="#000" rx="2.41" ry="2.42"/>
+      <ellipse cx="19.29" cy="7.27" fill="#000" rx="2.41" ry="2.42"/>
     </g>
-    <g filter="url(#r)" transform="translate(62 121)">
-      <rect width="203" height="110" x="3" y="3" fill="url(#a)" stroke="#000" stroke-width="6" rx="16"/>
-      <path fill="#686EBF" stroke="#000" stroke-width="6" d="M3 21h203v-5a13 13 0 0 0-13-13H16A13 13 0 0 0 3 16v5z"/>
+    <g filter="url(#u)" transform="translate(62 120)">
+      <rect width="209" height="116" fill="url(#q)" rx="16"/>
+      <path fill="#686EBF" d="M16 0h177a16 16 0 0 1 16 16v8H0v-8A16 16 0 0 1 16 0z"/>
       <rect width="42" height="9" x="108" y="35" fill="#5D607F" fill-opacity=".5" rx="4.5"/>
       <rect width="77" height="9" x="23" y="35" fill="#5D607F" fill-opacity=".5" rx="4.5"/>
       <rect width="42" height="9" x="144" y="89" fill="#000" fill-opacity=".5" rx="4.5"/>
       <rect width="42" height="9" x="94" y="89" fill="#000" fill-opacity=".5" rx="4.5"/>
-      <ellipse cx="19" cy="12.5" fill="#000" rx="4" ry="3.5"/>
-      <ellipse cx="32" cy="12.5" fill="#000" rx="4" ry="3.5"/>
-      <rect width="163" height="24" x="23" y="52" fill="url(#c)" rx="12"/>
+      <ellipse cx="19" cy="12.5" fill="#45497F" rx="4" ry="3.5"/>
+      <ellipse cx="32" cy="12.5" fill="#45497F" rx="4" ry="3.5"/>
+      <rect width="163" height="24" x="23" y="52" fill="url(#d)" rx="12"/>
     </g>
-    <path fill="#000" d="M104.7 63.9l5.2-3-3-5.2a3 3 0 1 1 5.2-3l3 5.2 5.2-3a3 3 0 0 1 3 5.2l-5.2 3 3 5.2a3 3 0 0 1-5.2 3l-3-5.2-5.2 3a3 3 0 1 1-3-5.2z"/>
+    <g fill="#323340" opacity=".7">
+      <path d="M116.9 310h34.2c1.14 0 1.9.75 1.9 1.87v1.68c0 1.13-.76 1.88-1.9 1.88h-34.2c-1.14 0-1.9-.75-1.9-1.88v-1.68c0-1.12.76-1.87 1.9-1.87zM126.02 323.66h16.15c1.14 0 1.9.75 1.9 1.87v1.68c0 1.13-.76 1.87-1.9 1.87h-16.15c-1.14 0-1.9-.74-1.9-1.87v-1.68c0-.94.76-1.87 1.9-1.87zM126.02 337.32h16.15c1.14 0 1.9.74 1.9 1.87v1.68c0 1.12-.76 1.87-1.9 1.87h-16.15c-1.14 0-1.9-.75-1.9-1.87v-1.68c0-.94.76-1.87 1.9-1.87zM126.02 351.16h16.15c1.14 0 1.9.75 1.9 1.87v1.69c0 1.12-.76 1.87-1.9 1.87h-16.15c-1.14 0-1.9-.75-1.9-1.87v-1.69c0-1.12.76-1.87 1.9-1.87zM116.9 364.82h34.2c1.14 0 1.9.75 1.9 1.87v1.68c0 1.13-.76 1.88-1.9 1.88h-34.2c-1.14 0-1.9-.75-1.9-1.88v-1.68c0-1.12.76-1.87 1.9-1.87zM126.78 378.48h14.25c1.14 0 1.9.75 1.9 1.87v1.68c0 1.12-.76 1.87-1.9 1.87h-14.25c-1.14 0-1.9-.75-1.9-1.87v-1.68c0-.94.95-1.87 1.9-1.87zM126.78 392.14h14.25c1.14 0 1.9.74 1.9 1.87v1.68c0 1.12-.76 1.87-1.9 1.87h-14.25c-1.14 0-1.9-.75-1.9-1.87v-1.68c0-.94.95-1.87 1.9-1.87zM126.78 405.8h14.25c1.14 0 1.9.74 1.9 1.86v1.69c0 1.12-.76 1.87-1.9 1.87h-14.25c-1.14 0-1.9-.75-1.9-1.87v-1.69c0-.93.95-1.87 1.9-1.87zM116.9 419.64h34.2c1.14 0 1.9.75 1.9 1.87v1.68c0 1.13-.76 1.87-1.9 1.87h-34.2c-1.14 0-1.9-.74-1.9-1.87v-1.68c0-1.12.76-1.87 1.9-1.87z"/>
+    </g>
+    <circle cx="66" cy="350" r="12" stroke="#1A1A1A" stroke-width="8"/>
+    <circle cx="90" cy="310" r="8" fill="#1A1A1A"/>
+    <path fill="#1A1A1A" d="M104.68 62.87l5.2-3-3-5.2a3 3 0 1 1 5.2-3l2.99 5.2 5.2-3a3 3 0 0 1 3 5.2l-5.2 3 3 5.2a3 3 0 0 1-5.2 3l-3-5.2-5.2 3a3 3 0 1 1-3-5.2z"/>
+    <path stroke="#1A1A1A" stroke-width="4" d="M518 170h20v20h-20z"/>
+    <path fill="#1A1A1A" d="M540 224h16v16h-16z"/>
   </g>
 </svg>
