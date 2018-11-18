@@ -109,6 +109,17 @@ header {
         height: 0.5rem;
         background-color: $background-dark;
     }
+
+    @include until(s) {
+        padding-left: 4rem;
+        font-size: 1.6rem;
+        line-height: 2rem;
+        &:before {
+            width: 2.5rem;
+            height: 0.3rem;
+            top: 0.8rem;
+        }
+    }
 }
 
 .hero-text {
@@ -525,9 +536,8 @@ form .row {
 .chat {
     stroke: $background-dark;
     width: 60%;
-    height: 60%;
 
-    @include until(sm) {
+    @include until(s) {
         display: none;
     }
 }
