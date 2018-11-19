@@ -1,11 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 901 364">
   <g fill="none" fill-rule="evenodd">
     <g stroke="#1A1A1A" stroke-width="4" transform="matrix(-1 0 0 1 362 2)">
-      <g transform="translate(245 171)">
-        <ellipse cx="34.5" cy="21" rx="14.5" ry="20"/>
-        <path fill="#8B93FF" stroke-linejoin="round" d="M47 12c-6-2-12-1.7-18 1s-10.3 9.3-13 20C14 13.7 18.7 3 30 1c8.7-2 14.3 1.7 17 11z"/>
-        <path d="M0 92V80l9-30h15a20 20 0 0 0 4 7 17 17 0 0 0 7 3c3.4-1.5 5.7-2.9 7-4 1.3-1.1 2.6-3.1 4-6h15l9 30v12H58V75v17H35V60v32H13V74v18H0z"/>
-      </g>
+      <path d="M265 192c0 11 6.5 20 14.5 20s14.5-9 14.5-20c0-3.4-.6-6.6-1.7-9.4"/>
+      <path stroke-linejoin="round" d="M293 184c-6.7-3.3-13-3.7-19-1s-10.3 9.3-13 20c-2-19.3 2.7-30 14-32 8.7-2 14.7 2.3 18 13z"/>
+      <path d="M245 263v-12l9-30h15a20 20 0 0 0 4 7 17 17 0 0 0 7 3c3.4-1.5 5.7-2.9 7-4 1.3-1.1 2.6-3.1 4-6h15l9 30v12h-12v-17 17h-23v-32 32h-22v-18 18h-13z"/>
       <g transform="translate(142 220)">
         <ellipse cx="34.5" cy="20" rx="14.5" ry="20"/>
         <path d="M0 90V78l9-30h21v10h2l-2 32 2-32h6l2 32-2-32h2V48h-9 30l9 30v12H58V73v17H13V72v18zM20 20l9-10 19 6"/>
@@ -16,13 +14,12 @@
         <circle cx="62" cy="17" r="6"/>
         <circle cx="98" cy="17" r="6"/>
       </g>
-      <g transform="translate(45 122)">
-        <path d="M0 98V86l9-30h39-26v9l13 8 13-8v-9h13l9 30v12H58V81v17H35V73v25H13V80v18z"/>
-        <ellipse cx="34.5" cy="28" rx="14.5" ry="20"/>
-        <path fill="#8B93FF" stroke-linejoin="round" d="M20 22a51.5 51.5 0 0 0 29 0l-1 18h9c1.3-11.3.7-19.7-2-25C51 7 44.4 0 35 0S18 6 14 15c-2.7 6-3 14.3-1 25h9l-2-18z"/>
+      <path d="M45 220v-12l9-30h39-26v9l13 8 13-8v-9h13l9 30v12h-12v-17 17H80v-25 25H58v-18 18zM66.6 159.2c2.5 6.4 7.3 10.8 12.9 10.8 5.9 0 11.2-4.1 13.5-11"/>
+      <path stroke-linejoin="round" d="M65 144a51.5 51.5 0 0 0 29 0l-1 18h9c1.3-11.3.7-19.7-2-25-4-8-10.6-15-20-15s-17 6-21 15c-2.7 6-3 14.3-1 25h9l-2-18z"/>
+      <g>
+        <path d="M178 210l-17-15h-19v-33h87v33h-51z"/>
+        <path stroke-linecap="round" d="M156 178.5h21M191 178.5h18"/>
       </g>
-      <path d="M178 210l-17-15h-19v-33h87v33h-51z"/>
-      <path stroke-linecap="round" d="M156 178.5h21M191 178.5h18"/>
       <g>
         <path d="M90 107.2v-14H74V57h144.5v36.2H107z"/>
         <path stroke-linecap="round" d="M93 75.5h46M154 75.5h32"/>
@@ -72,9 +69,6 @@
         <circle cx="2.8" cy="28.1" r="2.8"/>
       </g>
       <g fill="#1A1A1A" transform="translate(718 103)">
-        <circle cx="2.8" cy="2.8" r="2.8"/>
-        <circle cx="14.9" cy="2.8" r="2.8"/>
-        <circle cx="28.1" cy="2.8" r="2.8"/>
         <circle cx="40.2" cy="2.8" r="2.8"/>
         <circle cx="2.8" cy="40.2" r="2.8"/>
         <circle cx="14.9" cy="40.2" r="2.8"/>
@@ -82,10 +76,9 @@
         <circle cx="40.2" cy="40.2" r="2.8"/>
         <circle cx="40.2" cy="14.9" r="2.8"/>
         <circle cx="40.2" cy="28.1" r="2.8"/>
-        <circle cx="2.8" cy="14.9" r="2.8"/>
         <circle cx="2.8" cy="28.1" r="2.8"/>
       </g>
-      <path fill="#8B93FF" stroke="#1A1A1A" stroke-width="4" d="M711 85h39v39h-39zM663 105h39v39h-39zM836 105h39v39h-39z"/>
+      <path stroke="#1A1A1A" stroke-width="4" d="M711 85h39v39h-39zM663 105h39v39h-39zM836 105h39v39h-39z"/>
       <g stroke="#1A1A1A" stroke-width="4">
         <g transform="translate(756.5 168)">
           <circle cx="28.5" cy="18.5" r="8.5"/>

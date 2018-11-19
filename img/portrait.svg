@@ -21,7 +21,7 @@
   </defs>
   <g fill="none" fill-rule="evenodd" filter="url(#a)" transform="translate(55 28)">
     <use fill="#000" filter="url(#b)" xlink:href="#c"/>
-    <circle cx="127.5" cy="198.5" r="130.5" fill="#8B93FF" stroke="#FFF" stroke-width="6"/>
+    <circle cx="127.5" cy="198.5" r="130.5" fill="#00EED1" stroke="#FFF" stroke-width="6"/>
     <g transform="translate(0 71)">
       <mask id="e" fill="#fff">
         <use xlink:href="#d"/>
