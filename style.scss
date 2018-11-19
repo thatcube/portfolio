@@ -153,11 +153,11 @@ header {
 }
 
 .portrait {
-    max-height: 36rem;
+    max-height: 28rem;
 
-    @include until(s) {
-        max-height: 24rem;
-        margin: 2rem 0 -2rem 0;
+    @include until(m) {
+        max-height: 20rem;
+        margin: 3rem 0 0 0;
     }
 }
 
