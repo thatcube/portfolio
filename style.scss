@@ -32,7 +32,9 @@ body {
 }
 
 
-
+.tools {
+    max-height: 9rem;
+}
 section {
     padding: calc(11vw + 8rem) 0 8rem 0;
     // @include until(m) {
@@ -96,14 +98,13 @@ header {
 
 .sub-header {
     padding-left: 8rem;
-    line-height: 3.4rem;
     position: relative;
-    font-size: 3rem;
+    font-size: calc(1.4rem + 1.2vw);
 
     &:before {
         content: '';
         position: absolute;
-        top: 1.8rem;
+        top: calc(1rem + 0.8vw);
         left: 0;
         width: 5rem;
         height: 0.5rem;
@@ -112,8 +113,6 @@ header {
 
     @include until(s) {
         padding-left: 4rem;
-        font-size: 1.6rem;
-        line-height: 2rem;
         &:before {
             width: 2.5rem;
             height: 0.3rem;
