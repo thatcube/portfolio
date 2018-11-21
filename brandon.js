@@ -60,7 +60,43 @@ $("form").submit(function(e) {
 	  background: '#fff',
 	  });
 	});
-  });
+});
+
+// $(".theme-toggle").click(function(){
+// 	$('html').attr('data-theme', function(index, attr){
+// 			return attr == 'dark' ? null : 'dark';
+// 	});
+// });
+
+function setNight() {
+  if(sessionStorage.getItem('theme')) {
+    sessionStorage.clear();
+  } else {
+    sessionStorage.setItem('theme', 'dark');
+  }
+}
+
+$('.theme-toggle').click(function () {
+  $('html').attr('data-theme', function(index, attr){
+		return attr == 'dark' ? null : 'dark';
+	});
+  setNight();
+});
+
+$(document).ready(function() {
+  var currentDate = new Date();
+  var currentHour = currentDate.getHours();
+  var theme = sessionStorage.getItem('theme');
+  if(currentHour >= 20 && currentHour <= 23) {
+    $('html').attr('data-theme', 'dark');
+  } else if(currentHour >= 0 && currentHour <= 6) {
+		$('html').attr('data-theme', 'dark');
+	} else if(sessionStorage.getItem('theme')) {
+    $('html').attr('data-theme', 'dark');
+  } else {
+    $('html').attr('data-theme', null);
+  }
+});
 
 /*
 //-- Pause 

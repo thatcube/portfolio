@@ -23,20 +23,27 @@
 </head>
 
 <body>
+    <svg class="theme-toggle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 206 206">
+        <g fill="none" fill-rule="nonzero">
+            <path class="sun" opacity="0" fill="currentColor" d="M103 156a53 53 0 1 1 0-106 53 53 0 0 1 0 106zm0-6a47 47 0 1 0 0-94 47 47 0 0 0 0 94zm3-116a3 3 0 0 1-6 0V3a3 3 0 0 1 6 0v31zm.5 169a3 3 0 0 1-6 0v-31a3 3 0 0 1 6 0v31zm65-97a3 3 0 0 1 0-6H203a3 3 0 0 1 0 6h-31.4zM3 106.5a3 3 0 0 1 0-6h31.4a3 3 0 0 1 0 6H3zm146.3 47a3 3 0 1 1 4.3-4.2l22.7 22.7a3 3 0 1 1-4.3 4.3l-22.7-22.7zM29.7 34a3 3 0 0 1 4.3-4.3l22.7 22.7a3 3 0 1 1-4.3 4.3L29.7 34zm123.9 22.7a3 3 0 0 1-4.3-4.3L172 29.7a3 3 0 0 1 4.3 4.3l-22.7 22.7zM34 176.3a3 3 0 1 1-4.3-4.3l22.7-22.7a3 3 0 1 1 4.3 4.3L34 176.3z" />
+            <path class="moon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="6" d="M80.2 66.3c0 55.4 44.9 100.3 100.1 100.2 3.2 0 10.6-.1 13.7-.4a108.9 108.9 0 0 1-81.9 36.9 100.2 100.2 0 0 1-9.3-200 100 100 0 0 0-22.6 63.3zM113 103a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm42 39a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm14-33.2a11 11 0 1 1 0-21.8 11 11 0 0 1 0 21.8zM137.4 28c.4 9.3 1.8 15 4 17.3 2.4 2.3 7.8 3.9 16.5 4.6-8.1.1-13.4 1.4-15.9 3.8-2.4 2.5-3.9 7.6-4.3 15.3-.1-7.7-1.4-12.7-4-15.2-2.4-2.5-7.7-3.9-15.8-4 8.2-.6 13.5-2 16-4.4 2.3-2.4 3.5-8.2 3.5-17.4z" />
+        </g>
+    </svg>
     <header class="top">
         <div class="container">
             <div class="row middle">
                 <div class="col s12 m8">
                     <h1 class="hero-text"><span>Hi, I'm Brandon</span><span>I'm a UX/UI Designer and Front End
                             Developer</span></h1>
-                    <a href="#projects"><button class="topnav-btn btn light round">Projects</button></a>
-                    <a href="#contact"><button class="topnav-btn btn light round outline">Say hi</button></a>
+                    <a href="#projects"><button class="topnav-btn changeable btn round">Projects</button></a>
+                    <a href="#contact"><button class="topnav-btn changeable btn round outline">Say hi</button></a>
                 </div>
                 <div class="col s12 m4"><img class="portrait" src="img/portrait.svg" title="Illustration of Brandon Moore"
                         alt="Brandon Moore portrait illustration"></div>
 
             </div>
         </div>
+
     </header>
 
     <section>
@@ -190,13 +197,13 @@
                             is a framework I am writing in Sass for easily creating lightweight, responsive, and
                             accessible web interfaces.</p>
                         <div class="card-buttons">
-                            <a class="btn outline light round" target="_blank" href="https://cubedcss.com/">
+                            <a class="btn outline changeable round" target="_blank" href="https://cubedcss.com/">
                                 <svg class="svg-icon" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 576 512">
                                     <path fill="currentColor" d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"></path>
                                 </svg> Website
                             </a>
-                            <a class="btn outline light round" target="_blank" href="https://github.com/thatcube/cubed-css">
+                            <a class="btn outline changeable round" target="_blank" href="https://github.com/thatcube/cubed-css">
                                 <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                     stroke-linejoin="round" data-reactid="21">
@@ -219,7 +226,7 @@
                             initiative to help CBORD create applications with unified look and feel.
                         </p>
                         <div class="card-buttons">
-                            <a class="btn outline light round" target="_blank" href="https://design.cbord.com/">
+                            <a class="btn outline changeable round" target="_blank" href="https://design.cbord.com/">
                                 <svg class="svg-icon" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 576 512">
                                     <path fill="currentColor" d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"></path>
@@ -241,13 +248,13 @@
                                 Firebase</strong> for authentication and storing event data.
                         </p>
                         <div class="card-buttons">
-                            <a class="btn outline light round" target="_blank" href="https://events.brandonmoore.io/">
+                            <a class="btn outline changeable round" target="_blank" href="https://events.brandonmoore.io/">
                                 <svg class="svg-icon" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 576 512">
                                     <path fill="currentColor" d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"></path>
                                 </svg> Demo
                             </a>
-                            <a class="btn outline light round" target="_blank" href="https://github.com/thatcube/EventsManager">
+                            <a class="btn outline changeable round" target="_blank" href="https://github.com/thatcube/EventsManager">
                                 <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
                                     stroke-linejoin="round" data-reactid="21">
@@ -276,7 +283,7 @@
         </div>
 
     </section>
-    <section class="contact">
+    <footer class="contactinfo contact">
         <div class="container">
             <div class="row middle center">
                 <div id="contact" class="card start col s12 m6">
@@ -296,7 +303,7 @@
                                 <textarea id="message" required name="message" placeholder="Type your message here..."></textarea>
                                 <div class="row end">
                                     <div class="col s12 m6">
-                                        <button class="btn outline dark round" type="submit">Send Message</button>
+                                        <button class="btn outline light round" type="submit">Send Message</button>
                                     </div>
                                 </div>
                             </div>
@@ -312,59 +319,55 @@
                     </svg>
                 </div>
             </div>
-        </div>
-    </section>
-    <footer class="contactinfo">
-        <div class="container">
             <div class="row center">
                 <ul class="col s12 icons">
                     <li><a target="_blank" href="mailto:brandon-moore@live.com">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174 201">
                                 <title>Email</title>
-                                <g fill="none" fill-rule="evenodd">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="10" d="M33.2 52.6L8 77.8a10 10 0 0 0-2.9 7V186a10 10 0 0 0 10 10h144a10 10 0 0 0 10-10V84.9c0-2.7-1-5.3-3-7.1L142 53.7" />
-                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="10" d="M5 81l58 58.9-58 55.9M169 81l-58 58.9 58 55.9" />
-                                    <path stroke="currentColor" stroke-width="10" d="M63 139.6h49" />
-                                    <path fill="currentColor" fill-rule="nonzero" d="M87.5 33a36.5 36.5 0 1 0 16.7 69.2 5.2 5.2 0 1 0-4.4-9.4 27 27 0 0 1-26.3-1.3 26 26 0 0 1 14-48c14.4 0 26 11.6 26 26a5.2 5.2 0 0 1-10.4 0A15.7 15.7 0 1 0 98 81.1 15.6 15.6 0 0 0 124 69.5 36.5 36.5 0 0 0 87.5 33zm5.1 37.3a5.2 5.2 0 1 1 0-1.4v1.4z" />
-                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="10" d="M33 108V5h109v103" />
+                                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="7">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M32 52.8l-24 25a10 10 0 0 0-3 7V186a10 10 0 0 0 10 10h144a10 10 0 0 0 10-10V84.9c0-2.7-1-5.3-3-7.1L142 53.7" />
+                                    <path stroke-linejoin="round" d="M5 81l58 58.9-58 55.9M169 81l-58 58.9 58 55.9" />
+                                    <path d="M63 139.6h49" />
+                                    <path stroke-linejoin="round" d="M33 108V5h109v103" />
+                                    <path stroke-linecap="round" d="M102 97c-4 2.7-9.3 4-16 4-16 0-31-16.7-30-32.4A32 32 0 0 1 86 38c22-.5 33 16.9 33 31.8 0 6.2-6 10.2-11 10.2s-10-3-10-10.8c0-6-6-10.2-10.5-10.2S77 63.2 77 69.8C77 76.3 84 80 87.5 80S98 77 98 69.2" />
                                 </g>
                             </svg>
                             <p>Email</p>
                         </a></li>
                     <li><a target="_blank" title="Resume" href="/Resume.pdf">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 198">
-                                <g fill="#000" fill-rule="evenodd">
-                                    <path fill-rule="nonzero" d="M99.7 1.4A4.4 4.4 0 0 0 95.8 0H23.4C10.5 0 0 10.5 0 23.4v150.9a23.4 23.4 0 0 0 23.4 23.3h105.1c13 0 23.4-10.5 23.4-23.3v-119c0-1.2-.4-2.3-1.3-3.2l-51-50.7zm1.2 13.9l35.8 35.6h-21.4c-8 0-14.4-6.4-14.4-14.4V15.3zm42 158.9c0 7.9-6.4 14.3-14.4 14.3h-105c-8 0-14.5-6.4-14.5-14.3V23.3c0-8 6.5-14.3 14.4-14.4H92v27.6A23.4 23.4 0 0 0 115.3 60h27.6v114.3z" />
-                                    <path d="M32.2 125h56a4.5 4.5 0 1 0 0-9h-56a4.5 4.5 0 1 0 0 9zM27.7 154.5c0 2.5 2 4.5 4.5 4.5h87.5a4.5 4.5 0 1 0 0-9H32.2c-2.5 0-4.5 2-4.5 4.5z" />
-                                    <path fill-rule="nonzero" d="M50.2 64.3a16.5 16.5 0 1 0 0-33 16.5 16.5 0 0 0 0 33zm0-23.9a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15z" />
-                                    <path d="M32.2 97.9c2.5 0 4.5-2 4.5-4.5v-3.6a13.5 13.5 0 0 1 27 0v3.6a4.5 4.5 0 0 0 9 0v-3.6a22.5 22.5 0 0 0-45 0v3.6c0 2.5 2 4.5 4.5 4.5z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153 198">
+                                <title>Resume</title>
+                                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="7">
+                                    <path d="M51.2 58.3a11.5 11.5 0 1 0 0-23 11.5 11.5 0 0 0 0 23zm0 0z" />
+                                    <path stroke-linecap="round" d="M33 93.3C33.2 79.1 39.3 72 51.3 72s18 7.1 18.2 21.3" />
+                                    <path d="M24 5A19 19 0 0 0 5 24v150a19 19 0 0 0 19 19h105a19 19 0 0 0 19-19V57.3a3 3 0 0 0-.9-2.1L97.8 5.9a3 3 0 0 0-2.1-.9H24z" />
+                                    <path d="M98 10v29a16 16 0 0 0 16 16h31.5" />
+                                    <g stroke-linecap="round">
+                                        <path d="M33 120h56M33 154.5h87" />
+                                    </g>
                                 </g>
                             </svg>
                             <p>Resume</p>
                         </a></li>
                     <li><a target="_blank" href="https://linkedin.com/in/bmoore46">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 198 198">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
                                 <title>LinkedIn</title>
-                                <g fill="currentColor" fill-rule="evenodd">
-                                    <path d="M167.2 198h-14.6a5.6 5.6 0 1 1 0-11.2h14.6c10.8 0 19.6-8.8 19.6-19.6V30.8c0-10.8-8.8-19.6-19.6-19.6H83a5.6 5.6 0 1 1 0-11.2h84.3c17 0 30.8 13.8 30.8 30.8v136.4c0 17-13.8 30.8-30.8 30.8zM112 198H30.8C13.8 198 0 184.2 0 167.2V30.8C0 13.8 13.8 0 30.8 0h12.6a5.6 5.6 0 1 1 0 11.2H30.8a19.5 19.5 0 0 0-19.6 19.6v136.4c0 10.8 8.8 19.6 19.6 19.6H112a5.6 5.6 0 1 1 0 11.2z" />
-                                    <path fill-rule="nonzero" d="M55.3 74.5a14 14 0 0 1-.5 0 18.2 18.2 0 0 1 .3-36.5c4.9 0 9.5 2 13 5.4 3.4 3.5 5.3 8 5.3 13 0 10-8.1 18.1-18 18.1zm-.2-11.2h.2a7 7 0 0 0-.2-14 7 7 0 0 0-5 12c1.3 1.3 3 2 4.7 2H55.1zM155.6 161h-21.8a5.6 5.6 0 0 1-5.7-5.6V119a6.5 6.5 0 0 0-6.5-6.6h-.2a6.8 6.8 0 0 0-6.4 6.8v36.3c0 3.2-2.6 5.7-5.7 5.7H87.6a5.6 5.6 0 0 1-5.6-5.7V84.7c0-3 2.5-5.6 5.6-5.6h20.1c2 0 4 1.1 4.9 2.8 4.2-2.2 9.9-3.8 17.1-3.8 15.7 0 31.5 12.2 31.5 39.4v38c0 3-2.5 5.6-5.6 5.6zm-16.2-11.2h10.5v-32.3c0-20.7-10.4-28.1-20.2-28.1-13.1 0-16.6 6.4-16.9 6.8a5.6 5.6 0 0 1-10.7-2.3v-3.6h-8.9v59.5h10.5v-30.7a18 18 0 0 1 17.5-18 17.7 17.7 0 0 1 18.2 17.8v31zM66 161H44.2a5.6 5.6 0 0 1-5.6-5.6V84.7c0-3 2.5-5.6 5.6-5.6H66c3 0 5.6 2.5 5.6 5.6v70.7c0 3.2-2.5 5.7-5.6 5.7zm-16.2-11.2h10.5V90.3H49.8v59.5z" />
+                                <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="7">
+                                    <path d="M156.6 157c.3 0 .6-.2.6-.6v-37.9c0-22-11.4-34.4-26.5-34.4a32 32 0 0 0-14.8 3.3l-4.3 2.2-2.4-4.2a.6.6 0 0 0-.5-.3H88.6c-.4 0-.6.3-.6.6v70.7c0 .4.2.7.6.7h21.7c.4 0 .7-.3.7-.7v-36.3c0-6.3 5-11.7 11.4-11.8h.2A11.5 11.5 0 0 1 134 120v36.5c0 .4.3.7.7.7h21.8z" />
+                                    <g fill-rule="nonzero">
+                                        <path stroke-linejoin="round" d="M46 157.5h20c.6 0 1-.5 1-1V86c0-.6-.4-1-1-1H46a1 1 0 0 0-1 1v70.5c0 .5.4 1 1 1z" />
+                                        <path d="M56 69.3h-.2a12 12 0 1 1 .5 0H56z" />
+                                    </g>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M108 5H37A32 32 0 0 0 5 37v126a32 32 0 0 0 32 32h20m44 0h62a32 32 0 0 0 32-32V37a32 32 0 0 0-32-32h-13" />
                                 </g>
                             </svg>
                             <p>LinkedIn</p>
                         </a></li>
                     <li><a target="_blank" href="https://github.com/thatcube">
-                            <svg viewBox="0 0 186 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 186 200">
                                 <title>GitHub</title>
-                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <g id="github" transform="translate(-155.000000, -154.000000)" stroke="#000000"
-                                        stroke-width="10">
-                                        <g transform="translate(160.000000, 159.000000)" id="Shape">
-                                            <path d="M63,163 C18,176.5 18,140.5 0,136 M126,190 L126,155.17 C126.682948,146.488576 123.60142,137.932418 117.54,131.68 C145.8,128.53 175.5,117.82 175.5,68.68 C175.49769,56.1144431 170.664229,44.0307893 162,34.93 C166.102703,23.9365589 165.812616,11.7851444 161.19,1 C161.19,1 150.57,-2.15 126,14.32 C105.372082,8.72939569 83.6279184,8.72939569 63,14.32 C38.43,-2.15 27.81,1 27.81,1 C23.187384,11.7851444 22.8972972,23.9365589 27,34.93 C18.271144,44.0982971 13.4327039,56.2911663 13.5,68.95 C13.5,117.73 43.2,128.44 71.46,131.95 C65.4715762,138.138072 62.3958424,146.57998 63,155.17 L63,190"></path>
-                                        </g>
-                                    </g>
-                                </g>
+                                <path fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="7" d="M68 168c-45 14-45-22-63-27m126 54v-35c1-9-2-17-8-23 28-3 58-14 58-63-1-13-5-25-14-34 4-11 4-23-1-34 0 0-10-3-35 13-21-5-42-5-63 0C43 3 33 6 33 6c-5 11-5 23-1 34-9 9-14 21-13 34 0 49 29 59 57 63-6 6-9 15-8 23v35" />
                             </svg>
                             <p>GitHub</p>
                         </a></li>

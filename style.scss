@@ -20,21 +20,63 @@ h2 {
 html {
     height: 100%;
     scroll-behavior: smooth;
+    --color-primary: #{$primary};
+    --text-color: #{$background-dark};
+    --background-color: #{$white};
+    --background-light: #{mix($black, $white, 75%)};
 }
+
+html[data-theme='dark'] {
+    --text-color: #{$white};
+    --background-color: #{$background-dark};
+    --background-light: #{$background};
+}
+
+.theme-toggle {
+    height: 4rem;
+    overflow: visible;
+    cursor: pointer;
+    transform: translate3d(0, 0, 0);
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+
+    path {
+        transition: transform 0.75s cubic-bezier(0.5, 0.1, 0, 1.2), opacity 0.2s ease-in-out;
+        transform-origin: center;
+    }
+
+    .sun {
+        transform: translateX(-0.375rem) rotate(-45deg);
+    }
+}
+
+html[data-theme='dark'] .theme-toggle {
+    .moon {
+        opacity: 0;
+        transform: translateX(0.375rem) rotate(45deg);
+    }
+
+    .sun {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
 
 body {
     height: 100%;
     position: relative;
     margin: 0;
     padding: 0;
-    background: $background-dark;
-    color: $background-dark;
+    background: var(--background-color);
+    color: var(--text-color);
     line-height: 1.6;
 }
 
 
 .tools {
-    max-height: 9rem;
+    max-height: 8rem;
 
     @include until(s) {
         max-height: 5rem;
@@ -51,40 +93,30 @@ section {
 
     // ux/ui designer section
     &:first-of-type {
-        z-index: 9999;
-
         @include at-least(s) {
             .designer-panels {
                 margin-right: 5%;
             }
         }
 
-        color: $black;
-
-        background: linear-gradient(to right, $primary-darken-3, $primary);
+        background: linear-gradient(101deg, $primary, $primary-darken-1);
+        // background: linear-gradient(135deg,$primary 10%, #0013ba 90%);
+        color: $white;
         position: relative;
     }
 
     &:nth-of-type(3) {
-        background: linear-gradient(to right, $primary, $primary-darken-3);
-
-        h2 {
-            color: $black;
-        }
+        background: linear-gradient(-101deg, $primary, $primary-darken-1);
+        color: $white;
     }
 
     &:nth-of-type(2) {
-        background: $background-dark;
-
-        h2 {
-            color: $white;
-        }
+        color: var(--text-color);
 
         .sub-header {
-            color: $white;
 
             &:before {
-                background-color: $white;
+                background-color: var(--text-color);
             }
         }
     }
@@ -94,28 +126,50 @@ section {
     }
 
     // CONTACT SECTION
-    &:last-of-type {
-        color: $background-dark;
-        background: $primary;
+    // &:last-of-type {
+    //     color: $background-dark;
+    //     background: $primary;
 
-        .card {
-            color: $black;
-        }
+    //     .card {
+    //         color: $black;
+    //     }
 
-        h2 {
-            margin: 0;
+    //     h2 {
+    //         margin: 0;
+    //     }
+    // }
+}
+
+.btn.changeable {
+    background: var(--text-color);
+    color: var(--background-color);
+
+    &:hover {
+        background: var(--background-light);
+    }
+
+    &.outline {
+        border-color: var(--text-color);
+        color: var(--text-color);
+        background: transparent;
+
+        &:hover {
+            background: var(--text-color);
+            color: var(--background-color);
+            opacity: 1;
         }
     }
 }
 
 header {
-    background: $background-dark;
-    color: $white;
+    // background: $background-dark;
+    color: var(--text-color);
     padding: 10rem 0 15rem 0;
 
     @include until(s) {
         padding: 10rem 0 0 0;
     }
+
 }
 
 .sub-header {
@@ -130,7 +184,7 @@ header {
         left: 0;
         width: 5rem;
         height: 0.5rem;
-        background-color: $background-dark;
+        background-color: $white;
     }
 
     @include until(s) {
@@ -215,7 +269,7 @@ ul {
         }
 
         border-radius: $border-radius-large;
-        border: 0.2rem solid $background-dark;
+        border: 0.2rem solid $white;
 
         @include until(sm) {
             font-size: 1.6rem;
@@ -358,7 +412,7 @@ ul {
     .card {
         display: grid;
         grid-template-rows: 1fr;
-        border: 0.2rem solid $white;
+        border: 0.2rem solid var(--text-color);
         margin-bottom: 0;
 
         .card-img {
@@ -374,7 +428,7 @@ ul {
 
         .card-title,
         .card-body {
-            color: $white;
+            color: var(--text-color);
         }
     }
 }
@@ -391,23 +445,27 @@ form .row {
     .card {
         margin-top: 3rem;
         box-shadow: none;
-        border: 0.2rem solid $background-dark;
+        border: 0.2rem solid $white;
         background: transparent;
+
+        .card-title {
+            color: inherit;
+        }
 
         input,
         textarea {
             background: transparent;
             border-width: 0.2rem;
-            border-color: $background-dark;
+            border-color: $white;
             font-weight: 600;
 
             &:focus {
-                box-shadow: 0 0 0 0.1rem $background-dark, 0 0.3rem 1rem rgba($background-dark, 0.25);
+                box-shadow: 0 0 0 0.1rem $white, 0 0.3rem 1rem rgba($white, 0.25);
             }
         }
 
         ::placeholder {
-            color: rgba($background-dark, 0.8);
+            color: rgba($white, 0.8);
             font-weight: normal;
         }
     }
@@ -419,11 +477,11 @@ form .row {
     a {
         cursor: pointer;
         background: transparent;
-        color: $background-dark;
+        color: $white;
 
         p {
             margin: 0;
-            font-weight: 500;
+            font-weight: 300;
             font-size: 2.4rem;
 
             @include until(s) {
@@ -434,7 +492,7 @@ form .row {
         }
 
         &:visited svg {
-            color: $background-dark;
+            color: $white;
         }
 
         &:hover {
@@ -443,7 +501,7 @@ form .row {
             }
 
             p {
-                color: mix($background-dark, $background, 80%);
+                color: mix($background-dark, $white, 10%);
             }
         }
 
@@ -470,7 +528,7 @@ form .row {
 
 //SVG Styles
 .chat {
-    stroke: $background-dark;
+    stroke: $white;
     width: 60%;
 
     @include until(s) {
@@ -528,20 +586,20 @@ form .row {
 }
 
 footer {
-    background: $primary;
+    // background: $primary;
+    background: linear-gradient(101deg, $primary, $primary-darken-1);
+    ;
+
     ul {
         margin: 0;
     }
 
-    p {
-        color: $background-dark;
-    }
+    color: #fff;
 
     .heart {
         width: 1.6rem;
         height: 1.6rem;
         margin-bottom: -0.2rem;
-        color: $background-dark;
     }
 }
 
