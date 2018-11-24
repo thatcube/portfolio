@@ -20,13 +20,16 @@ h2 {
 html {
     height: 100%;
     scroll-behavior: smooth;
-    --color-primary: #{$primary};
+    --gradient-color-one: #{$primary};
+    --gradient-color-two: #{$primary-darken-1};
     --text-color: #{$background-dark};
     --background-color: #{$white};
     --background-light: #{mix($black, $white, 75%)};
 }
 
 html[data-theme='dark'] {
+    --gradient-color-one: #{$primary-darken-4};
+    --gradient-color-two: #{$primary-darken-6};
     --text-color: #{$white};
     --background-color: #{$background-dark};
     --background-light: #{$background};
@@ -37,30 +40,35 @@ html[data-theme='dark'] {
     overflow: visible;
     cursor: pointer;
     transform: translate3d(0, 0, 0);
+    transition: none;
     position: absolute;
     top: 2rem;
     right: 3rem;
 
     path {
-        transition: transform 0.75s cubic-bezier(0.5, 0.1, 0, 1.2), opacity 0.2s ease-in-out;
+        transition: transform 0.75s cubic-bezier(0.5, 0.1, 0, 1.2), opacity 0.2s ease-in-out !important;
         transform-origin: center;
     }
 
     .sun {
-        transform: translateX(-0.375rem) rotate(-45deg);
+        transform: translateX(-0.375rem) rotate(-45deg) !important;
     }
 }
 
 html[data-theme='dark'] .theme-toggle {
     .moon {
         opacity: 0;
-        transform: translateX(0.375rem) rotate(45deg);
+        transform: translateX(0.375rem) rotate(45deg) !important;
     }
 
     .sun {
         opacity: 1;
-        transform: translateX(0) rotate(0);
+        transform: translateX(0) rotate(0) !important;
     }
+}
+
+html.color-theme-in-transition * {
+    transition: all 0.5s ease;
 }
 
 
@@ -85,6 +93,7 @@ body {
 
 section {
     padding: 8rem 0;
+    transition: 250ms ease background;
     // @include until(m) {
     //     padding: 12rem 0 8rem 0;
     // }
@@ -99,14 +108,14 @@ section {
             }
         }
 
-        background: linear-gradient(101deg, $primary, $primary-darken-1);
+        background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
         // background: linear-gradient(135deg,$primary 10%, #0013ba 90%);
         color: $white;
         position: relative;
     }
 
     &:nth-of-type(3) {
-        background: linear-gradient(-101deg, $primary, $primary-darken-1);
+        background: linear-gradient(-101deg, var(--gradient-color-one), var(--gradient-color-two));
         color: $white;
     }
 
@@ -150,6 +159,7 @@ section {
 
     &.outline {
         border-color: var(--text-color);
+        border-width: 0.2rem;
         color: var(--text-color);
         background: transparent;
 
@@ -165,7 +175,7 @@ header {
     // background: $background-dark;
     color: var(--text-color);
     padding: 10rem 0 15rem 0;
-
+    transition: 250ms ease background;
     @include until(s) {
         padding: 10rem 0 0 0;
     }
@@ -200,9 +210,9 @@ header {
 
 .hero-text {
     line-height: 1.2;
-
     span {
         display: block;
+        color: var(--text-color);
     }
 
     span:first-of-type {
@@ -458,6 +468,7 @@ form .row {
             border-width: 0.2rem;
             border-color: $white;
             font-weight: 600;
+            color: inherit;
 
             &:focus {
                 box-shadow: 0 0 0 0.1rem $white, 0 0.3rem 1rem rgba($white, 0.25);
@@ -587,8 +598,7 @@ form .row {
 
 footer {
     // background: $primary;
-    background: linear-gradient(101deg, $primary, $primary-darken-1);
-    ;
+    background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
 
     ul {
         margin: 0;
