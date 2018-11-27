@@ -20,15 +20,15 @@ h2 {
 html {
     height: 100%;
     scroll-behavior: smooth;
-    --gradient-color-one: #{$primary};
-    --gradient-color-two: #{$primary-darken-1};
+    --gradient-color-one: #{$primary-lighten-1};
+    --gradient-color-two: #{$primary-darken-2};
     --text-color: #{$background-dark};
     --background-color: #{$white};
     --background-light: #{mix($black, $white, 75%)};
 }
 
 html[data-theme='dark'] {
-    --gradient-color-one: #{$primary-darken-4};
+    --gradient-color-one: #{$primary-darken-3};
     --gradient-color-two: #{$primary-darken-6};
     --text-color: #{$white};
     --background-color: #{$background-dark};
@@ -93,7 +93,6 @@ body {
 
 section {
     padding: 8rem 0;
-    transition: 250ms ease background;
     // @include until(m) {
     //     padding: 12rem 0 8rem 0;
     // }
@@ -175,7 +174,6 @@ header {
     // background: $background-dark;
     color: var(--text-color);
     padding: 10rem 0 15rem 0;
-    transition: 250ms ease background;
     @include until(s) {
         padding: 10rem 0 0 0;
     }
