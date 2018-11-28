@@ -639,6 +639,10 @@ footer {
 .swal2-icon.swal2-success .swal2-success-ring {
     border: .25em solid $primary !important;
 }
+.swal2-popup .swal2-styled.swal2-confirm {
+    background-color: $primary !important;
+    color: $white !important;
+}
 
 
 .notfound {
