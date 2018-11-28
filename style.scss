@@ -14,12 +14,15 @@ h1 {
 }
 
 h2 {
-    font-size: calc(2rem + 1.5vw);
+    font-size: 3rem;
+    font-size: calc(2.6rem + 1.5vw);
+    font-family: $font-family-serif;
 }
 
 html {
     height: 100%;
     scroll-behavior: smooth;
+    background: $background;
     --gradient-color-one: #{$primary-lighten-1};
     --gradient-color-two: #{$primary-darken-2};
     --text-color: #{$background-dark};
@@ -28,6 +31,7 @@ html {
 }
 
 html[data-theme='dark'] {
+    background: mix($background-dark, $white, 95%);
     --gradient-color-one: #{$primary-darken-3};
     --gradient-color-two: #{$primary-darken-6};
     --text-color: #{$white};
@@ -67,19 +71,17 @@ html[data-theme='dark'] .theme-toggle {
     }
 }
 
-html.color-theme-in-transition * {
-    transition: all 0.5s ease;
-}
+// html.color-theme-in-transition * {
+//     transition: all 0.5s ease;
+// }
 
 
-body {
-    height: 100%;
+
+body.container {
     position: relative;
-    margin: 0;
-    padding: 0;
-    background: var(--background-color);
+    padding:0;
     color: var(--text-color);
-    line-height: 1.6;
+    box-shadow: 0 0 24rem rgba(0, 0, 0, 0.1);
 }
 
 
@@ -92,7 +94,7 @@ body {
 }
 
 section {
-    padding: 8rem 0;
+    padding: 8rem 5%;
     // @include until(m) {
     //     padding: 12rem 0 8rem 0;
     // }
@@ -113,13 +115,10 @@ section {
         position: relative;
     }
 
-    &:nth-of-type(3) {
-        background: linear-gradient(-101deg, var(--gradient-color-one), var(--gradient-color-two));
-        color: $white;
-    }
-
+    // front end developer section
     &:nth-of-type(2) {
         color: var(--text-color);
+        background: var(--background-color);
 
         .sub-header {
 
@@ -129,7 +128,15 @@ section {
         }
     }
 
+    // about me section
+    &:nth-of-type(3) {
+        background: linear-gradient(-101deg, var(--gradient-color-one), var(--gradient-color-two));
+        color: $white;
+    }
+
+    // projects section
     &:nth-of-type(4) {
+        background: var(--background-color);
         color: $white;
     }
 
@@ -171,27 +178,28 @@ section {
 }
 
 header {
-    // background: $background-dark;
+    background: var(--background-color);
     color: var(--text-color);
-    padding: 10rem 0 15rem 0;
+    padding: 10rem 5% 15rem 5%;
+
     @include until(s) {
-        padding: 10rem 0 0 0;
+        padding: 10rem 5% 0 5%;
     }
 
 }
 
 .sub-header {
-    padding-left: 8rem;
+    padding-left: 6.4rem;
     position: relative;
-    font-size: calc(1.4rem + 1.2vw);
+    font-size: 1.6rem;
 
     &:before {
         content: '';
         position: absolute;
-        top: calc(1rem + 0.8vw);
+        top: 1rem;
         left: 0;
         width: 5rem;
-        height: 0.5rem;
+        height: 0.2rem;
         background-color: $white;
     }
 
@@ -206,8 +214,21 @@ header {
     }
 }
 
+
+//change autofill color
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 10rem rgba(255, 255, 255, 0.1) inset;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: $white !important;
+}
+
 .hero-text {
     line-height: 1.2;
+
     span {
         display: block;
         color: var(--text-color);
@@ -215,8 +236,8 @@ header {
 
     span:first-of-type {
         font-size: 8rem;
-        font-weight: normal;
-        letter-spacing: -0.4rem;
+        // letter-spacing: -0.4rem;
+        font-family: $font-family-serif;
 
         @include until(s) {
             font-size: 4rem;
@@ -270,13 +291,12 @@ ul {
         font-size: 2rem;
         list-style: none;
         padding: 3rem;
-        font-weight: 500;
 
         svg {
             margin-bottom: 2rem;
         }
 
-        border-radius: $border-radius-large;
+        // border-radius: $border-radius-large;
         border: 0.2rem solid $white;
 
         @include until(sm) {
@@ -310,74 +330,6 @@ ul {
 .row {
     @include until(md) {
         margin: 0 1rem;
-    }
-}
-
-.skills {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    font-weight: 400;
-    background: $white;
-    border-radius: $border-radius-large;
-    box-shadow: $box-shadow;
-
-    &__column {
-        padding: 3rem;
-
-        @include at-least(m) {
-            &:not(:last-of-type) {
-                border-right: 0.1rem solid mix($background, $dark, 94%);
-            }
-        }
-
-        @include until(m) {
-            padding: 2rem 1rem;
-
-            &:last-of-type {
-                border-top: 0.1rem solid mix($background, $dark, 94%);
-            }
-        }
-    }
-
-    &__header {
-        margin: 0;
-        font-size: 2rem;
-        font-weight: 600;
-    }
-
-    &__subheader {
-        font-weight: 400;
-        color: $primary;
-        font-size: 1.6rem;
-        margin: 3rem 0 0 0;
-    }
-
-    &__icon {
-        color: $primary;
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        min-height: 2.5rem;
-    }
-
-    &__description {
-        color: mix($dark, $background, 60%);
-        font-weight: 300;
-        font-size: 1.4rem;
-    }
-
-    &__list {
-        font-weight: 300;
-        font-size: 1.3rem;
-        color: mix($dark, $background, 60%);
-        margin-top: 0.5rem;
-    }
-
-    ul li {
-        padding-bottom: 2rem;
-    }
-
-    svg {
-        height: 3.4375rem;
     }
 }
 
@@ -425,6 +377,7 @@ ul {
 
         .card-img {
             grid-row: 1;
+            border-radius: 0;
         }
 
         .card-body {
@@ -433,6 +386,11 @@ ul {
 
         box-shadow: none;
         background: transparent;
+
+        .card-title {
+            font-family: $font-family-serif;
+            font-size: 3rem;
+        }
 
         .card-title,
         .card-body {
@@ -449,7 +407,7 @@ form .row {
     width: 100%;
 }
 
-.contact {
+footer {
     .card {
         margin-top: 3rem;
         box-shadow: none;
@@ -464,6 +422,7 @@ form .row {
         textarea {
             background: transparent;
             border-width: 0.2rem;
+            border-radius: 0;
             border-color: $white;
             font-weight: 600;
             color: inherit;
@@ -490,8 +449,8 @@ form .row {
 
         p {
             margin: 0;
-            font-weight: 300;
-            font-size: 2.4rem;
+            font-weight: 200;
+            font-size: 2rem;
 
             @include until(s) {
                 font-size: 1.6rem;
