@@ -46,10 +46,10 @@ $purple: #BD8BFF;
 $pink: #F78BFF;
 $orange: #FF8B93;
 
-$background: mix(mix($primary, $white, 5%), #eee, 50%);
+$background: mix(mix($primary, $white, 5%), $black, 98%);
 $background-light: mix(rgba($primary, 0.05), rgba($dark, 0.05), 50%);
 // $background-dark: mix($primary, $white, 2%);
-$background-dark: mix($white, $black, 10%);
+$background-dark: mix(mix($white, $black, 3%), $primary, 90%);
 
 // border radii
 $border-radius-small: 0.6rem;
