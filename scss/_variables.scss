@@ -1,6 +1,6 @@
 //fonts
-$font-family-sans: BlinkMacSystemFont, -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-$font-family-serif: 'Abril Fatface', serif;
+$font-family-sans: "Poppins", BlinkMacSystemFont, -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+$font-family-serif: $font-family-sans;
 //colors
 $black: #000;
 $white: #fff;
@@ -49,7 +49,7 @@ $orange: #FF8B93;
 $background: mix(mix($primary, $white, 5%), $black, 98%);
 $background-light: mix(rgba($primary, 0.05), rgba($dark, 0.05), 50%);
 // $background-dark: mix($primary, $white, 2%);
-$background-dark: mix(mix($white, $black, 3%), $primary, 90%);
+$background-dark: mix(mix($white, $black, 4%), $primary, 88%);
 
 // border radii
 $border-radius-small: 0.6rem;
