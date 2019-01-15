@@ -30,7 +30,7 @@ html {
 }
 
 html[data-theme='dark'] {
-    // background: mix($background-dark, $white, 95%);
+    background: mix($background-dark, $white, 95%);
     --gradient-color-one: #{$primary-darken-3};
     --gradient-color-two: #{$primary-darken-6};
     --text-color: #{$white};
@@ -51,6 +51,7 @@ html[data-theme='dark'] {
     path {
         transition: transform 0.75s cubic-bezier(0.5, 0.1, 0, 1.2), opacity 0.2s ease-in-out !important;
         transform-origin: center;
+        color: var(--text-color);
     }
 
     .sun {
@@ -135,7 +136,7 @@ section {
 
     // projects section
     &:nth-of-type(4) {
-        background: $white;
+        background: var(--background-color);
         color: $white;
         border-radius: 0 0 2rem 2rem;
     }
@@ -158,6 +159,7 @@ section {
 .btn.changeable {
     background: var(--text-color);
     color: var(--background-color);
+    transition: .2s ease background, .1s ease color;
 
     &:hover {
         background: var(--background-light);
@@ -189,6 +191,7 @@ header {
     h1 {
         font-size: 4rem;
         font-weight: 500;
+        color: var(--text-color);
 
         @include until(s) {
             font-size: 2rem;
