@@ -15,6 +15,9 @@ h1 {
 
 h2 {
     font-size: 4rem;
+    @include until(s) {
+        font-size: 1.8rem;
+    }
     font-family: $font-family-serif;
 }
 
@@ -107,7 +110,7 @@ section {
         }
 
         border-radius: 2rem 2rem 0 0;
-        margin-top: -10rem;
+        // margin-top: -10rem;
 
         background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
         // background: linear-gradient(135deg,$primary 10%, #0013ba 90%);
@@ -186,7 +189,7 @@ header {
 
 
     @include until(s) {
-        padding: 10rem 5% 0 5%;
+        padding: 10rem 5%;
     }
     h1 {
         font-size: 4rem;
@@ -195,7 +198,6 @@ header {
 
         @include until(s) {
             font-size: 2rem;
-            letter-spacing: -0.15rem;
         }
 
         margin-bottom: 1rem;
@@ -285,7 +287,7 @@ ul {
         // border-radius: $border-radius-large;
         border: 0.2rem solid $white;
 
-        @include until(sm) {
+        @include until(s) {
             font-size: 1.6rem;
         }
     }
@@ -313,11 +315,11 @@ ul {
     }
 }
 
-.row {
-    @include until(md) {
-        margin: 0 1rem;
-    }
-}
+// .row {
+//     @include until(m) {
+//         margin: 0 1rem;
+//     }
+// }
 
 ::-moz-selection {
     background: $background-dark;
