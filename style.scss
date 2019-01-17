@@ -185,7 +185,7 @@ section {
 header {
     // background: var(--background-color) url(img/ux-ui-designer.svg);
     color: var(--text-color);
-    padding: 20rem 5% 35rem 5%;
+    padding: 20rem 5%;
 
 
     @include until(s) {
