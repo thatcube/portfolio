@@ -14,7 +14,8 @@ h1 {
 }
 
 h2 {
-    font-size: 4rem;
+    font-size: 3.6rem;
+    font-weight: 600;
     @include until(s) {
         font-size: 1.8rem;
     }
@@ -376,7 +377,8 @@ ul {
         background: transparent;
 
         .card-title {
-            font-size: 3rem;
+            // font-size: 3rem;
+            font-weight: 600;
         }
 
         .card-title,
@@ -394,7 +396,7 @@ form .row {
     width: 100%;
 }
 
-div.container {
+body > div.container {
     box-shadow: 0 1rem 10rem 0 rgba(0, 0, 0, 0.15);
     border-radius: 2rem;
 }
