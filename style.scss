@@ -29,6 +29,7 @@ html {
     --gradient-color-one: #{$primary-lighten-1};
     --gradient-color-two: #{$primary-darken-2};
     --text-color: #{$background-dark};
+    --text-color--light: #{$gray};
     --background-color: #{$white};
     --background-light: #{mix($black, $white, 75%)};
 }
@@ -38,6 +39,7 @@ html[data-theme='dark'] {
     --gradient-color-one: #{$primary-darken-3};
     --gradient-color-two: #{$primary-darken-6};
     --text-color: #{$white};
+    --text-color--light: #{mix($gray, $white, 50%)};
     --background-color: #{$background-dark};
     --background-light: #{$background};
 }
@@ -134,8 +136,9 @@ section {
 
     // about me section
     &:nth-of-type(3) {
-        background: linear-gradient(-101deg, var(--gradient-color-one), var(--gradient-color-two));
-        color: $white;
+        // background: linear-gradient(-101deg, var(--gradient-color-one), var(--gradient-color-two));
+        // color: $white;
+        color: var(--text-color);
     }
 
     // projects section
@@ -193,8 +196,8 @@ header {
         padding: 10rem 5%;
     }
     h1 {
-        font-size: 4rem;
-        font-weight: 500;
+        font-size: 4.8rem;
+        font-weight: 600;
         color: var(--text-color);
 
         @include until(s) {
@@ -202,6 +205,10 @@ header {
         }
 
         margin-bottom: 1rem;
+        // span {
+        //     color: var(--text-color--light);
+        //     color: $primary;
+        // }
     }
 
 }
@@ -266,7 +273,7 @@ ul {
 
 // ABOUT ME SECTION 
 .about {
-    background: $primary;
+    // background: $primary;
 
     .row svg {
         height: 6rem;
@@ -280,13 +287,18 @@ ul {
         font-size: 2rem;
         list-style: none;
         padding: 3rem;
+        // color: var(--text-color);
 
-        svg {
-            margin-bottom: 2rem;
+        .row:not(div) {
+            font-size: 3.2rem;
+            font-weight: 600;
+        }
+        .row:nth-of-type(2) {
+            color: var(--text-color--light);
         }
 
         // border-radius: $border-radius-large;
-        border: 0.2rem solid $white;
+        // border: 0.2rem solid $white;
 
         @include until(s) {
             font-size: 1.6rem;
@@ -446,7 +458,7 @@ footer {
 
         p {
             margin: 0;
-            font-weight: 300;
+            // font-weight: 300;
             font-size: 2rem;
 
             @include until(s) {
