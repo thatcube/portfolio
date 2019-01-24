@@ -66,6 +66,9 @@ html[data-theme='dark'] {
         color: $primary;
     }
     padding-bottom: 16rem;
+    @include until(s) {
+        padding-bottom: 4rem;
+    }
     div {
         display: flex;
     }
@@ -243,11 +246,11 @@ section {
 header {
     // background: var(--background-color) url(img/ux-ui-designer.svg);
     color: var(--text-color);
-    padding: 5rem 0 20rem 0;
+    padding: 5rem 0 20rem 0 !important;
 
 
     @include until(s) {
-        padding: 2rem 0 5rem 0;
+        padding: 3rem 5% 5rem 5% !important;
     }
 
     h1 {
@@ -257,7 +260,8 @@ header {
         color: var(--text-color);
 
         @include until(s) {
-            font-size: 2rem;
+            font-size: 2.8rem;
+            margin-top: 4rem;
         }
 
         // margin-bottom: 1rem;
@@ -270,7 +274,11 @@ header {
     h2 {
         font-weight: 400;
         font-size: 3rem;
-        margin-top: 2rem;
+        margin: 2rem 0 4rem 0;
+        @include until(s) {
+            font-size: 2.2rem;
+            margin-bottom: 10rem;
+        }
     }
 
 }
