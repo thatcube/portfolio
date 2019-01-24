@@ -16,7 +16,7 @@
     }
     &:focus {
         outline: none;
-        box-shadow: 0 0 0 0.3em mix(rgba(0,0,0, 0.185), rgba($background, .35), 15%), 0 0.3em 0.9375em rgba($background, 0.2), 0 0.125em 0.5remem rgba(0,0,0, 0.1);
+        box-shadow: 0 0 0 0.3em mix(rgba(0,0,0, 0.185), rgba($background, .35), 15%), 0 0.3em 0.9375em rgba($background, 0.2), 0 0.125em 0.5em rgba(0,0,0, 0.1);
     }
 }
 
