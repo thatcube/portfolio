@@ -50,9 +50,9 @@ html[data-theme='dark'] {
 
 .nav {
     a {
-        &:not(:last-of-type) {
-            padding-right: calc(5% + 1.6rem);
-        }
+        // &:not(:last-of-type) {
+            padding-right: 9%;
+        // }
         font-size: 2rem;
         color: var(--text-color--light);
         transition: .2s ease-in-out all;
@@ -246,7 +246,7 @@ section {
 header {
     // background: var(--background-color) url(img/ux-ui-designer.svg);
     color: var(--text-color);
-    padding: 5rem 0 20rem 0 !important;
+    padding: 5rem 2.5% 20rem 2.5% !important;
 
 
     @include until(s) {
