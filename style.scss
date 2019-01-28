@@ -36,6 +36,10 @@ html {
     --background-light: #{mix($black, $white, 75%)};
     background: var(--background);
     color: var(--text-color);
+    --card-color-one: #{mix(#d6faf5, #95f2e2)};
+    --card-color-two: #b9ddff;
+    --card-color-three: #f9f7c7;
+    --card-color-four: #ffded5;
 }
 
 html[data-theme='dark'] {
@@ -46,6 +50,10 @@ html[data-theme='dark'] {
     --text-color--light: #{mix($gray, $white, 50%)};
     --background-color: #{$background-dark};
     --background-light: #{$background};
+    --card-color-one: #{mix(#00eacf, $background-dark, 20%)};
+    --card-color-two: #{mix(#166dff, $background-dark, 20%)};
+    --card-color-three: #{mix(#ece43b, $background-dark, 20%)};
+    --card-color-four: #{mix(#af2800, $background-dark, 20%)};
 }
 
 .nav {
@@ -142,7 +150,7 @@ section {
     //     padding: 12rem 0 8rem 0;
     // }
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
 
     // ux/ui designer section
     // &:first-of-type {
@@ -161,13 +169,13 @@ section {
     //     position: relative;
     // }
 
-    // front end developer section
+    // about me section
     &:nth-of-type(2) {
         // color: var(--text-color);
         background: var(--background-color);
-        border-radius: $border-radius-base;
+        // border-radius: $border-radius-base;
         padding: 5%;
-        box-shadow: 0 2rem 5rem 0 rgba($black, 0.1);
+        // box-shadow: 0 2rem 5rem 0 rgba($black, 0.1);
 
         // .sub-header {
 
@@ -188,7 +196,6 @@ section {
     &:nth-of-type(4) {
         // background: var(--background-color);
         color: var(--text-color);
-        ;
         // border-radius: 0 0 2rem 2rem;
     }
 
@@ -245,6 +252,7 @@ section {
 
 header {
     // background: var(--background-color) url(img/ux-ui-designer.svg);
+    background: var(--background-color);
     color: var(--text-color);
     padding: 5rem 2.5% 20rem 2.5% !important;
 
@@ -335,6 +343,7 @@ input:-webkit-autofill:active {
     }
 
     position: relative;
+    z-index: 2;
 
     &:before {
         position: absolute;
@@ -453,6 +462,7 @@ ul {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-gap: 2rem;
+    color: var(--text-color);
 
     @include until(m) {
         grid-template-columns: 1fr;
@@ -462,31 +472,51 @@ ul {
     padding-bottom: 2rem;
 
     .card {
+        
+        &:first-of-type {
+            // background: #00eacf;
+            // background: #95f2e2;
+            background: var(--card-color-one);
+        }
+        &:nth-of-type(2) {
+            background: var(--card-color-two);
+        }
+        &:nth-of-type(3) {
+            background: var(--card-color-three);
+        }
+        &:nth-of-type(4) {
+            background: var(--card-color-four);
+        }
+        &:hover {
+            .card-body, .card-img {
+                transform: scale(1.03);
+            }
+            box-shadow: 0 2rem 5rem rgba($black, 0.05);
+        }
+        padding: 2rem;
         display: grid;
         grid-template-rows: 1fr;
         // border: 0.2rem solid var(--text-color);
         margin-bottom: 0;
-
+        .card-img, .card-body {
+            transition: .3s ease-in-out all;
+            transform-origin: center;
+        }
         .card-img {
-            grid-row: 1;
+            grid-row: 2;
             border-radius: 0;
         }
 
         .card-body {
-            grid-row: 2;
+            grid-row: 1;
         }
 
         box-shadow: none;
         background: transparent;
 
         .card-title {
-            // font-size: 3rem;
+            color: inherit;
             font-weight: 600;
-        }
-
-        .card-title,
-        .card-body {
-            color: var(--text-color);
         }
     }
 }
@@ -535,8 +565,8 @@ footer {
         }
     }
 
-    margin-top: -10rem;
-    padding-top: 20rem;
+    // margin-top: -10rem;
+    padding-top: 6rem;
 }
 
 .icons {

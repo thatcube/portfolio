@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600px" height="355px" viewBox="0 0 600 355" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>events manager</title>
+    <desc>Created with Sketch.</desc>
+    <g id="events-manager" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M350,168 L250,168 L250,188 L350,188 L350,168 Z M370,98 L360,98 L360,78 L340,78 L340,98 L260,98 L260,78 L240,78 L240,98 L230,98 C218.9,98 210.1,107 210.1,118 L210,258 C210,269 218.9,278 230,278 L370,278 C381,278 390,269 390,258 L390,118 C390,107 381,98 370,98 Z M370,258 L230,258 L230,148 L370,148 L370,258 Z M320,208 L250,208 L250,228 L320,228 L320,208 Z" id="event-icon" fill="#000000" fill-rule="nonzero"></path>
+    </g>
+</svg>
