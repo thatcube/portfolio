@@ -331,7 +331,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 10rem rgba(255, 255, 255, 0.1) inset;
     transition: background-color 5000s ease-in-out 0s;
-    -webkit-text-fill-color: $white !important;
+    -webkit-text-fill-color: var(--text-color) !important;
 }
 
 .portrait {
@@ -492,9 +492,13 @@ ul {
         &:nth-of-type(4) {
             background: var(--card-color-four);
         }
+        box-shadow: none;
         &:hover {
-            .card-body, .card-img {
+            .card-body {
                 transform: scale(1.03);
+            }
+            .card-img {
+                transform: scale(1.1);
             }
             box-shadow: 0 2rem 5rem rgba($black, 0.05);
         }
@@ -516,12 +520,13 @@ ul {
             grid-row: 1;
         }
 
-        box-shadow: none;
-        background: transparent;
-
         .card-title {
             color: inherit;
             font-weight: 600;
+            font-size: 3.4rem;
+        }
+        .card-text {
+            font-size: 1.8rem;
         }
     }
 }
@@ -543,8 +548,9 @@ footer {
     .card {
         margin-top: 3rem;
         box-shadow: none;
-        border: 0.2rem solid var(--text-color);
+        border: 0.2rem solid rgba(var(--text-color-rgb), 1);
         background: transparent;
+        border-radius: $border-radius-base;
 
         .card-title {
             color: inherit;
@@ -554,7 +560,7 @@ footer {
         textarea {
             background: transparent;
             border-width: 0.2rem;
-            border-radius: 0;
+            // border-radius: 0;
             border-color: inherit;
             font-weight: 600;
             color: inherit;
@@ -568,6 +574,20 @@ footer {
             color: rgba(var(--text-color-rgb), 0.6);
             font-weight: normal;
         }
+    }
+    // background: $primary;
+    // background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
+    // background: var(--background-dark);
+    color: var(--text-color);
+
+    ul {
+        margin: 0;
+    }
+
+    .heart {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-bottom: -0.2rem;
     }
 
     // margin-top: -10rem;
@@ -686,23 +706,6 @@ footer {
     height: 1em;
     color: inherit;
     vertical-align: -.125em;
-}
-
-footer {
-    // background: $primary;
-    // background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
-    background: var(--background-dark);
-    color: var(--text-color);
-
-    ul {
-        margin: 0;
-    }
-
-    .heart {
-        width: 1.6rem;
-        height: 1.6rem;
-        margin-bottom: -0.2rem;
-    }
 }
 
 .hidden {
