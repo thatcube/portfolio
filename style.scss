@@ -85,7 +85,7 @@ html[data-theme='dark'] {
 .theme-toggle {
     height: 5rem;
     border-radius: 5rem;
-    background: var(--background-color);
+    background: var(--background);
     padding: 1rem;
     overflow: visible;
     cursor: pointer;
@@ -96,7 +96,7 @@ html[data-theme='dark'] {
     // right: 3rem;
     &:hover {
         transform: rotate(10deg);
-        box-shadow: 0 0 3rem 0 rgba($black, 0.1);
+        box-shadow: 0 0 5rem 0 rgba($black, 0.2);
     }
 
     path {
@@ -113,6 +113,7 @@ html[data-theme='dark'] {
 html[data-theme="dark"] .theme-toggle {
     &:hover {
         transform: rotate(-10deg);
+        box-shadow: 0 0 5rem 0 rgba($black, 0.7);
     }
     .moon {
         opacity: 0;
