@@ -31,9 +31,11 @@ html {
     --gradient-color-one: #{$primary-lighten-1};
     --gradient-color-two: #{$primary-darken-2};
     --text-color: #{$background-dark};
+    --text-color-rgb: 21, 20, 37;
     --text-color--light: #{$gray};
     --background-color: #{$white};
     --background-light: #{mix($black, $white, 75%)};
+    --background-dark: #{mix(mix($white, $black, 90%), $primary, 90%)};
     background: var(--background);
     color: var(--text-color);
     --card-color-one: #{mix(#d6faf5, #95f2e2)};
@@ -47,9 +49,11 @@ html[data-theme='dark'] {
     --gradient-color-one: #{$primary-darken-3};
     --gradient-color-two: #{$primary-darken-6};
     --text-color: #{$white};
+    --text-color-rgb: 255, 255, 255;
     --text-color--light: #{mix($gray, $white, 50%)};
     --background-color: #{$background-dark};
     --background-light: #{$background};
+    --background-dark: #{mix(mix($white, $black, 4%), $primary, 93%)};
     --card-color-one: #{mix(#00eacf, $background-dark, 20%)};
     --card-color-two: #{mix(#166dff, $background-dark, 20%)};
     --card-color-three: #{mix(#ece43b, $background-dark, 20%)};
@@ -462,7 +466,7 @@ ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    grid-gap: 2rem;
+    grid-gap: 3rem;
     color: var(--text-color);
 
     @include until(m) {
@@ -539,7 +543,7 @@ footer {
     .card {
         margin-top: 3rem;
         box-shadow: none;
-        border: 0.2rem solid $white;
+        border: 0.2rem solid var(--text-color);
         background: transparent;
 
         .card-title {
@@ -551,17 +555,17 @@ footer {
             background: transparent;
             border-width: 0.2rem;
             border-radius: 0;
-            border-color: $white;
+            border-color: inherit;
             font-weight: 600;
             color: inherit;
 
             &:focus {
-                box-shadow: 0 0 0 0.1rem $white, 0 0.3rem 1rem rgba($white, 0.25);
+                box-shadow: 0 0 0 0.1rem var(--text-color), 0 0.3rem 1rem rgba(var(--text-color-rgb), 0.25);
             }
         }
 
         ::placeholder {
-            color: rgba($white, 0.8);
+            color: rgba(var(--text-color-rgb), 0.6);
             font-weight: normal;
         }
     }
@@ -576,7 +580,7 @@ footer {
     a {
         cursor: pointer;
         background: transparent;
-        color: $white;
+        color: inherit;
 
         p {
             margin: 0;
@@ -591,7 +595,7 @@ footer {
         }
 
         &:visited svg {
-            color: $white;
+            color: inherit;
         }
 
         &:hover {
@@ -600,7 +604,7 @@ footer {
             }
 
             p {
-                color: mix($background-dark, $white, 10%);
+                color: rgba(var(--text-color-rgb), 0.8);
             }
         }
 
@@ -627,7 +631,7 @@ footer {
 
 //SVG Styles
 .chat {
-    stroke: $white;
+    stroke: inherit;
     width: 60%;
 
     @include until(s) {
@@ -686,13 +690,13 @@ footer {
 
 footer {
     // background: $primary;
-    background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
+    // background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
+    background: var(--background-dark);
+    color: var(--text-color);
 
     ul {
         margin: 0;
     }
-
-    color: #fff;
 
     .heart {
         width: 1.6rem;
