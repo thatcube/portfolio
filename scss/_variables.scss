@@ -21,7 +21,7 @@ $gray-dark: mix($gray, $black, 50%);
 // $primary-lighten-1: #0080ce;
 // $primary-lighten-2: #0093e2;
 
-$primary: #675AE8;
+$primary: #675ae8;
 $primary-darken-1: #5d51d1;
 $primary-darken-2: #5248ba;
 $primary-darken-3: #483fa2;
@@ -45,6 +45,7 @@ $blue: #8BCDFF;
 $purple: #BD8BFF;
 $pink: #F78BFF;
 $orange: #FF8B93;
+$green: #00ead0;
 
 $background: mix(mix($primary, $white, 5%), $black, 98%);
 $background-light: mix(rgba($primary, 0.05), rgba($dark, 0.05), 50%);
