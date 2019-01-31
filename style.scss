@@ -273,7 +273,7 @@ header {
     position: relative;
 
     @include until(s) {
-        padding: 3rem 5% 5rem 5% !important;
+        padding: 3rem 5% 14rem 5% !important;
     }
 
     h1 {
@@ -564,6 +564,7 @@ html[data-theme="dark"] .about .icon-container {
             background: var(--card-color-four);
         }
         box-shadow: 0 5rem 20rem 0 rgba($black, 0.25);
+        border-radius: $border-radius-large;
         &:hover {
             .card-body {
                 transform: scale3d(1.03, 1.03, 1);
