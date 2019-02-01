@@ -15,7 +15,7 @@ h1 {
 
 h2 {
     font-size: 3.6rem;
-    font-weight: 600;
+    font-weight: 700;
 
     @include until(s) {
         font-size: 1.8rem;
@@ -279,7 +279,7 @@ header {
     h1 {
         font-size: 4rem;
         line-height: 1.4;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text-color);
 
         @include until(s) {
@@ -355,7 +355,7 @@ input:-webkit-autofill:active {
     
     & img {
         border-radius: $border-radius-base;
-        box-shadow: 0 1rem 5rem 0 rgba($black, 0.25);
+        box-shadow: 0 1rem 5rem 0 rgba($black, 0.25), 0 0 30rem 0 rgba($background-dark, 0.35);
     }
 
     position: relative;
@@ -420,7 +420,7 @@ ul {
 
         .row:not(div) {
             font-size: 3.2rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .row:nth-of-type(2) {
@@ -436,42 +436,42 @@ ul {
 
         &:first-of-type .icon-container {
             background: $orange;
-            box-shadow: 0 1rem 3rem 0 rgba($orange, 0.6), 0 1rem 5rem 0 rgba($black, 0.2);
+            box-shadow: 0 1rem 3rem -0.5rem rgba($orange, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
             path {
                 fill: white;
             }
         }
         &:nth-of-type(2) .icon-container {
             background: $blue;
-            box-shadow: 0 1rem 3rem 0 rgba($blue, 0.6), 0 1rem 5rem 0 rgba($black, 0.2);
+            box-shadow: 0 1rem 3rem -0.5rem rgba($blue, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
             path {
                 fill: white;
             }
         }
         &:nth-of-type(3) .icon-container {
             background: $pink;
-            box-shadow: 0 1rem 3rem 0 rgba($pink, 0.6), 0 1rem 5rem 0 rgba($black, 0.2);
+            box-shadow: 0 1rem 3rem -0.5rem rgba($pink, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
             path {
                 fill: white;
             }
         }
         &:nth-of-type(4) .icon-container {
             background: $yellow;
-            box-shadow: 0 1rem 3rem 0 rgba($yellow, 0.6), 0 1rem 5rem 0 rgba($black, 0.2);
+            box-shadow: 0 1rem 3rem -0.5rem rgba($yellow, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
             path {
                 fill: black;
             }
         }
         &:nth-of-type(5) .icon-container {
             background: $green;
-            box-shadow: 0 1rem 3rem 0 rgba($green, 0.6), 0 1rem 5rem 0 rgba($black, 0.2);
+            box-shadow: 0 1rem 3rem -0.5rem rgba($green, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
             path {
                 fill: white;
             }
         }
         &:nth-of-type(6) .icon-container {
             background: $purple;
-            box-shadow: 0 1rem 3rem 0 rgba($purple, 0.6), 0 1rem 5rem 0 rgba($black, 0.2);
+            box-shadow: 0 1rem 3rem -0.5rem rgba($purple, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
             path {
                 fill: white;
             }
@@ -634,7 +634,7 @@ footer {
             border-width: 0.2rem;
             // border-radius: 0;
             border-color: inherit;
-            font-weight: 600;
+            font-weight: 700;
             color: inherit;
 
             &:focus {
