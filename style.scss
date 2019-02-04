@@ -7,6 +7,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     box-sizing: border-box;
+    overflow: visible;
 }
 
 h1 {
@@ -373,7 +374,7 @@ input:-webkit-autofill:active {
         content: '';
         z-index: -1;
         border-radius: $border-radius-base;
-        box-shadow: 0.5rem 1.5rem 7rem 0 rgba(var(--primary-color-rgb), 0.45)
+        // box-shadow: 0.5rem 1.5rem 7rem 0 rgba(var(--primary-color-rgb), 0.45)
     }
 }
 
@@ -511,20 +512,20 @@ html[data-theme="dark"] .about .icon-container {
 // }
 
 ::-moz-selection {
-    background: $background-dark;
-    color: $white;
+    background: var(--text-color);
+    color: var(--background-color);
     // WebKit/Blink Browsers 
 }
 
 ::-moz-selection {
-    background: $background-dark;
-    color: $white;
+    background: var(--text-color);
+    color: var(--background-color);
     // Gecko Browsers 
 }
 
 ::selection {
-    background: $background-dark;
-    color: $white;
+    background: var(--text-color);
+    color: var(--background-color);
     // WebKit/Blink Browsers 
 }
 
@@ -668,6 +669,7 @@ footer {
 }
 
 .curve {
+    height: 4.8rem;
     path {
         fill: var(--background);
     }   
