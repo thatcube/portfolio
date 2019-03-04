@@ -731,6 +731,10 @@ footer {
     path {
         fill: var(--background);
     }
+    @media all and (max-width: 767.99px) {
+        transform: scale(5);
+        top: 3rem !important; 
+    }
 }
 
 .icons {
