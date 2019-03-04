@@ -76,7 +76,7 @@ function setNight() {
 	}
 }
 
-$('.theme-toggle').click(function () {
+$('.theme-toggle--container').click(function () {
 	document.documentElement.classList.add('color-theme-in-transition')
 	window.setTimeout(function () {
 		document.documentElement.classList.remove('color-theme-in-transition')

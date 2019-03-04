@@ -66,49 +66,44 @@ html[data-theme='dark'] {
 .nav {
     a {
         // &:not(:last-of-type) {
-            padding-right: 9%;
+        padding-right: 9%;
         // }
         font-size: 2rem;
         color: var(--text-color--light);
         transition: .2s ease-in-out all;
+
         &:hover {
             color: var(--text-color);
             transform: translateY(-0.2rem);
         }
     }
+
     span {
         font-size: 3rem;
         color: $primary;
     }
+
     padding-bottom: 16rem;
+
     @include until(s) {
         padding-bottom: 4rem;
     }
+
     div {
         display: flex;
     }
 }
 
 .theme-toggle {
-    height: 5rem;
-    border-radius: 5rem;
+    height: 3rem;
     // background: var(--background);
-    padding: 1rem;
     overflow: visible;
-    cursor: pointer;
     transform: translate3d(0, 0, 0);
     transition: 0.3s ease-in-out transform, 0.3s ease-in-out box-shadow;
     // position: absolute;
     // top: 2rem;
     // right: 3rem;
-    box-shadow: 0 0 3rem 0 rgba($black, 0.15);
-    &:hover {
-        transform: rotate(10deg);
-        box-shadow: 0 0 5rem 0 rgba($black, 0.3);
-    }
-    &:active {
-        box-shadow: 0 0 0 0 rgba($black, 0);
-    }
+    
 
     path {
         transition: transform 0.75s cubic-bezier(0.5, 0.1, 0, 1.2), opacity 0.2s ease-in-out !important;
@@ -119,26 +114,63 @@ html[data-theme='dark'] {
     .sun {
         transform: translateX(-0.375rem) rotate(-45deg) !important;
     }
+    &--container {
+        height: 5rem;
+        width: 5rem;
+        padding: 0;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        box-shadow: 0 0 3rem 0 rgba($black, 0.15);
+        border-radius: 50%;
+        transition: .3s ease all;
+        background: transparent;
+        &:focus {
+            outline: none;
+        }
+
+        &:hover, &:focus {
+            box-shadow: 0 0 5rem 0 rgba($black, 0.3);
+        }
+
+        &:active {
+            box-shadow: 0 0 0 0 rgba($black, 0);
+            opacity: 0.5 !important;
+            transform: scale(0.9);
+        }
+    }
 }
 
-html[data-theme="dark"] .theme-toggle {
-    box-shadow: 0 0 3rem 0 rgba($black, 0.6);
-    &:hover {
-        transform: rotate(-10deg);
-        box-shadow: 0 0 5rem 0 rgba($black, 1);
-    }
-    &:active {
-        box-shadow: 0 0 0 0 rgba($black, 0);
-    }
-    .moon {
-        opacity: 0;
-        transform: translateX(0.375rem) rotate(45deg) !important;
+html[data-theme="dark"] {
+    .theme-toggle {
+        .moon {
+            opacity: 0;
+            transform: translateX(0.375rem) rotate(45deg) !important;
+        }
+
+        .sun {
+            opacity: 1;
+            transform: translateX(0) rotate(0) !important;
+        }
+
+        &--container {
+            box-shadow: 0 0 3rem 0 rgba($black, 0.6);
+            border-radius: 50%;
+            transition: .3s ease all;
+            background: transparent;
+
+            &:hover, &:focus {
+                box-shadow: 0 0 5rem 0 rgba($black, 1);
+            }
+
+            &:active {
+                box-shadow: 0 0 0 0 rgba($black, 0);
+                opacity: 0.5 !important;
+                transform: scale(0.9);
+            }
+        }
     }
 
-    .sun {
-        opacity: 1;
-        transform: translateX(0) rotate(0) !important;
-    }
 }
 
 // html.color-theme-in-transition * {
@@ -231,8 +263,10 @@ section {
 }
 
 .btn.changeable {
-    background: var(--text-color);
-    color: var(--background-color);
+    // background: var(--text-color);
+    // color: var(--background-color);
+    // background: var(--text-color);
+    color: var(--text-color);
     transition: .3s ease-in-out all;
     box-shadow: 0 0.5rem 2rem 0 rgba($black, 0.2);
 
@@ -299,6 +333,7 @@ header {
         font-weight: 400;
         font-size: 3rem;
         margin: 2rem 0 4rem 0;
+
         @include until(s) {
             font-size: 2.2rem;
             margin-bottom: 10rem;
@@ -353,7 +388,7 @@ input:-webkit-autofill:active {
     //     margin: 3rem 0;
     // }
 
-    
+
     & img {
         border-radius: $border-radius-base;
         box-shadow: 0 1rem 5rem 0 rgba($black, 0.25), 0 0 30rem 0 rgba($background-dark, 0.35);
@@ -361,7 +396,7 @@ input:-webkit-autofill:active {
 
     position: relative;
     z-index: 2;
-    
+
 
     &:before {
         position: absolute;
@@ -403,6 +438,7 @@ ul {
         justify-content: center;
         box-shadow: 0 1rem 5rem 0 rgba($black, 0.2);
         overflow: visible;
+
         svg {
             height: 3.6rem;
             width: 3.6rem;
@@ -438,47 +474,59 @@ ul {
         &:first-of-type .icon-container {
             background: $orange;
             box-shadow: 0 1rem 3rem -0.5rem rgba($orange, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
+
             path {
                 fill: white;
             }
         }
+
         &:nth-of-type(2) .icon-container {
             background: $blue;
             box-shadow: 0 1rem 3rem -0.5rem rgba($blue, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
+
             path {
                 fill: white;
             }
         }
+
         &:nth-of-type(3) .icon-container {
             background: $pink;
             box-shadow: 0 1rem 3rem -0.5rem rgba($pink, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
+
             path {
                 fill: white;
             }
         }
+
         &:nth-of-type(4) .icon-container {
             background: $yellow;
             box-shadow: 0 1rem 3rem -0.5rem rgba($yellow, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
+
             path {
                 fill: black;
             }
         }
+
         &:nth-of-type(5) .icon-container {
             background: $green;
             box-shadow: 0 1rem 3rem -0.5rem rgba($green, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
+
             path {
                 fill: white;
             }
         }
+
         &:nth-of-type(6) .icon-container {
             background: $purple;
             box-shadow: 0 1rem 3rem -0.5rem rgba($purple, 0.6), 0 1rem 5rem 0 rgba($black, 0.1);
+
             path {
                 fill: white;
             }
         }
     }
 }
+
 html[data-theme="dark"] .about .icon-container {
     box-shadow: 0 1rem 5rem rgba($black, 0.75);
 }
@@ -549,41 +597,48 @@ html[data-theme="dark"] .about .icon-container {
     padding-bottom: 2rem;
 
     .card {
-        
+
         &:first-of-type {
             // background: #00eacf;
             // background: #95f2e2;
             background: var(--card-color-one);
         }
+
         &:nth-of-type(2) {
             background: var(--card-color-two);
         }
+
         &:nth-of-type(3) {
             background: var(--card-color-three);
         }
+
         &:nth-of-type(4) {
             background: var(--card-color-four);
         }
+
         box-shadow: 0 5rem 20rem 0 rgba($black, 0.25);
         border-radius: $border-radius-large;
-        &:hover {
-            .card-body {
-                transform: scale3d(1.03, 1.03, 1);
-            }
-            .card-img {
-                transform: scale3d(1.1, 1.1, 1);
-            }
-            box-shadow: 0 7rem 25rem rgba($black, 0.35);
-        }
+        // &:hover {
+        //     .card-body {
+        //         transform: scale3d(1.03, 1.03, 1);
+        //     }
+        //     .card-img {
+        //         transform: scale3d(1.1, 1.1, 1);
+        //     }
+        //     box-shadow: 0 7rem 25rem rgba($black, 0.35);
+        // }
         padding: 2rem;
         display: grid;
         grid-template-rows: 1fr;
         // border: 0.2rem solid var(--text-color);
         margin-bottom: 0;
-        .card-img, .card-body {
+
+        .card-img,
+        .card-body {
             transition: .3s ease-in-out all;
             transform-origin: center;
         }
+
         .card-img {
             grid-row: 2;
             border-radius: 0;
@@ -598,6 +653,7 @@ html[data-theme="dark"] .about .icon-container {
             font-weight: 700;
             font-size: 3.4rem;
         }
+
         .card-text {
             font-size: 1.8rem;
         }
@@ -648,11 +704,12 @@ footer {
             font-weight: normal;
         }
     }
+
     // background: $primary;
     // background: linear-gradient(101deg, var(--gradient-color-one), var(--gradient-color-two));
     // background: var(--background-dark);
     color: var(--text-color);
-    position: relative; 
+    position: relative;
 
     ul {
         margin: 0;
@@ -670,9 +727,10 @@ footer {
 
 .curve {
     height: 4.8rem;
+
     path {
         fill: var(--background);
-    }   
+    }
 }
 
 .icons {
