@@ -121,16 +121,16 @@ html[data-theme='dark'] {
         align-items: center;
         display: flex;
         justify-content: center;
-        box-shadow: 0 0 3rem 0 rgba($black, 0.15);
+        box-shadow: 0 0 0.2rem 0 rgba($black, 0.25);
         border-radius: 50%;
-        transition: .3s ease all;
+        transition: .3s ease-in-out all;
         background: transparent;
         &:focus {
             outline: none;
         }
 
         &:hover, &:focus {
-            box-shadow: 0 0 5rem 0 rgba($black, 0.3);
+            box-shadow: 0 0 3rem 0 rgba($black, 0.2);
         }
 
         &:active {
@@ -266,9 +266,10 @@ section {
     // background: var(--text-color);
     // color: var(--background-color);
     // background: var(--text-color);
+    background: transparent;
     color: var(--text-color);
     transition: .3s ease-in-out all;
-    box-shadow: 0 0.5rem 2rem 0 rgba($black, 0.2);
+    box-shadow: 0 0 0 0.2rem rgba(var(--text-color-rgb), 0.1);
 
 
     // &:hover {
@@ -279,13 +280,18 @@ section {
         // background: var(--text-color);
         // color: var(--background-color);
         opacity: 1;
-        box-shadow: 0 1rem 3rem 0 rgba($black, 0.25);
-        transform: translateY(-0.2rem);
+        box-shadow: 0 0.5rem 2rem 0 rgba(var(--text-color-rgb), 0.15), 0 0 0 0.2rem rgba(var(--text-color-rgb), 0.05);
+        transform: translateY(-0.1rem);
     }
 
     &:active {
-        box-shadow: 0 0 0.3rem 0 rgba($black, 0.1);
+        box-shadow: 0 0 0.2rem 0 rgba(var(--text-color-rgb), 0.5);
+        opacity: 0.5;
         transform: translateY(0);
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(var(--text-color-rgb), 0.5);
     }
 
     &.light {
@@ -320,6 +326,9 @@ header {
         @include until(s) {
             font-size: 2.8rem;
             margin-top: 4rem;
+        }
+        span {
+            color: $primary;
         }
 
         // margin-bottom: 1rem;
