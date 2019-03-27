@@ -215,7 +215,9 @@ section {
   //     color: $white;
   //     position: relative;
   // }
-
+  &:nth-of-type(1) {
+      overflow: hidden;
+  }
   // about me section
   &:nth-of-type(2) {
     // color: var(--text-color);
@@ -318,7 +320,7 @@ header {
     color: var(--text-color);
 
     @include until(s) {
-      font-size: 2.8rem;
+      font-size: 2.7rem;
       margin-top: 4rem;
     }
     span {
