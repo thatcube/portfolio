@@ -46,16 +46,19 @@ html {
 }
 
 html[data-theme="dark"] {
-  --background: #{mix($background-dark, $white, 95%)};
+  --background: #{mix($background-dark, $black, 89%)};
+  // --background: #{$background-dark};
   --gradient-color-one: #{$primary-darken-3};
   --gradient-color-two: #{$primary-darken-6};
   --primary-color-rgb: 1, 1, 1;
   --text-color: #{$white};
   --text-color-rgb: 255, 255, 255;
   --text-color--light: #{mix($gray, $white, 50%)};
-  --background-color: #{$background-dark};
+  --background-color: #{mix($background-dark, $black, 50%)};
+  // --background-color: #000;
   --background-light: #{$background};
   --background-dark: #{mix(mix($white, $black, 4%), $primary, 93%)};
+  --background-dark: #000;
   --card-color-one: #{mix(#00eacf, $background-dark, 20%)};
   --card-color-two: #{mix(#166dff, $background-dark, 20%)};
   --card-color-three: #{mix(#ece43b, $background-dark, 20%)};
@@ -69,7 +72,8 @@ html[data-theme="dark"] {
     }
     font-size: 2rem;
     @media all and (max-width: 767.99px) {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
+      font-size: calc(1.2rem + 1vw);
     }
     color: var(--text-color--light);
     transition: 0.2s ease-in-out all;
@@ -157,13 +161,14 @@ html[data-theme="dark"] {
 
     &--container {
       box-shadow: 0 0 3rem 0 rgba($black, 0.6);
+      box-shadow: 0 0 0 0.2rem rgba($white, 0.1);
       border-radius: 50%;
       transition: 0.3s ease all;
       background: transparent;
 
       &:hover,
       &:focus {
-        box-shadow: 0 0 5rem 0 rgba($black, 1);
+        box-shadow: 0 0 1.5rem 0.5rem rgba($white, 0.1);
       }
 
       &:active {
