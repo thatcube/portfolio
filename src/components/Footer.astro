@@ -539,7 +539,6 @@ import { Icon } from 'astro-icon/components';
 
     function selectTheme(btn: HTMLButtonElement, focus = false) {
       const theme = btn.dataset.theme!;
-      const previous = localStorage.getItem("theme") || "system";
       localStorage.setItem("theme", theme);
       applyTheme(theme);
       updateButtons(theme);
@@ -547,10 +546,19 @@ import { Icon } from 'astro-icon/components';
       // Always emit the theme-appropriate ornament on click — even if the
       // theme didn't actually change, it confirms the click registered.
       emitEffect(btn);
-      if (previous !== theme) {
-        btn.setAttribute("data-just-activated", "");
-        window.setTimeout(() => btn.removeAttribute("data-just-activated"), 520);
-      }
+      // Always replay the icon pop + glow on click (not just on transition),
+      // so spam-clicking the active theme keeps showing the full reaction
+      // (rays + bounce + amber flash) rather than only the ornament burst.
+      // Re-toggle the attribute so the keyframe restarts even on repeats.
+      btn.removeAttribute("data-just-activated");
+      // Force a reflow so the browser registers the removal before re-adding.
+      void btn.offsetWidth;
+      btn.setAttribute("data-just-activated", "");
+      window.clearTimeout((btn as any).__justActivatedTimer);
+      (btn as any).__justActivatedTimer = window.setTimeout(
+        () => btn.removeAttribute("data-just-activated"),
+        2100
+      );
     }
 
     themeButtons.forEach((btn, idx) => {
