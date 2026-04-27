@@ -436,32 +436,38 @@ import { Icon } from 'astro-icon/components';
   }
 
   function emitZzz(layer: HTMLElement, cx: number, cy: number) {
+    // Anchor the trio at the upper-right of the icon (where cartoon
+    // sleep-z's typically emanate from), then drift further up-and-right.
+    // Each z has its own little starting spread so they're never visibly
+    // stacked at a single point — even on the very first frame.
+    const anchorX = cx + 7;
+    const anchorY = cy - 5;
     const zs = [
-      { text: "z", size: 9,  delay: 0 },
-      { text: "z", size: 11, delay: 130 },
-      { text: "Z", size: 13, delay: 260 },
+      { text: "z", size: 9,  delay: 0,   ox: -3, oy:  2 },
+      { text: "z", size: 11, delay: 140, ox:  0, oy:  0 },
+      { text: "Z", size: 13, delay: 280, ox:  3, oy: -2 },
     ];
-    for (const { text, size, delay } of zs) {
+    for (const { text, size, delay, ox, oy } of zs) {
       const z = document.createElement("span");
       z.className = "theme-zzz";
       z.textContent = text;
-      z.style.left = cx + "px";
-      z.style.top = (cy - 6) + "px";
+      z.style.left = (anchorX + ox) + "px";
+      z.style.top = (anchorY + oy) + "px";
       z.style.fontSize = size + "px";
       layer.appendChild(z);
 
-      const driftX = 14 + Math.random() * 4;
-      const driftY = -22 - Math.random() * 4;
+      const driftX = 10 + Math.random() * 3;
+      const driftY = -16 - Math.random() * 3;
       const anim = z.animate(
         [
           {
-            transform: `translate(-50%, -50%) scale(0.4)`,
+            transform: `translate(-50%, -50%) scale(0.5)`,
             opacity: 0,
           },
           {
-            transform: `translate(calc(-50% + ${(driftX * 0.35).toFixed(1)}px), calc(-50% + ${(driftY * 0.35).toFixed(1)}px)) scale(1)`,
+            transform: `translate(calc(-50% + ${(driftX * 0.3).toFixed(1)}px), calc(-50% + ${(driftY * 0.3).toFixed(1)}px)) scale(1)`,
             opacity: 1,
-            offset: 0.3,
+            offset: 0.25,
           },
           {
             transform: `translate(calc(-50% + ${driftX.toFixed(1)}px), calc(-50% + ${driftY.toFixed(1)}px)) scale(0.85)`,
