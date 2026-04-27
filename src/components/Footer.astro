@@ -168,28 +168,20 @@ import { Icon } from 'astro-icon/components';
   .theme-btn[data-theme="light"][data-just-activated] .theme-icon-solid {
     animation:
       theme-icon-pop 0.5s cubic-bezier(0.34, 1.6, 0.5, 1),
-      theme-sun-glow 1.2s linear;
+      theme-sun-glow 0.6s ease-out;
   }
   @keyframes theme-sun-glow {
     0% {
       color: var(--color-primary);
       filter: none;
     }
-    10% {
+    20% {
       color: #f59e0b;
       filter: drop-shadow(0 0 6px color-mix(in srgb, #f59e0b 70%, transparent));
     }
-    35% {
-      color: #f59e0b;
-      filter: drop-shadow(0 0 4px color-mix(in srgb, #f59e0b 45%, transparent));
-    }
-    65% {
+    60% {
       color: #d18a18;
-      filter: drop-shadow(0 0 2px color-mix(in srgb, #f59e0b 20%, transparent));
-    }
-    85% {
-      color: color-mix(in srgb, #f59e0b 30%, var(--color-primary));
-      filter: none;
+      filter: drop-shadow(0 0 2px color-mix(in srgb, #f59e0b 25%, transparent));
     }
     100% {
       color: var(--color-primary);
@@ -201,28 +193,20 @@ import { Icon } from 'astro-icon/components';
   .theme-btn[data-theme="dark"][data-just-activated] .theme-icon-solid {
     animation:
       theme-icon-pop 0.5s cubic-bezier(0.34, 1.6, 0.5, 1),
-      theme-moon-glow 1.2s linear;
+      theme-moon-glow 0.6s ease-out;
   }
   @keyframes theme-moon-glow {
     0% {
       color: var(--color-primary);
       filter: none;
     }
-    10% {
+    20% {
       color: #c4b5fd;
       filter: drop-shadow(0 0 6px color-mix(in srgb, #c4b5fd 70%, transparent));
     }
-    35% {
-      color: #c4b5fd;
-      filter: drop-shadow(0 0 4px color-mix(in srgb, #c4b5fd 45%, transparent));
-    }
-    65% {
+    60% {
       color: #a78bfa;
-      filter: drop-shadow(0 0 2px color-mix(in srgb, #c4b5fd 20%, transparent));
-    }
-    85% {
-      color: color-mix(in srgb, #c4b5fd 30%, var(--color-primary));
-      filter: none;
+      filter: drop-shadow(0 0 2px color-mix(in srgb, #c4b5fd 25%, transparent));
     }
     100% {
       color: var(--color-primary);
@@ -590,7 +574,7 @@ import { Icon } from 'astro-icon/components';
       window.clearTimeout((btn as any).__justActivatedTimer);
       (btn as any).__justActivatedTimer = window.setTimeout(
         () => btn.removeAttribute("data-just-activated"),
-        1300
+        700
       );
     }
 
