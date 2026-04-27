@@ -21,7 +21,7 @@ import { Icon } from 'astro-icon/components';
     <div class="flex items-center gap-6">
       <!-- Theme Switcher -->
       <div
-        class="theme-switcher flex items-center rounded-xl p-1.5 gap-1"
+        class="theme-switcher flex items-center rounded-xl p-1 gap-1"
         role="radiogroup"
         aria-label="Color theme"
       >
@@ -92,10 +92,10 @@ import { Icon } from 'astro-icon/components';
   /* Sliding "liquid" indicator that morphs between active buttons. */
   .theme-indicator {
     position: absolute;
-    top: 6px;
+    top: 4px;
     left: var(--indicator-x, 0px);
     width: var(--indicator-w, 0px);
-    height: calc(100% - 12px);
+    height: calc(100% - 8px);
     border-radius: 8px;
     background: color-mix(in srgb, var(--color-primary) var(--theme-indicator-mix, 12%), transparent);
     transform-origin: center;
