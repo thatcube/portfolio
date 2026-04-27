@@ -13,17 +13,17 @@ const experience = [
   },
   {
     title: "Product Designer",
-    company: "CBORD & Horizon Software",
+    company: 'CBORD <a href="https://illumia.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a> & Horizon Software',
     range: "Dec 2018 — April 2021",
   },
   {
     title: "UI Developer",
-    company: "CBORD",
+    company: 'CBORD <a href="https://illumia.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a>',
     range: "May 2018 — Dec 2018",
   },
   {
     title: "Software Development Intern",
-    company: "CBORD",
+    company: 'CBORD <a href="https://illumia.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a>',
     range: "Feb 2018 — May 2018",
   },
 ];
@@ -119,7 +119,7 @@ const interests = [
                 </h3>
                 {item.current && <span class="now-badge">Now</span>}
               </div>
-              <p class="text-primary/75 mt-1">{item.company}</p>
+              <p class="text-primary/75 mt-1" set:html={item.company}></p>
               <p class="text-sm text-primary/50 mt-1 font-mono tracking-tight">
                 {item.range}
               </p>
@@ -207,6 +207,23 @@ const interests = [
     color: color-mix(in srgb, var(--color-primary) 78%, transparent);
     text-wrap: pretty;
     max-width: 36rem;
+  }
+
+  /* ── Inline company link (e.g. "CBORD (now Illumia)") ────────────────── */
+  .company-link {
+    color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+    transition:
+      color 200ms ease,
+      text-decoration-color 200ms ease;
+  }
+  .company-link:hover,
+  .company-link:focus-visible {
+    color: var(--color-primary);
+    text-decoration-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
   }
 
   /* ── Section inner (caps reading width within max-w-5xl frame) ───────── */
