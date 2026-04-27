@@ -442,12 +442,14 @@ import { Icon } from 'astro-icon/components';
     // stacked at a single point — even on the very first frame.
     const anchorX = cx + 7;
     const anchorY = cy - 5;
+    // Each z gets its own start offset AND drift vector so the trio fans
+    // out into a sleep-puff instead of trailing in a single line.
     const zs = [
-      { text: "z", size: 9,  delay: 0,   ox: -3, oy:  2 },
-      { text: "z", size: 11, delay: 140, ox:  0, oy:  0 },
-      { text: "Z", size: 13, delay: 280, ox:  3, oy: -2 },
+      { text: "z", size: 9,  delay: 0,   ox: -4, oy:  3, dx:  4, dy: -14 },
+      { text: "z", size: 11, delay: 140, ox:  1, oy:  0, dx: 11, dy: -17 },
+      { text: "Z", size: 13, delay: 280, ox:  6, oy: -3, dx: 18, dy: -20 },
     ];
-    for (const { text, size, delay, ox, oy } of zs) {
+    for (const { text, size, delay, ox, oy, dx, dy } of zs) {
       const z = document.createElement("span");
       z.className = "theme-zzz";
       z.textContent = text;
@@ -462,8 +464,8 @@ import { Icon } from 'astro-icon/components';
       z.style.opacity = "0";
       layer.appendChild(z);
 
-      const driftX = 10 + Math.random() * 3;
-      const driftY = -16 - Math.random() * 3;
+      const driftX = dx + (Math.random() - 0.5) * 2;
+      const driftY = dy + (Math.random() - 0.5) * 2;
       const anim = z.animate(
         [
           {
