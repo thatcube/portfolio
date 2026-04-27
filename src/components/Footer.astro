@@ -160,9 +160,26 @@ import { Icon } from 'astro-icon/components';
   .theme-btn:hover .theme-icon { transform: scale(1.08); }
   .theme-btn:active .theme-icon { transform: scale(0.92); }
   .theme-btn[data-active] { opacity: 1; }
-  /* Sun icon picks up the same warm amber as its hover rays so the icon
-     and its animation read as one piece (regardless of active state). */
-  .theme-btn[data-theme="light"] { color: #f59e0b; }
+  /* "Lights on" flash: when the sun is freshly activated, briefly glow the
+     same warm amber as its ray burst, then settle back to the standard
+     primary tint so the icon stays legible against any surface. */
+  .theme-btn[data-theme="light"][data-just-activated] .theme-icon-solid {
+    animation:
+      theme-icon-pop 0.5s cubic-bezier(0.34, 1.6, 0.5, 1),
+      theme-sun-glow 1.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  @keyframes theme-sun-glow {
+    0%   { color: var(--color-primary); filter: none; }
+    18%  {
+      color: #f59e0b;
+      filter: drop-shadow(0 0 6px color-mix(in srgb, #f59e0b 70%, transparent));
+    }
+    55%  {
+      color: #f59e0b;
+      filter: drop-shadow(0 0 4px color-mix(in srgb, #f59e0b 45%, transparent));
+    }
+    100% { color: var(--color-primary); filter: none; }
+  }
   /* Tiny "pop" only on the button that was just activated — keeps the
      other-button transition a calm fade. */
   .theme-btn[data-just-activated] .theme-icon-solid {
