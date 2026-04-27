@@ -12,17 +12,9 @@
   >
     <defs>
       <clipPath id="liquid-logo-clip">
-        <circle cx="22" cy="22" r="12.5"></circle>
+        <circle cx="22" cy="22" r="13"></circle>
       </clipPath>
     </defs>
-    <circle
-      cx="22"
-      cy="22"
-      r="16"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="8"
-    ></circle>
     <g clip-path="url(#liquid-logo-clip)">
       <path
         data-liquid-surface
@@ -30,6 +22,14 @@
         d="M10 22 L34 22 L34 34 L10 34 Z"
       ></path>
     </g>
+    <!-- Solid donut drawn ON TOP — its inner edge hides any liquid bleed
+         past the inner circle, so there's no antialiased seam.
+         Outer ring r=20, inner hole r=12. evenodd punches the hole. -->
+    <path
+      fill="currentColor"
+      fill-rule="evenodd"
+      d="M2 22 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0 Z M10 22 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0 Z"
+    ></path>
     <g data-liquid-droplets fill="currentColor"></g>
   </svg>
 </span>
@@ -96,7 +96,21 @@
     const DRAIN_MS = 400;
     const PAUSE_MS = 150;
     const K = 90; // spring stiffness
-    const C = 9; // spring damping (underdamped → bounce, then settle)
+    const C = 9; // click-refill damping (underdamped → bounce, then settle)
+    const C_BOOT = 17; // boot-refill damping (near-critical → glide in, no bounce)
+    let bootSpring = false;
+    let bootDropletsUntil = 0; // emit droplets during this window after boot
+
+    // ── Scroll slosh ────────────────────────────────────────────────────────
+    // Water has inertia: when the page scrolls, the surface lags briefly,
+    // then oscillates back to rest. Independent damped oscillator added on
+    // top of the main level so it composes with any mode.
+    let sloshOffset = 0;
+    let sloshVel = 0;
+    const SLOSH_K = 70;
+    const SLOSH_C = 7;
+    let lastScrollY =
+      typeof window !== "undefined" ? window.scrollY || 0 : 0;
 
     type Droplet = {
       x: number;
@@ -113,22 +127,27 @@
 
     function buildSurfacePath() {
       // level=0 → surface at BOTTOM (empty); level=1 → surface at TOP (full)
-      const baseY = BOTTOM - level * (R * 2);
-      const step = (R * 2) / SAMPLES;
+      // Slosh offset shifts the surface up/down for scroll-driven inertia.
+      const effectiveLevel = level + sloshOffset;
+      const baseY = BOTTOM - effectiveLevel * (R * 2);
+      // Path extends well past the clip radius so the liquid fully covers the
+      // inner area at all wave/tilt extremes (no seam at the ring's inner edge).
+      const HALF_W = R + 4;
+      const step = (HALF_W * 2) / SAMPLES;
       const tanTilt = Math.tan(tilt);
       let d = "";
       for (let i = 0; i <= SAMPLES; i++) {
-        const x = CX - R + i * step;
+        const x = CX - HALF_W + i * step;
         const t = i / SAMPLES;
         const wave = Math.sin(phase + t * Math.PI * 2.6) * waveAmp;
         // Linear lean across width: dome tilts toward cursor
-        const lean = (t - 0.5) * (R * 2) * tanTilt;
+        const lean = (t - 0.5) * (HALF_W * 2) * tanTilt;
         const y = baseY + wave + lean;
         d += (i === 0 ? "M" : " L") + x.toFixed(2) + " " + y.toFixed(2);
       }
       // Close down through the bottom of the inner circle (clip handles cropping)
-      d += " L " + (CX + R).toFixed(2) + " " + (BOTTOM + 2).toFixed(2);
-      d += " L " + (CX - R).toFixed(2) + " " + (BOTTOM + 2).toFixed(2);
+      d += " L " + (CX + HALF_W).toFixed(2) + " " + (BOTTOM + 4).toFixed(2);
+      d += " L " + (CX - HALF_W).toFixed(2) + " " + (BOTTOM + 4).toFixed(2);
       d += " Z";
       return d;
     }
@@ -138,7 +157,7 @@
       // Emit just below the vessel — the liquid is leaking out the bottom
       const x = CX + (Math.random() - 0.5) * (R * 0.9);
       const y = BOTTOM + 4 + Math.random() * 1.5;
-      const r = 1.0 + Math.random() * 0.8;
+      const r = 1.6 + Math.random() * 1.0;
       const el = document.createElementNS(SVG_NS, "circle");
       el.setAttribute("r", r.toFixed(2));
       el.setAttribute("cx", x.toFixed(2));
@@ -182,10 +201,15 @@
       lastTime = now;
 
       // Ambient wave — always advancing
-      phase += dt * 1.6;
+      phase += dt * 1.05;
 
       // Tilt easing toward target
       tilt += (targetTilt - tilt) * Math.min(1, dt * 9);
+
+      // Scroll slosh — damped oscillator, always running
+      const sloshAcc = -SLOSH_K * sloshOffset - SLOSH_C * sloshVel;
+      sloshVel += sloshAcc * dt;
+      sloshOffset += sloshVel * dt;
 
       if (mode === "drain") {
         const t = Math.min(1, (now - modeStart) / DRAIN_MS);
@@ -212,7 +236,8 @@
         }
       } else if (mode === "spring") {
         // Damped harmonic oscillator toward REST_LEVEL
-        const acc = -K * (level - REST_LEVEL) - C * vel;
+        const damp = bootSpring ? C_BOOT : C;
+        const acc = -K * (level - REST_LEVEL) - damp * vel;
         vel += acc * dt;
         level += vel * dt;
         // Wave amplitude rides the velocity — turbulent during refill, calm at rest
@@ -225,15 +250,28 @@
           level = REST_LEVEL;
           vel = 0;
           mode = "idle";
+          bootSpring = false;
         }
       } else {
         // idle: subtle breathing on level + amplitude
         const breath = Math.sin(now * 0.0008) * 0.025;
         level = REST_LEVEL + breath;
-        waveAmp = 1.6 + Math.sin(now * 0.0011) * 0.5;
+        // Wave amplitude rides slosh velocity for scroll turbulence
+        const sloshTurb = Math.min(2.5, Math.abs(sloshVel) * 8);
+        waveAmp = 1.6 + Math.sin(now * 0.0011) * 0.5 + sloshTurb;
       }
 
       updateDroplets(dt);
+
+      // Boot-refill droplet shower — independent of mode, so navigation
+      // always shows a few drops without making the spring bouncier.
+      if (now < bootDropletsUntil && droplets.length < 8) {
+        if (now >= nextDropletAt) {
+          emitDroplet();
+          nextDropletAt = now + 70 + Math.random() * 60;
+        }
+      }
+
       surface!.setAttribute("d", buildSurfacePath());
 
       rafId = requestAnimationFrame(tick);
@@ -260,16 +298,51 @@
       surface!.setAttribute("d", buildSurfacePath());
     }
 
-    // ── Click → drain ───────────────────────────────────────────────────────
-    trigger.addEventListener("click", () => {
+    // ── Click → drain (only when already on home page) ─────────────────────
+    // On other pages, the link navigates as usual — the destination page
+    // boots in `spring` mode (low → glide-fill). A flag is set so the
+    // destination page knows to emit droplets (we only "leak" when the user
+    // intentionally clicked the logo, not on every page load).
+    trigger.addEventListener("click", (e) => {
       if (reduceMotion.matches) return;
+      const isHome =
+        window.location.pathname === "/" ||
+        window.location.pathname === "/index.html";
+      if (!isHome) {
+        try {
+          sessionStorage.setItem("liquid-logo-droplets", "1");
+        } catch {
+          /* sessionStorage may be blocked — fail silently */
+        }
+        return; // let the link navigate
+      }
+      e.preventDefault();
+      // Ignore clicks while a cycle is already running — let it finish.
+      if (mode !== "idle") return;
       drainStartLevel = level > 0.05 ? level : REST_LEVEL;
       mode = "drain";
       modeStart = performance.now();
       nextDropletAt = modeStart;
     });
 
-    // ── Hover tilt ──────────────────────────────────────────────────────────
+    // ── Scroll → slosh ──────────────────────────────────────────────────────
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (reduceMotion.matches) return;
+        const y = window.scrollY || 0;
+        const dy = y - lastScrollY;
+        lastScrollY = y;
+        // Convert scroll delta into a velocity impulse on the slosh
+        // oscillator. Sign is inverted: scrolling DOWN pushes water UP
+        // (inertia). Scale is tuned for typical wheel/trackpad deltas.
+        sloshVel -= dy * 0.0009;
+        // Clamp so a very fast scroll doesn't blow past the vessel
+        if (sloshVel > 0.6) sloshVel = 0.6;
+        else if (sloshVel < -0.6) sloshVel = -0.6;
+      },
+      { passive: true }
+    );
     trigger.addEventListener("pointermove", (e) => {
       if (reduceMotion.matches) return;
       const rect = svg.getBoundingClientRect();
@@ -305,8 +378,33 @@
       else start();
     });
 
-    // Boot
-    if (reduceMotion.matches) renderStatic();
-    else start();
+    // Boot — every page load starts low and glides up to rest with strong
+    // damping (no overshoot). Droplet shower only runs if the user
+    // intentionally clicked the brand link from another page (flag in
+    // sessionStorage). Reduced-motion skips straight to rest.
+    if (reduceMotion.matches) {
+      renderStatic();
+    } else {
+      level = 0.18;
+      vel = 0;
+      mode = "spring";
+      bootSpring = true;
+      let dropletsRequested = false;
+      try {
+        dropletsRequested =
+          sessionStorage.getItem("liquid-logo-droplets") === "1";
+        if (dropletsRequested) {
+          sessionStorage.removeItem("liquid-logo-droplets");
+        }
+      } catch {
+        /* sessionStorage may be blocked — fail silently */
+      }
+      if (dropletsRequested) {
+        const bootNow = performance.now();
+        bootDropletsUntil = bootNow + 500;
+        nextDropletAt = bootNow;
+      }
+      start();
+    }
   })();
 </script>
