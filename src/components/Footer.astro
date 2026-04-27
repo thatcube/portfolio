@@ -26,7 +26,7 @@ import { Icon } from 'astro-icon/components';
         aria-label="Color theme"
       >
         <span class="theme-indicator" aria-hidden="true"></span>
-        <span class="theme-droplets" aria-hidden="true"></span>
+        <span class="theme-effects" aria-hidden="true"></span>
         <button
           type="button"
           role="radio"
@@ -114,11 +114,11 @@ import { Icon } from 'astro-icon/components';
     transform: scaleY(0.86);
   }
 
-  /* Droplet emitter overlay. The wrapper stays scoped, but droplet styles
-     must be global because we createElement() them in JS — without Astro's
-     scoping attribute, scoped rules wouldn't apply (zero-size, transparent
-     spans). Names are unique enough that global scope is safe. */
-  .theme-droplets {
+  /* Effect overlay — sits above tooltip layer so emitted ornaments aren't
+     clipped or hidden behind anything. The actual ornament elements
+     (rays, z's) are styled in the global block below because they're
+     created in JS and don't carry Astro's scoped-CSS attribute. */
+  .theme-effects {
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -287,20 +287,34 @@ import { Icon } from 'astro-icon/components';
   }
 </style>
 
-<!-- Droplet styles must be global because the elements are created in JS
-     and don't carry Astro's scoped-CSS attribute. The class name is
+<!-- Effect ornament styles must be global because the elements are created
+     in JS and don't carry Astro's scoped-CSS attribute. Class names are
      namespaced enough to be safe at global scope. -->
 <style is:global>
-  .theme-droplet {
+  /* Light mode → sun rays bursting outward from the icon. Warm amber
+     keeps the metaphor on-brand regardless of the surface theme. */
+  .theme-ray {
     position: absolute;
-    width: var(--d, 5px);
-    height: var(--d, 5px);
-    margin-left: calc(var(--d, 5px) / -2);
-    border-radius: 50%;
-    background: var(--color-primary);
-    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
-    opacity: 0;
+    width: 2px;
+    height: 7px;
+    margin-left: -1px;
+    margin-top: -3.5px;
+    border-radius: 1.5px;
+    background: #f59e0b;
+    box-shadow: 0 0 6px color-mix(in srgb, #f59e0b 60%, transparent);
     pointer-events: none;
+    will-change: transform, opacity;
+  }
+  /* Dark mode → cartoon sleeping z's drifting up-and-right. */
+  .theme-zzz {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--color-primary);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
     will-change: transform, opacity;
   }
 </style>
@@ -361,51 +375,107 @@ import { Icon } from 'astro-icon/components';
     }, 420);
   }
 
-  // Emit a tiny droplet shower from the clicked button — keeps the
-  // liquid theme threaded through every interaction.
-  function emitDroplets(btn: HTMLElement) {
+  // Emit a theme-appropriate ornament from the clicked button.
+  //   light  → sun rays burst radially outward
+  //   dark   → trio of "z"s drift up-and-right (sleeping)
+  //   system → silent (no ornament)
+  function emitEffect(btn: HTMLElement) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const switcher = btn.closest<HTMLElement>(".theme-switcher");
-    const layer = switcher?.querySelector<HTMLElement>(".theme-droplets");
+    const layer = switcher?.querySelector<HTMLElement>(".theme-effects");
     if (!switcher || !layer) return;
 
-    // Same border-correction as the indicator: the droplet layer's 0,0 is
-    // the padding box, so we subtract clientLeft/clientTop.
     const sRect = switcher.getBoundingClientRect();
     const bRect = btn.getBoundingClientRect();
     const cx = bRect.left - sRect.left - switcher.clientLeft + bRect.width / 2;
-    // Emit from just below the button so droplets fall clear of the icon.
-    const cy = bRect.top - sRect.top - switcher.clientTop + bRect.height - 2;
+    const cy = bRect.top - sRect.top - switcher.clientTop + bRect.height / 2;
 
-    const count = 6;
+    const theme = btn.dataset.theme;
+    if (theme === "light") emitRays(layer, cx, cy);
+    else if (theme === "dark") emitZzz(layer, cx, cy);
+    // system: intentionally silent
+  }
+
+  function emitRays(layer: HTMLElement, cx: number, cy: number) {
+    const count = 8;
+    const startDist = 11;
+    const endDist = 22;
     for (let i = 0; i < count; i++) {
-      const d = document.createElement("span");
-      d.className = "theme-droplet";
-      const size = 4 + Math.random() * 2.5;
-      const dx = (Math.random() - 0.5) * 26;
-      const dy = 22 + Math.random() * 18;
-      d.style.left = cx + "px";
-      d.style.top = cy + "px";
-      d.style.setProperty("--d", size.toFixed(1) + "px");
-      layer.appendChild(d);
+      const ray = document.createElement("span");
+      ray.className = "theme-ray";
+      ray.style.left = cx + "px";
+      ray.style.top = cy + "px";
+      const angle = (i / count) * 360;
+      layer.appendChild(ray);
 
-      // Drive the motion via WAAPI — more reliable than CSS keyframes with
-      // custom properties (some browsers stall the start frame on freshly
-      // appended nodes).
-      const anim = d.animate(
+      const anim = ray.animate(
         [
-          { transform: "translate(0, -2px) scale(0.5)", opacity: 0 },
-          { transform: "translate(0, 2px) scale(1)",    opacity: 1, offset: 0.15 },
-          { transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(0.7)`, opacity: 0 },
+          {
+            transform: `rotate(${angle}deg) translateY(-${startDist}px) scaleY(0.4)`,
+            opacity: 0,
+          },
+          {
+            transform: `rotate(${angle}deg) translateY(-${startDist + 3}px) scaleY(1)`,
+            opacity: 1,
+            offset: 0.35,
+          },
+          {
+            transform: `rotate(${angle}deg) translateY(-${endDist}px) scaleY(0.5)`,
+            opacity: 0,
+          },
         ],
         {
-          duration: 780,
-          delay: i * 32,
+          duration: 560,
+          delay: i * 18,
           easing: "cubic-bezier(0.34, 0, 0.64, 1)",
           fill: "forwards",
         }
       );
-      anim.onfinish = () => d.remove();
+      anim.onfinish = () => ray.remove();
+    }
+  }
+
+  function emitZzz(layer: HTMLElement, cx: number, cy: number) {
+    const zs = [
+      { text: "z", size: 9,  delay: 0 },
+      { text: "z", size: 11, delay: 130 },
+      { text: "Z", size: 13, delay: 260 },
+    ];
+    for (const { text, size, delay } of zs) {
+      const z = document.createElement("span");
+      z.className = "theme-zzz";
+      z.textContent = text;
+      z.style.left = cx + "px";
+      z.style.top = (cy - 6) + "px";
+      z.style.fontSize = size + "px";
+      layer.appendChild(z);
+
+      const driftX = 14 + Math.random() * 4;
+      const driftY = -22 - Math.random() * 4;
+      const anim = z.animate(
+        [
+          {
+            transform: `translate(-50%, -50%) scale(0.4)`,
+            opacity: 0,
+          },
+          {
+            transform: `translate(calc(-50% + ${(driftX * 0.35).toFixed(1)}px), calc(-50% + ${(driftY * 0.35).toFixed(1)}px)) scale(1)`,
+            opacity: 1,
+            offset: 0.3,
+          },
+          {
+            transform: `translate(calc(-50% + ${driftX.toFixed(1)}px), calc(-50% + ${driftY.toFixed(1)}px)) scale(0.85)`,
+            opacity: 0,
+          },
+        ],
+        {
+          duration: 1100,
+          delay,
+          easing: "cubic-bezier(0.4, 0, 0.6, 1)",
+          fill: "forwards",
+        }
+      );
+      anim.onfinish = () => z.remove();
     }
   }
 
@@ -424,9 +494,9 @@ import { Icon } from 'astro-icon/components';
       applyTheme(theme);
       updateButtons(theme);
       if (focus) btn.focus();
-      // Always emit droplets on click — even if the theme didn't change,
-      // it confirms the click registered and keeps the liquid metaphor alive.
-      emitDroplets(btn);
+      // Always emit the theme-appropriate ornament on click — even if the
+      // theme didn't actually change, it confirms the click registered.
+      emitEffect(btn);
       if (previous !== theme) {
         btn.setAttribute("data-just-activated", "");
         window.setTimeout(() => btn.removeAttribute("data-just-activated"), 520);
