@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import Squiggle from "../components/Squiggle.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects"))
@@ -26,7 +27,7 @@ const projects = (await getCollection("projects"))
     {projects.map((project, i) => (
       <>
         {i > 0 && (
-          <hr class="border-t border-border/10 my-10" />
+          <Squiggle variant={i % 2 === 0 ? "up" : "down"} class="my-10" />
         )}
         <ProjectCard
           title={project.data.title}

@@ -25,10 +25,35 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
     <ClientRouter />
 
     <!-- After the first page load completes, mark the document so the
-         main rise-in animation doesn't replay on view-transition swaps. -->
+         main rise-in animation doesn't replay on view-transition swaps.
+         Also stagger a rise-in across the new page's above-the-fold
+         direct children of <main> so transitions feel cohesive. -->
     <script is:inline>
       document.addEventListener("astro:after-swap", function () {
         document.documentElement.classList.add("vt-ready");
+
+        var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReduced) return;
+
+        var main = document.getElementById("main-content");
+        if (!main) return;
+
+        var vh = window.innerHeight;
+        var i = 0;
+        for (var n = 0; n < main.children.length; n++) {
+          var el = main.children[n];
+          var rect = el.getBoundingClientRect();
+          if (rect.top >= vh) break;
+          el.style.setProperty("--vt-stagger", i);
+          el.classList.add("vt-rise");
+          (function (node) {
+            node.addEventListener("animationend", function () {
+              node.classList.remove("vt-rise");
+              node.style.removeProperty("--vt-stagger");
+            }, { once: true });
+          })(el);
+          i++;
+        }
       });
     </script>
 

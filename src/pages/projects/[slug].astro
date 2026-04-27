@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
+import { Icon } from 'astro-icon/components';
 
 export async function getStaticPaths() {
   const projects = (await getCollection("projects"))
@@ -28,9 +29,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
       href="/"
       class="inline-flex items-center gap-2 text-sm text-primary/60 transition-colors"
     >
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M19 12H5m7-7l-7 7 7 7" />
-      </svg>
+      <Icon name="ph:arrow-left" class="w-4 h-4" aria-hidden="true" />
       Back to projects
     </a>
   </section>
@@ -67,10 +66,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
         {problem && (
           <div class="p-6 rounded-xl bg-raised border border-border/10">
             <div class="w-9 h-9 rounded-full bg-border/10 flex items-center justify-center mb-5" aria-hidden="true">
-              <svg class="w-5 h-5 text-primary/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="9" />
-                <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
-              </svg>
+              <Icon name="ph:target" class="w-5 h-5 text-primary/90" aria-hidden="true" />
             </div>
             <dt class="text-xs font-bold uppercase tracking-wider text-primary/90 mb-2">Problem</dt>
             <dd class="text-sm text-primary/75 m-0">{problem}</dd>
@@ -79,9 +75,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
         {solution && (
           <div class="p-6 rounded-xl bg-raised border border-border/10">
             <div class="w-9 h-9 rounded-full bg-border/10 flex items-center justify-center mb-5" aria-hidden="true">
-              <svg class="w-5 h-5 text-primary/90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
+              <Icon name="ph:check" class="w-5 h-5 text-primary/90" aria-hidden="true" />
             </div>
             <dt class="text-xs font-bold uppercase tracking-wider text-primary/90 mb-2">Solution</dt>
             <dd class="text-sm text-primary/75 m-0">{solution}</dd>
@@ -90,10 +84,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
         {role && (
           <div class="p-6 rounded-xl bg-raised border border-border/10">
             <div class="w-9 h-9 rounded-full bg-border/10 flex items-center justify-center mb-5" aria-hidden="true">
-              <svg class="w-5 h-5 text-primary/90" fill="currentColor" viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-              </svg>
+              <Icon name="ph:user-fill" class="w-5 h-5 text-primary/90" aria-hidden="true" />
             </div>
             <dt class="text-xs font-bold uppercase tracking-wider text-primary/90 mb-2">My Role</dt>
             <dd class="text-sm text-primary/75 m-0">{role}</dd>

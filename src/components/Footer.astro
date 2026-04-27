@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 ---
 
 <footer class="border-t border-border/10 mt-24">
@@ -20,10 +21,12 @@
     <div class="flex items-center gap-6">
       <!-- Theme Switcher -->
       <div
-        class="flex items-center rounded-lg border border-border/10 p-0.5 gap-0.5"
+        class="theme-switcher flex items-center rounded-xl p-1.5 gap-1"
         role="radiogroup"
         aria-label="Color theme"
       >
+        <span class="theme-indicator" aria-hidden="true"></span>
+        <span class="theme-droplets" aria-hidden="true"></span>
         <button
           type="button"
           role="radio"
@@ -31,11 +34,10 @@
           data-theme="light"
           data-tooltip="Light"
           aria-label="Light mode"
-          class="theme-btn p-1.5 rounded-md transition-colors"
+          class="theme-btn p-2 rounded-lg"
         >
-          <svg class="w-4 h-4" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-          </svg>
+          <Icon name="ph:sun" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
+          <Icon name="ph:sun-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
         </button>
         <button
           type="button"
@@ -44,11 +46,10 @@
           data-theme="system"
           data-tooltip="System"
           aria-label="System theme"
-          class="theme-btn p-1.5 rounded-md transition-colors"
+          class="theme-btn p-2 rounded-lg"
         >
-          <svg class="w-4 h-4" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
-          </svg>
+          <Icon name="ph:circle-half" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
+          <Icon name="ph:circle-half-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
         </button>
         <button
           type="button"
@@ -57,11 +58,10 @@
           data-theme="dark"
           data-tooltip="Dark"
           aria-label="Dark mode"
-          class="theme-btn p-1.5 rounded-md transition-colors"
+          class="theme-btn p-2 rounded-lg"
         >
-          <svg class="w-4 h-4" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-          </svg>
+          <Icon name="ph:moon" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
+          <Icon name="ph:moon-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
         </button>
       </div>
     </div>
@@ -69,50 +69,191 @@
 </footer>
 
 <style>
+  .theme-switcher {
+    position: relative;
+    isolation: isolate;
+    /* Subtle airy container — no border, just a soft tinted backdrop to
+       group the controls. */
+    background-color: color-mix(in srgb, var(--color-primary) 4%, transparent);
+    /* Indicator fill strength is theme-aware: lighter on light surfaces (so
+       the blob feels airy, not muddy), a touch stronger on dark surfaces
+       where it needs to read against a deeper background. Both stay well
+       above the 3:1 non-text contrast threshold. */
+    --theme-indicator-mix: 10%;
+  }
+  :where(html.dark) .theme-switcher,
+  :where(html:not(.light)) .theme-switcher {
+    --theme-indicator-mix: 14%;
+  }
+  @media (prefers-color-scheme: light) {
+    :where(html:not(.dark)) .theme-switcher { --theme-indicator-mix: 10%; }
+  }
+
+  /* Sliding "liquid" indicator that morphs between active buttons. */
+  .theme-indicator {
+    position: absolute;
+    top: 6px;
+    left: var(--indicator-x, 0px);
+    width: var(--indicator-w, 0px);
+    height: calc(100% - 12px);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--color-primary) var(--theme-indicator-mix, 12%), transparent);
+    transform-origin: center;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    transition:
+      left 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+      width 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+      transform 0.42s cubic-bezier(0.34, 1.4, 0.56, 1),
+      opacity 0.2s ease;
+    will-change: left, width, transform;
+  }
+  .theme-switcher[data-ready] .theme-indicator { opacity: 1; }
+  .theme-switcher[data-sliding] .theme-indicator {
+    transform: scaleY(0.86);
+  }
+
+  /* Droplet emitter overlay. Sits above the tooltip so droplets remain
+     visible while the cursor is still hovering the button. The droplet
+     element itself only hosts the gradient — motion is driven by JS via
+     the Web Animations API for maximum reliability. */
+  .theme-droplets {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 30;
+  }
+  .theme-droplet {
+    position: absolute;
+    width: var(--d, 5px);
+    height: var(--d, 5px);
+    margin-left: calc(var(--d, 5px) / -2);
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
   .theme-btn {
     color: var(--color-primary);
-    opacity: 0.5;
+    /* Inactive icons sit at ~60% — comfortably above the 3:1 non-text
+       contrast threshold in both themes while still reading as secondary. */
+    opacity: 0.6;
     position: relative;
+    z-index: 1;
+    cursor: pointer;
+    /* Stack outline + solid SVGs in the same slot. */
+    display: inline-grid;
+    place-items: center;
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .theme-btn[data-active] {
-    opacity: 0.9;
-    background-color: rgba(128, 128, 128, 0.12);
+  .theme-icon {
+    grid-area: 1 / 1;
+    /* Pure cross-fade between outline and solid. The spring scale-in is
+       reserved for the freshly-activated button via the `theme-icon-pop`
+       keyframe — animating scale on every state change made the
+       deactivating button look like it was wilting. */
+    transition: opacity 0.2s ease;
   }
+  /* Default: show outline, hide solid. Both at natural scale so a state
+     swap is a simple cross-fade with no perceived shrink. */
+  .theme-icon-solid { opacity: 0; }
+  .theme-icon-outline { opacity: 1; }
+  /* Active: outline out, solid in. */
+  .theme-btn[data-active] .theme-icon-outline { opacity: 0; }
+  .theme-btn[data-active] .theme-icon-solid { opacity: 1; }
+  .theme-btn:hover { opacity: 0.9; }
+  .theme-btn:hover .theme-icon { transform: scale(1.08); }
+  .theme-btn:active .theme-icon { transform: scale(0.92); }
+  .theme-btn[data-active] { opacity: 1; }
+  /* Tiny "pop" only on the button that was just activated — keeps the
+     other-button transition a calm fade. */
+  .theme-btn[data-just-activated] .theme-icon-solid {
+    animation: theme-icon-pop 0.5s cubic-bezier(0.34, 1.6, 0.5, 1);
+  }
+  @keyframes theme-icon-pop {
+    0%   { opacity: 0; transform: scale(0.6) rotate(-8deg); }
+    45%  { opacity: 1; transform: scale(1.18) rotate(4deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0); }
+  }
+
+  /* ── Tooltip ────────────────────────────────────────────────────────── */
   .theme-btn::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: calc(100% + 8px);
+    bottom: calc(100% + 10px);
     left: 50%;
-    transform: translateX(-50%) translateY(2px);
-    padding: 5px 9px;
-    border-radius: 6px;
+    transform: translateX(-50%) translateY(4px) scale(0.94);
+    padding: 6px 10px;
+    border-radius: 7px;
     background-color: var(--color-primary);
     color: var(--color-surface);
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 11.5px;
+    font-weight: 600;
     line-height: 1;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     white-space: nowrap;
-    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.18);
+    box-shadow:
+      0 10px 24px -8px color-mix(in srgb, var(--color-primary) 55%, transparent),
+      0 2px 4px -1px color-mix(in srgb, var(--color-primary) 35%, transparent);
     opacity: 0;
     pointer-events: none;
-    z-index: 10;
-    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 20;
+    transition:
+      opacity 0.18s ease,
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  /* Tooltip arrow */
+  .theme-btn::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    transform: translateX(-50%) translateY(4px) rotate(45deg) scale(0.8);
+    border-radius: 1.5px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 19;
+    transition:
+      opacity 0.18s ease,
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   .theme-btn:hover::after,
   .theme-btn:focus-visible::after {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  .theme-btn:hover::before,
+  .theme-btn:focus-visible::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) rotate(45deg) scale(1);
   }
   /* Prevent stacked tooltips: when a sibling is being hovered,
      suppress focus-visible tooltips on the others. */
-  [role="radiogroup"]:has(.theme-btn:hover) .theme-btn:focus-visible:not(:hover)::after {
+  [role="radiogroup"]:has(.theme-btn:hover) .theme-btn:focus-visible:not(:hover)::after,
+  [role="radiogroup"]:has(.theme-btn:hover) .theme-btn:focus-visible:not(:hover)::before {
     opacity: 0;
   }
+
   @media (prefers-reduced-motion: reduce) {
-    .theme-btn::after { transition: opacity 0.15s ease; transform: translateX(-50%); }
-    .theme-btn:hover::after,
-    .theme-btn:focus-visible::after { transform: translateX(-50%); }
+    .theme-btn,
+    .theme-btn svg,
+    .theme-indicator,
+    .theme-btn::after,
+    .theme-btn::before {
+      transition-duration: 0.01ms !important;
+      animation: none !important;
+    }
+    .theme-droplet { display: none; }
+    .theme-btn[data-just-activated] svg { animation: none; }
   }
 
   .footer-link {
@@ -187,6 +328,79 @@
         btn.removeAttribute("data-active");
       }
     });
+    moveIndicator();
+  }
+
+  // Slide the liquid-pill indicator under the active button. Brief
+  // `data-sliding` flag triggers a slosh/squish during the transit.
+  let slideTimeout: number | undefined;
+  function moveIndicator() {
+    const switcher = document.querySelector<HTMLElement>(".theme-switcher");
+    if (!switcher) return;
+    const indicator = switcher.querySelector<HTMLElement>(".theme-indicator");
+    const active = switcher.querySelector<HTMLElement>(".theme-btn[data-active]");
+    if (!indicator || !active) return;
+
+    const sRect = switcher.getBoundingClientRect();
+    const bRect = active.getBoundingClientRect();
+    const x = bRect.left - sRect.left;
+    indicator.style.width = bRect.width + "px";
+    indicator.style.setProperty("--indicator-x", x + "px");
+
+    switcher.setAttribute("data-ready", "");
+    switcher.setAttribute("data-sliding", "");
+    window.clearTimeout(slideTimeout);
+    slideTimeout = window.setTimeout(() => {
+      switcher.removeAttribute("data-sliding");
+    }, 420);
+  }
+
+  // Emit a tiny droplet shower from the clicked button — keeps the
+  // liquid theme threaded through every interaction.
+  function emitDroplets(btn: HTMLElement) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const switcher = btn.closest<HTMLElement>(".theme-switcher");
+    const layer = switcher?.querySelector<HTMLElement>(".theme-droplets");
+    if (!switcher || !layer) return;
+
+    // Same border-correction as the indicator: the droplet layer's 0,0 is
+    // the padding box, so we subtract clientLeft/clientTop.
+    const sRect = switcher.getBoundingClientRect();
+    const bRect = btn.getBoundingClientRect();
+    const cx = bRect.left - sRect.left - switcher.clientLeft + bRect.width / 2;
+    // Emit from just below the button so droplets fall clear of the icon.
+    const cy = bRect.top - sRect.top - switcher.clientTop + bRect.height - 2;
+
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const d = document.createElement("span");
+      d.className = "theme-droplet";
+      const size = 4 + Math.random() * 2.5;
+      const dx = (Math.random() - 0.5) * 26;
+      const dy = 22 + Math.random() * 18;
+      d.style.left = cx + "px";
+      d.style.top = cy + "px";
+      d.style.setProperty("--d", size.toFixed(1) + "px");
+      layer.appendChild(d);
+
+      // Drive the motion via WAAPI — more reliable than CSS keyframes with
+      // custom properties (some browsers stall the start frame on freshly
+      // appended nodes).
+      const anim = d.animate(
+        [
+          { transform: "translate(0, -2px) scale(0.5)", opacity: 0 },
+          { transform: "translate(0, 2px) scale(1)",    opacity: 1, offset: 0.15 },
+          { transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(0.7)`, opacity: 0 },
+        ],
+        {
+          duration: 780,
+          delay: i * 32,
+          easing: "cubic-bezier(0.34, 0, 0.64, 1)",
+          fill: "forwards",
+        }
+      );
+      anim.onfinish = () => d.remove();
+    }
   }
 
   // ClientRouter replaces the footer DOM on every navigation, so we need to
@@ -199,10 +413,18 @@
 
     function selectTheme(btn: HTMLButtonElement, focus = false) {
       const theme = btn.dataset.theme!;
+      const previous = localStorage.getItem("theme") || "system";
       localStorage.setItem("theme", theme);
       applyTheme(theme);
       updateButtons(theme);
       if (focus) btn.focus();
+      // Always emit droplets on click — even if the theme didn't change,
+      // it confirms the click registered and keeps the liquid metaphor alive.
+      emitDroplets(btn);
+      if (previous !== theme) {
+        btn.setAttribute("data-just-activated", "");
+        window.setTimeout(() => btn.removeAttribute("data-just-activated"), 520);
+      }
     }
 
     themeButtons.forEach((btn, idx) => {
@@ -236,10 +458,14 @@
     const saved = localStorage.getItem("theme") || "system";
     applyTheme(saved);
     updateButtons(saved);
+    // Indicator measures DOM rects, which can be stale before layout settles
+    // (especially after a view-transition swap).
+    requestAnimationFrame(moveIndicator);
   }
 
   bindThemeButtons();
   document.addEventListener("astro:page-load", bindThemeButtons);
+  window.addEventListener("resize", moveIndicator);
 
   // OS-level scheme changes only need to be wired once per browsing session.
   if (!(window as any).__themeOsListenerBound) {

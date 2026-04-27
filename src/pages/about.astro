@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Squiggle from "../components/Squiggle.astro";
 import portrait from "../assets/images/portrait.jpg";
 
 const experience = [
@@ -102,17 +103,7 @@ const interests = [
   </section>
 
   <!-- Wavy section divider -->
-  <div class="section-divider" aria-hidden="true">
-    <svg viewBox="0 0 1200 24" preserveAspectRatio="none">
-      <path
-        d="M0 12 Q 75 2, 150 12 T 300 12 T 450 12 T 600 12 T 750 12 T 900 12 T 1050 12 T 1200 12"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.25"
-        stroke-linecap="round"
-      ></path>
-    </svg>
-  </div>
+  <Squiggle variant="up" class="max-w-5xl mx-auto px-6" />
 
   <!-- Experience -->
   <section class="max-w-5xl mx-auto px-6 py-20">
@@ -141,17 +132,7 @@ const interests = [
   </section>
 
   <!-- Wavy section divider -->
-  <div class="section-divider" aria-hidden="true">
-    <svg viewBox="0 0 1200 24" preserveAspectRatio="none">
-      <path
-        d="M0 12 Q 75 22, 150 12 T 300 12 T 450 12 T 600 12 T 750 12 T 900 12 T 1050 12 T 1200 12"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.25"
-        stroke-linecap="round"
-      ></path>
-    </svg>
-  </div>
+  <Squiggle variant="down" class="max-w-5xl mx-auto px-6" />
 
   <!-- Interests -->
   <section class="max-w-5xl mx-auto px-6 pt-20 pb-32">
@@ -250,6 +231,14 @@ const interests = [
   .portrait-stack {
     position: relative;
     width: 19rem;
+    pointer-events: none;
+    animation: portrait-enable-hover 0s linear 1620ms forwards;
+  }
+
+  @keyframes portrait-enable-hover {
+    to {
+      pointer-events: auto;
+    }
   }
 
   @media (max-width: 767px) {
@@ -267,6 +256,7 @@ const interests = [
     border: 1px solid color-mix(in srgb, var(--color-primary) 10%, transparent);
     transform: translate(0.85rem, 0.85rem) rotate(2.5deg);
     transition: transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42);
+    animation: portrait-shadow-settle 1200ms cubic-bezier(0.345, 0.115, 0.135, 1.42) 420ms backwards;
   }
 
   .portrait-stack:hover .portrait-shadow-card {
@@ -285,6 +275,7 @@ const interests = [
     transition:
       transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
       box-shadow 400ms ease;
+    animation: portrait-frame-settle 1100ms cubic-bezier(0.345, 0.115, 0.135, 1.42) 220ms backwards;
   }
 
   .portrait-stack:hover .portrait-frame {
@@ -309,41 +300,44 @@ const interests = [
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .portrait-stack {
+      pointer-events: auto;
+      animation: none;
+    }
     .portrait-shadow-card,
     .portrait-frame,
     .portrait-img {
       transition: none;
+      animation: none;
+    }
+  }
+
+  /* Portrait entrance — "deal into place": frame settles into its tilt,
+     shadow card slides out from behind it. */
+  @keyframes portrait-frame-settle {
+    from {
+      transform: rotate(4deg) scale(0.96);
+      opacity: 0;
+    }
+    to {
+      transform: rotate(-1.5deg) scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes portrait-shadow-settle {
+    from {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0;
+    }
+    to {
+      transform: translate(0.85rem, 0.85rem) rotate(2.5deg);
+      opacity: 1;
     }
   }
 
   /* ── Section dividers (the liquid motif) ──────────────────────────────── */
-  .section-divider {
-    max-width: 64rem;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    color: color-mix(in srgb, var(--color-primary) 18%, transparent);
-  }
-
-  .section-divider svg {
-    display: block;
-    width: 100%;
-    height: 1.25rem;
-    overflow: visible;
-  }
-
-  .section-divider path {
-    animation: wave-drift 9s ease-in-out infinite alternate;
-    transform-origin: center;
-  }
-
-  @keyframes wave-drift {
-    from {
-      transform: translateX(-6px);
-    }
-    to {
-      transform: translateX(6px);
-    }
-  }
+  /* Squiggle component handles its own styling — wrapper sizing via utilities. */
 
   @keyframes pulse {
     0% {
@@ -500,8 +494,7 @@ const interests = [
     .timeline-item.is-current .timeline-dot {
       animation: none;
     }
-    .title-wave path,
-    .section-divider path {
+    .title-wave path {
       animation: none;
       stroke-dashoffset: 0;
     }
@@ -521,7 +514,14 @@ const interests = [
   const targets = document.querySelectorAll<HTMLElement>(
     ".timeline-item, .interest-chip"
   );
-  targets.forEach((el, i) => {
+
+  const vh = window.innerHeight;
+  const aboveFold: HTMLElement[] = [];
+  targets.forEach((el) => {
+    if (el.getBoundingClientRect().top < vh) aboveFold.push(el);
+  });
+
+  aboveFold.forEach((el, i) => {
     el.classList.add("reveal");
     el.style.transitionDelay = `${i * 60}ms`;
   });
@@ -537,5 +537,5 @@ const interests = [
     },
     { threshold: 0.15 }
   );
-  targets.forEach((el) => io.observe(el));
+  aboveFold.forEach((el) => io.observe(el));
 </script>

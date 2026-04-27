@@ -15,12 +15,14 @@
     "@astrojs/mdx": "^5.0.4",
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
-    "@iconify-json/lucide": "^1.2.104",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.4",
     "astro": "^6.1.9",
     "astro-icon": "^1.1.5",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "@iconify-json/ph": "^1.2.2"
   }
 }
