@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -20,6 +21,16 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
     <meta name="description" content={description} />
 
     <title>{title}</title>
+
+    <ClientRouter />
+
+    <!-- After the first page load completes, mark the document so the
+         main rise-in animation doesn't replay on view-transition swaps. -->
+    <script is:inline>
+      document.addEventListener("astro:after-swap", function () {
+        document.documentElement.classList.add("vt-ready");
+      });
+    </script>
 
     <!-- Prevent FOUC for dark mode -->
     <script is:inline>

@@ -80,3 +80,12 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Strong accessibility background, but day-to-day is mostly product design now.
 - Loves: prototypes, pixel pushing, motion, microinteractions.
 - The 🦄 unicorn easter-egg emoji in the about copy is intentional — keep it.
+
+## Design rules
+
+- **No pill buttons or pill-shaped hover states.** Don't use fully-rounded
+  (`rounded-full`) for buttons, links, nav items, tags, or any interactive
+  surface. Use squarer corners (`rounded-lg`, `rounded-xl`, `rounded-2xl`)
+  consistent with the rest of the system. Pills are reserved for genuinely
+  pill-shaped UI like single status tokens — and even then, ask first.
+

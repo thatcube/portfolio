@@ -7,23 +7,27 @@ import LiquidLogo from "./LiquidLogo.astro";
   class="absolute top-0 left-0 right-0 z-50"
 >
   <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Primary">
-    <!-- Brand: liquid logo + wordmark, single link to home -->
+    <!-- Brand: liquid logo + wordmark, single link to home.
+         `data-astro-reload` opts this link out of ClientRouter so the drain
+         + droplet animation has time to play visibly (view-transition
+         snapshots paint above real DOM and would hide it otherwise). -->
     <a
       href="/"
       class="brand-link inline-flex items-center gap-2.5 font-display font-medium text-lg tracking-tight text-primary/90 transition-colors"
       data-brand-trigger
+      data-astro-reload
     >
       <LiquidLogo />
       <span>Brandon Moore</span>
     </a>
 
     <!-- Nav Links -->
-    <ul class="flex items-center gap-8 list-none m-0 p-0">
+    <ul class="flex items-center gap-1 list-none m-0 p-0">
       <!-- Work Disclosure -->
       <li class="relative" data-disclosure>
         <button
           type="button"
-          class="text-sm font-medium text-primary/60 hover:text-primary/90 transition-colors flex items-center gap-1 py-2"
+          class="nav-link text-sm font-medium text-primary/70 hover:text-primary/90 transition-colors flex items-center gap-1 px-3 py-2 rounded-xl"
           aria-haspopup="true"
           aria-expanded="false"
           aria-controls="work-menu"
@@ -46,7 +50,7 @@ import LiquidLogo from "./LiquidLogo.astro";
         <!-- Dropdown -->
         <div
           id="work-menu"
-          class="dropdown-menu absolute top-full right-0 pt-3 w-72"
+          class="dropdown-menu absolute top-full right-0 pt-1 w-max max-w-xs"
           data-disclosure-panel
           inert
         >
@@ -54,7 +58,7 @@ import LiquidLogo from "./LiquidLogo.astro";
             <li>
               <a
                 href="/projects/get-app"
-                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors"
+                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors whitespace-nowrap"
               >
                 GET App Redesign
               </a>
@@ -62,7 +66,7 @@ import LiquidLogo from "./LiquidLogo.astro";
             <li>
               <a
                 href="/projects/aqua-design-system"
-                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors"
+                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors whitespace-nowrap"
               >
                 Aqua Design System
               </a>
@@ -70,7 +74,7 @@ import LiquidLogo from "./LiquidLogo.astro";
             <li>
               <a
                 href="/projects/patient-app"
-                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors"
+                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors whitespace-nowrap"
               >
                 Patient App
               </a>
@@ -82,7 +86,7 @@ import LiquidLogo from "./LiquidLogo.astro";
       <li>
         <a
           href="/about"
-          class="text-sm font-medium text-primary/60 hover:text-primary/90 transition-colors py-2"
+          class="nav-link text-sm font-medium text-primary/70 hover:text-primary/90 transition-colors px-3 py-2 rounded-xl inline-flex items-center"
         >
           About
         </a>
@@ -146,15 +150,53 @@ import LiquidLogo from "./LiquidLogo.astro";
       transition: none;
     }
   }
+
+  /* ── Nav link hover pill ─────────────────────────────────────────────────
+     Pill background expands from the center on hover/focus/open. Subtle —
+     matches the rest of the surface treatments and doesn't compete with the
+     liquid logo for attention. */
+  .nav-link {
+    position: relative;
+    isolation: isolate;
+  }
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: color-mix(in srgb, var(--color-border) 12%, transparent);
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 280ms cubic-bezier(0.34, 1.4, 0.64, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .nav-link:hover::before,
+  .nav-link:focus-visible::before,
+  [data-disclosure].is-open .nav-link::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link::before {
+      transition: opacity 200ms ease;
+      transform: none;
+    }
+  }
 </style>
 
 <script>
-  (function () {
-    const header = document.getElementById("site-header");
-    if (!header) return;
-
-    // ── Disclosure (Work menu) ─────────────────────────────────────────────
+  // Header is re-rendered on every ClientRouter navigation, so the disclosure
+  // listeners need to re-bind on each `astro:page-load`. The scroll listener
+  // attaches to `window` and only needs to bind once per session.
+  function bindDisclosures() {
     document.querySelectorAll<HTMLElement>("[data-disclosure]").forEach((root) => {
+      if ((root as any).__disclosureBound) return;
+      (root as any).__disclosureBound = true;
+
       const trigger = root.querySelector<HTMLButtonElement>(
         "[data-disclosure-trigger]"
       );
@@ -204,11 +246,6 @@ import LiquidLogo from "./LiquidLogo.astro";
         }
       });
 
-      // Click outside closes
-      document.addEventListener("click", (e) => {
-        if (!root.contains(e.target as Node)) setOpen(false);
-      });
-
       // Focus leaving the disclosure subtree closes (keyboard tabbing past)
       root.addEventListener("focusout", () => {
         setTimeout(() => {
@@ -216,19 +253,46 @@ import LiquidLogo from "./LiquidLogo.astro";
         }, 0);
       });
     });
+  }
 
-    // ── Pin-on-scroll-up behavior ──────────────────────────────────────────
+  // Click-outside is a single document-level listener; bind once per session.
+  if (!(window as any).__headerDocClickBound) {
+    (window as any).__headerDocClickBound = true;
+    document.addEventListener("click", (e) => {
+      document.querySelectorAll<HTMLElement>("[data-disclosure]").forEach((root) => {
+        if (!root.contains(e.target as Node) && root.classList.contains("is-open")) {
+          const trigger = root.querySelector<HTMLButtonElement>(
+            "[data-disclosure-trigger]"
+          );
+          const panel = root.querySelector<HTMLElement>("[data-disclosure-panel]");
+          root.classList.remove("is-open");
+          trigger?.setAttribute("aria-expanded", "false");
+          panel?.setAttribute("inert", "");
+        }
+      });
+    });
+  }
+
+  // ── Pin-on-scroll-up behavior ────────────────────────────────────────────
+  if (!(window as any).__headerScrollBound) {
+    (window as any).__headerScrollBound = true;
+
     let lastY = window.scrollY;
     let accumulated = 0;
     let ticking = false;
     const threshold = 60;
 
     function update() {
+      const header = document.getElementById("site-header");
+      if (!header) {
+        ticking = false;
+        return;
+      }
       const y = window.scrollY;
       const delta = y - lastY;
 
       if (y <= 0) {
-        header!.classList.remove("is-pinned", "is-visible");
+        header.classList.remove("is-pinned", "is-visible");
         accumulated = 0;
         lastY = y;
         ticking = false;
@@ -242,13 +306,13 @@ import LiquidLogo from "./LiquidLogo.astro";
       }
 
       if (accumulated < -threshold) {
-        if (!header!.classList.contains("is-pinned")) {
-          header!.classList.add("is-pinned");
-          void header!.offsetHeight;
+        if (!header.classList.contains("is-pinned")) {
+          header.classList.add("is-pinned");
+          void header.offsetHeight;
         }
-        header!.classList.add("is-visible");
-      } else if (accumulated > threshold && header!.classList.contains("is-pinned")) {
-        header!.classList.remove("is-pinned", "is-visible");
+        header.classList.add("is-visible");
+      } else if (accumulated > threshold && header.classList.contains("is-pinned")) {
+        header.classList.remove("is-pinned", "is-visible");
       }
 
       lastY = y;
@@ -265,5 +329,8 @@ import LiquidLogo from "./LiquidLogo.astro";
       },
       { passive: true }
     );
-  })();
+  }
+
+  bindDisclosures();
+  document.addEventListener("astro:page-load", bindDisclosures);
 </script>

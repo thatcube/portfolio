@@ -189,54 +189,66 @@
     });
   }
 
-  const saved = localStorage.getItem("theme") || "system";
-  applyTheme(saved);
-  updateButtons(saved);
+  // ClientRouter replaces the footer DOM on every navigation, so we need to
+  // re-bind listeners after each swap. `astro:page-load` fires on the initial
+  // load and after every view-transition swap.
+  function bindThemeButtons() {
+    const themeButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(".theme-btn")
+    );
 
-  const themeButtons = Array.from(
-    document.querySelectorAll<HTMLButtonElement>(".theme-btn")
-  );
+    function selectTheme(btn: HTMLButtonElement, focus = false) {
+      const theme = btn.dataset.theme!;
+      localStorage.setItem("theme", theme);
+      applyTheme(theme);
+      updateButtons(theme);
+      if (focus) btn.focus();
+    }
 
-  function selectTheme(btn: HTMLButtonElement, focus = false) {
-    const theme = btn.dataset.theme!;
-    localStorage.setItem("theme", theme);
-    applyTheme(theme);
-    updateButtons(theme);
-    if (focus) btn.focus();
+    themeButtons.forEach((btn, idx) => {
+      btn.addEventListener("click", () => selectTheme(btn));
+
+      btn.addEventListener("keydown", (e) => {
+        let nextIdx: number | null = null;
+        switch (e.key) {
+          case "ArrowRight":
+          case "ArrowDown":
+            nextIdx = (idx + 1) % themeButtons.length;
+            break;
+          case "ArrowLeft":
+          case "ArrowUp":
+            nextIdx = (idx - 1 + themeButtons.length) % themeButtons.length;
+            break;
+          case "Home":
+            nextIdx = 0;
+            break;
+          case "End":
+            nextIdx = themeButtons.length - 1;
+            break;
+        }
+        if (nextIdx !== null) {
+          e.preventDefault();
+          selectTheme(themeButtons[nextIdx], true);
+        }
+      });
+    });
+
+    const saved = localStorage.getItem("theme") || "system";
+    applyTheme(saved);
+    updateButtons(saved);
   }
 
-  themeButtons.forEach((btn, idx) => {
-    btn.addEventListener("click", () => selectTheme(btn));
+  bindThemeButtons();
+  document.addEventListener("astro:page-load", bindThemeButtons);
 
-    btn.addEventListener("keydown", (e) => {
-      let nextIdx: number | null = null;
-      switch (e.key) {
-        case "ArrowRight":
-        case "ArrowDown":
-          nextIdx = (idx + 1) % themeButtons.length;
-          break;
-        case "ArrowLeft":
-        case "ArrowUp":
-          nextIdx = (idx - 1 + themeButtons.length) % themeButtons.length;
-          break;
-        case "Home":
-          nextIdx = 0;
-          break;
-        case "End":
-          nextIdx = themeButtons.length - 1;
-          break;
-      }
-      if (nextIdx !== null) {
-        e.preventDefault();
-        selectTheme(themeButtons[nextIdx], true);
+  // OS-level scheme changes only need to be wired once per browsing session.
+  if (!(window as any).__themeOsListenerBound) {
+    (window as any).__themeOsListenerBound = true;
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      const current = localStorage.getItem("theme") || "system";
+      if (current === "system") {
+        applyTheme("system");
       }
     });
-  });
-
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-    const current = localStorage.getItem("theme") || "system";
-    if (current === "system") {
-      applyTheme("system");
-    }
-  });
+  }
 </script>

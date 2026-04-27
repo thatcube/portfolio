@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import AmbientBackground from "../components/AmbientBackground.astro";
 import portrait from "../assets/images/portrait.jpg";
 
 const experience = [
@@ -35,23 +34,37 @@ const interests = [
   { label: "Mechanical keyboards", icon: "⌨️" },
   { label: "Coffee", icon: "☕" },
   { label: "Photography", icon: "📷" },
+  { label: "Games", icon: "🎲" },
 ];
 ---
 
 <BaseLayout title="About — Brandon Moore">
-  <div class="about-wrap">
-    <AmbientBackground />
-  <section class="relative max-w-5xl mx-auto px-6 pt-24 pb-24">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
-      <div class="md:col-span-7 md:order-1">
-        <div class="status-pill">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>Ithaca, NY · Designing Power BI at Microsoft</span>
-        </div>
-        <h1 class="font-display font-medium text-4xl sm:text-5xl md:text-6xl text-primary/95 leading-[1.05] tracking-tight mt-6 mb-8">
-          A little about me.
+  <!-- Intro -->
+  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <h1
+          class="font-mono font-medium text-primary/95 text-7xl sm:text-8xl leading-[1.05] tracking-tight lowercase"
+        >
+          about.
         </h1>
-        <div class="space-y-5 text-lg text-primary/75 leading-relaxed">
+
+        <svg
+          class="title-wave"
+          viewBox="0 0 240 14"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2 8 Q 22 1, 42 8 T 82 8 T 122 8 T 162 8 T 202 8 T 238 8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+
+        <div class="prose-block">
           <p>
             I'm Brandon, a product designer on the Power BI team at Microsoft.
             My background is in accessibility — these days I focus on product
@@ -70,89 +83,266 @@ const interests = [
           </p>
         </div>
       </div>
-      <div class="md:col-span-5 md:order-2 portrait-col">
-        <div class="portrait-stage">
-          <span class="portrait-blob" aria-hidden="true"></span>
+
+      <aside class="portrait-col">
+        <div class="portrait-stack">
+          <span class="portrait-shadow-card" aria-hidden="true"></span>
           <div class="portrait-frame">
             <Image
               src={portrait}
               alt="Portrait of Brandon Moore"
               widths={[400, 600, 900]}
-              sizes="(min-width: 768px) 400px, 75vw"
+              sizes="(min-width: 768px) 320px, 75vw"
               class="portrait-img"
             />
           </div>
         </div>
-      </div>
+      </aside>
     </div>
   </section>
 
-  <section class="max-w-3xl mx-auto px-6 pb-24">
-    <h2 class="font-display font-medium text-2xl text-primary/90 mb-12">
-      Experience
-    </h2>
-    <ol class="timeline">
-      {experience.map((item) => (
-        <li class={`timeline-item${item.current ? " is-current" : ""}`}>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <div class="timeline-head">
-            <h3 class="font-display font-medium text-xl text-primary/95">
-              {item.title}
-            </h3>
-            {item.current && <span class="now-badge">Now</span>}
-          </div>
-          <p class="text-primary/75 mt-1">{item.company}</p>
-          <p class="text-sm text-primary/50 mt-1 font-mono tracking-tight">
-            {item.range}
-          </p>
-        </li>
-      ))}
-    </ol>
+  <!-- Wavy section divider -->
+  <div class="section-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 24" preserveAspectRatio="none">
+      <path
+        d="M0 12 Q 75 2, 150 12 T 300 12 T 450 12 T 600 12 T 750 12 T 900 12 T 1050 12 T 1200 12"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.25"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- Experience -->
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <div class="section-inner">
+      <h2 class="section-heading">Experience</h2>
+      <ol class="timeline">
+        {
+          experience.map((item) => (
+            <li class={`timeline-item${item.current ? " is-current" : ""}`}>
+              <span class="timeline-dot" aria-hidden="true" />
+              <div class="timeline-head">
+                <h3 class="font-display font-medium text-xl text-primary/95">
+                  {item.title}
+                </h3>
+                {item.current && <span class="now-badge">Now</span>}
+              </div>
+              <p class="text-primary/75 mt-1">{item.company}</p>
+              <p class="text-sm text-primary/50 mt-1 font-mono tracking-tight">
+                {item.range}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </section>
 
-  <section class="max-w-3xl mx-auto px-6 pb-32">
-    <h2 class="font-display font-medium text-2xl text-primary/90 mb-8">
-      Off the clock
-    </h2>
-    <ul class="interests">
-      {interests.map((it) => (
-        <li class="interest-chip">
-          <span class="interest-icon" aria-hidden="true">{it.icon}</span>
-          <span>{it.label}</span>
-        </li>
-      ))}
-    </ul>
-  </section>
+  <!-- Wavy section divider -->
+  <div class="section-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 24" preserveAspectRatio="none">
+      <path
+        d="M0 12 Q 75 22, 150 12 T 300 12 T 450 12 T 600 12 T 750 12 T 900 12 T 1050 12 T 1200 12"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.25"
+        stroke-linecap="round"
+      ></path>
+    </svg>
   </div>
+
+  <!-- Interests -->
+  <section class="max-w-5xl mx-auto px-6 pt-20 pb-32">
+    <div class="section-inner">
+      <h2 class="section-heading">Off the clock</h2>
+      <ul class="interests">
+        {
+          interests.map((it) => (
+            <li class="interest-chip">
+              <span class="interest-icon" aria-hidden="true">
+                {it.icon}
+              </span>
+              <span>{it.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-  .about-wrap {
+  /* ── Intro layout ─────────────────────────────────────────────────────── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .intro-grid {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 3rem;
+    }
+  }
+
+  .intro-text {
+    min-width: 0;
+  }
+
+  /* ── Headline + wave underline ────────────────────────────────────────── */
+  .title-wave {
+    display: block;
+    width: 12rem;
+    height: 0.75rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.75rem;
+    color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    overflow: visible;
+  }
+
+  .title-wave path {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: draw-wave 1.4s cubic-bezier(0.165, 0.84, 0.44, 1) 200ms forwards;
+  }
+
+  @keyframes draw-wave {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* ── Body prose ───────────────────────────────────────────────────────── */
+  .prose-block {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--color-primary) 78%, transparent);
+    text-wrap: pretty;
+    max-width: 36rem;
+  }
+
+  /* ── Section inner (caps reading width within max-w-5xl frame) ───────── */
+  .section-inner {
+    max-width: 42rem;
+  }
+
+  /* ── Portrait ─────────────────────────────────────────────────────────── */
+  .portrait-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 767px) {
+    .portrait-col {
+      order: -1;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .portrait-stack {
     position: relative;
+    width: 19rem;
   }
 
-  /* ── Status pill ── */
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.45rem 0.95rem 0.45rem 0.8rem;
-    border-radius: 9999px;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: color-mix(in srgb, var(--color-primary) 85%, transparent);
-    background: color-mix(in srgb, var(--color-primary) 7%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-primary) 14%, transparent);
-    backdrop-filter: blur(8px);
+  @media (max-width: 767px) {
+    .portrait-stack {
+      width: 14rem;
+    }
   }
 
-  .status-dot {
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 9999px;
-    background: #22c55e;
-    box-shadow: 0 0 0 0 rgb(34 197 94 / 0.6);
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  /* Offset card sitting behind the portrait — adds modern stacked depth */
+  .portrait-shadow-card {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 10%, transparent);
+    transform: translate(0.85rem, 0.85rem) rotate(2.5deg);
+    transition: transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42);
+  }
+
+  .portrait-stack:hover .portrait-shadow-card {
+    transform: translate(1.15rem, 1.15rem) rotate(3.5deg);
+  }
+
+  .portrait-frame {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: var(--color-img-bg);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-primary) 10%, transparent),
+      0 24px 48px -24px rgb(0 0 0 / 0.28);
+    transform: rotate(-1.5deg);
+    transition:
+      transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
+      box-shadow 400ms ease;
+  }
+
+  .portrait-stack:hover .portrait-frame {
+    transform: rotate(0deg) scale(1.015);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-primary) 16%, transparent),
+      0 32px 64px -24px rgb(0 0 0 / 0.34);
+  }
+
+  .portrait-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.92) contrast(1.02);
+    transition: filter 500ms ease;
+  }
+
+  .portrait-stack:hover .portrait-img {
+    filter: saturate(1.05) contrast(1.04);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portrait-shadow-card,
+    .portrait-frame,
+    .portrait-img {
+      transition: none;
+    }
+  }
+
+  /* ── Section dividers (the liquid motif) ──────────────────────────────── */
+  .section-divider {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    color: color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
+
+  .section-divider svg {
+    display: block;
+    width: 100%;
+    height: 1.25rem;
+    overflow: visible;
+  }
+
+  .section-divider path {
+    animation: wave-drift 9s ease-in-out infinite alternate;
+    transform-origin: center;
+  }
+
+  @keyframes wave-drift {
+    from {
+      transform: translateX(-6px);
+    }
+    to {
+      transform: translateX(6px);
+    }
   }
 
   @keyframes pulse {
@@ -167,81 +357,16 @@ const interests = [
     }
   }
 
-  /* ── Portrait ── */
-  .portrait-col {
-    display: flex;
-    justify-content: center;
+  /* ── Section headings ─────────────────────────────────────────────────── */
+  .section-heading {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: color-mix(in srgb, var(--color-primary) 92%, transparent);
+    margin-bottom: 2.5rem;
   }
 
-  .portrait-stage {
-    position: relative;
-    width: 100%;
-    max-width: 22rem;
-    margin-left: auto;
-  }
-
-  @media (max-width: 767px) {
-    .portrait-stage {
-      max-width: 17rem;
-      margin: 0 auto;
-    }
-  }
-
-  .portrait-blob {
-    position: absolute;
-    inset: -3rem;
-    z-index: 0;
-    background:
-      radial-gradient(
-        50% 50% at 30% 30%,
-        color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
-        transparent 70%
-      ),
-      radial-gradient(
-        45% 45% at 75% 75%,
-        color-mix(in srgb, #22c55e 18%, transparent) 0%,
-        transparent 70%
-      );
-    filter: blur(40px);
-    opacity: 0.9;
-    pointer-events: none;
-  }
-
-  :global(.dark) .portrait-blob {
-    opacity: 0.7;
-    filter: blur(48px);
-  }
-
-  .portrait-frame {
-    position: relative;
-    z-index: 1;
-    border-radius: 1.5rem;
-    overflow: hidden;
-    background: color-mix(in srgb, var(--color-primary) 6%, transparent);
-    box-shadow:
-      0 0 0 0.4rem color-mix(in srgb, var(--color-primary) 5%, transparent),
-      0 24px 48px -24px rgb(0 0 0 / 0.28);
-    transform: rotate(-1.5deg);
-    transition: transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
-      box-shadow 400ms ease;
-  }
-
-  .portrait-frame:hover {
-    transform: rotate(0deg) scale(1.02);
-    box-shadow:
-      0 0 0 0.4rem color-mix(in srgb, var(--color-primary) 8%, transparent),
-      0 32px 64px -24px rgb(0 0 0 / 0.32);
-  }
-
-  .portrait-img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-  }
-
-  /* ── Timeline ── */
+  /* ── Timeline ─────────────────────────────────────────────────────────── */
   .timeline {
     position: relative;
     list-style: none;
@@ -267,7 +392,9 @@ const interests = [
     height: 0.7rem;
     border-radius: 9999px;
     background: color-mix(in srgb, var(--color-primary) 30%, transparent);
-    transition: background 300ms ease, box-shadow 300ms ease,
+    transition:
+      background 300ms ease,
+      box-shadow 300ms ease,
       transform 300ms ease;
   }
 
@@ -319,7 +446,7 @@ const interests = [
     color: #4ade80;
   }
 
-  /* ── Interests ── */
+  /* ── Interests ────────────────────────────────────────────────────────── */
   .interests {
     display: flex;
     flex-wrap: wrap;
@@ -339,8 +466,10 @@ const interests = [
     color: color-mix(in srgb, var(--color-primary) 80%, transparent);
     background: color-mix(in srgb, var(--color-primary) 4%, transparent);
     border: 1px solid color-mix(in srgb, var(--color-primary) 8%, transparent);
-    transition: transform 400ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
-      background 250ms ease, border-color 250ms ease;
+    transition:
+      transform 400ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
+      background 250ms ease,
+      border-color 250ms ease;
   }
 
   .interest-chip:hover {
@@ -354,11 +483,12 @@ const interests = [
     line-height: 1;
   }
 
-  /* ── Reveal-on-scroll ── */
+  /* ── Reveal-on-scroll ─────────────────────────────────────────────────── */
   .reveal {
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 700ms cubic-bezier(0.165, 0.84, 0.44, 1),
+    transition:
+      opacity 700ms cubic-bezier(0.165, 0.84, 0.44, 1),
       transform 700ms cubic-bezier(0.165, 0.84, 0.44, 1);
   }
   .reveal.is-visible {
@@ -367,23 +497,27 @@ const interests = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .status-dot,
     .timeline-item.is-current .timeline-dot {
       animation: none;
+    }
+    .title-wave path,
+    .section-divider path {
+      animation: none;
+      stroke-dashoffset: 0;
     }
     .reveal {
       opacity: 1;
       transform: none;
       transition: none;
     }
-    .portrait-frame {
+    .portrait-frame,
+    .portrait-shadow-card {
       transform: none;
     }
   }
 </style>
 
 <script>
-  // Add reveal class to timeline items + interests, then observe
   const targets = document.querySelectorAll<HTMLElement>(
     ".timeline-item, .interest-chip"
   );
