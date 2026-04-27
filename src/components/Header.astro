@@ -1,6 +1,5 @@
 ---
 import LiquidLogo from "./LiquidLogo.astro";
-import { Icon } from 'astro-icon/components';
 ---
 
 <header
@@ -35,12 +34,17 @@ import { Icon } from 'astro-icon/components';
           data-disclosure-trigger
         >
           Work
-          <Icon
-            name="ph:caret-down"
+          <svg
             class="w-3.5 h-3.5 transition-transform duration-300"
             data-disclosure-chevron
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
             aria-hidden="true"
-          />
+          >
+            <path d="M19 9l-7 7-7-7" />
+          </svg>
         </button>
 
         <!-- Dropdown -->
