@@ -6,7 +6,7 @@ import portrait from "../assets/images/portrait.jpg";
 
 const experience = [
   {
-    title: "Product Designer",
+    title: "Product Designer, Power BI",
     company: "Microsoft",
     range: "April 2021 — Present",
     current: true,
@@ -46,25 +46,27 @@ const interests = [
       <div class="md:col-span-7 md:order-1">
         <div class="status-pill">
           <span class="status-dot" aria-hidden="true"></span>
-          <span>Seattle · Designing at Microsoft</span>
+          <span>Ithaca, NY · Designing Power BI at Microsoft</span>
         </div>
-        <h1 class="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-primary/95 leading-[1.05] tracking-tight mt-6 mb-8">
+        <h1 class="font-display font-medium text-4xl sm:text-5xl md:text-6xl text-primary/95 leading-[1.05] tracking-tight mt-6 mb-8">
           A little about me.
         </h1>
         <div class="space-y-5 text-lg text-primary/75 leading-relaxed">
           <p>
-            I'm Brandon, a product designer passionate about inclusive design.
-            I strive to create products and experiences built for all people.
+            I'm Brandon, a product designer on the Power BI team at Microsoft.
+            My background is in accessibility — these days I focus on product
+            design, but inclusive thinking still shapes everything I make.
           </p>
           <p>
             I'm a developer-turned-designer
             <span aria-hidden="true">🦄</span>
-            who still writes code from time to time. These days I mostly dabble
-            in CSS and tinker with motion.
+            who lives for the details: prototypes, pixel pushing, motion, and
+            the small microinteractions that make a product feel alive.
           </p>
           <p>
-            Outside of design, you'll find me on a bike, on a trail, or fussing
-            over my houseplants and mechanical keyboards.
+            I'm based just outside Ithaca, NY. Outside of design, you'll find
+            me on a bike, on a trail, or fussing over my houseplants and
+            mechanical keyboards.
           </p>
         </div>
       </div>
@@ -86,7 +88,7 @@ const interests = [
   </section>
 
   <section class="max-w-3xl mx-auto px-6 pb-24">
-    <h2 class="font-display font-bold text-2xl text-primary/90 mb-12">
+    <h2 class="font-display font-medium text-2xl text-primary/90 mb-12">
       Experience
     </h2>
     <ol class="timeline">
@@ -94,7 +96,7 @@ const interests = [
         <li class={`timeline-item${item.current ? " is-current" : ""}`}>
           <span class="timeline-dot" aria-hidden="true"></span>
           <div class="timeline-head">
-            <h3 class="font-display font-bold text-xl text-primary/95">
+            <h3 class="font-display font-medium text-xl text-primary/95">
               {item.title}
             </h3>
             {item.current && <span class="now-badge">Now</span>}
@@ -109,7 +111,7 @@ const interests = [
   </section>
 
   <section class="max-w-3xl mx-auto px-6 pb-32">
-    <h2 class="font-display font-bold text-2xl text-primary/90 mb-8">
+    <h2 class="font-display font-medium text-2xl text-primary/90 mb-8">
       Off the clock
     </h2>
     <ul class="interests">

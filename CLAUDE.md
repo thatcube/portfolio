@@ -63,3 +63,20 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+---
+
+## Project notes
+
+**Old portfolio (still live at brandonmoore.design):**
+- Local path: `/Users/brandon/Development/Portfolio-old`
+- Stack: Gatsby + Sanity (monorepo: `web/` + `studio/`)
+- Logo lives at `web/src/components/header.js` and `web/src/images/favicon.svg` — a circle with a half-fill "liquid" shape (the inner dome). Originally Brandon imagined this liquid sloshing on interaction; that animation was never implemented.
+- Useful reference for: prior copy, asset history, the liquid-logo concept, project case study content.
+
+**About Brandon (for copy / positioning):**
+- Product Designer on the Power BI design team at Microsoft (since he started there).
+- Based in Newfield, NY — says "Ithaca, NY" publicly.
+- Strong accessibility background, but day-to-day is mostly product design now.
+- Loves: prototypes, pixel pushing, motion, microinteractions.
+- The 🦄 unicorn easter-egg emoji in the about copy is intentional — keep it.

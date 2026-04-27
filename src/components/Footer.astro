@@ -81,26 +81,38 @@
   .theme-btn::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: calc(100% + 6px);
+    bottom: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%);
-    padding: 4px 8px;
-    border-radius: 4px;
+    transform: translateX(-50%) translateY(2px);
+    padding: 5px 9px;
+    border-radius: 6px;
     background-color: var(--color-primary);
-    color: var(--color-bg, #fff);
-    font-size: 11px;
+    color: var(--color-surface);
+    font-size: 12px;
+    font-weight: 500;
     line-height: 1;
+    letter-spacing: 0.01em;
     white-space: nowrap;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.18);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.15s ease;
-  }
-  :global(.dark) .theme-btn::after {
-    color: #000;
+    z-index: 10;
+    transition: opacity 0.15s ease, transform 0.15s ease;
   }
   .theme-btn:hover::after,
   .theme-btn:focus-visible::after {
-    opacity: 0.95;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  /* Prevent stacked tooltips: when a sibling is being hovered,
+     suppress focus-visible tooltips on the others. */
+  [role="radiogroup"]:has(.theme-btn:hover) .theme-btn:focus-visible:not(:hover)::after {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-btn::after { transition: opacity 0.15s ease; transform: translateX(-50%); }
+    .theme-btn:hover::after,
+    .theme-btn:focus-visible::after { transform: translateX(-50%); }
   }
 
   .footer-link {

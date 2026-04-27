@@ -1,23 +1,26 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
 /* Use class-based dark mode (html.dark) instead of prefers-color-scheme */
 @variant dark (&:where(.dark, .dark *));
 
 /* ── Design Tokens ── */
 @theme {
-  --color-accent: #675ae8;
   --color-primary: rgb(15, 17, 19);
   --color-surface: #ffffff;
   --color-raised: #ffffff;
   --color-img-bg: rgb(246, 246, 248);
   --color-border: rgb(0, 0, 0);
 
-  --font-display: "Gilroy", ui-sans-serif, system-ui, sans-serif;
-  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    monospace;
+  --font-display: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+  --font-body: "Geist Variable", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
 
   /* Default transitions: snappy for color/text changes */
   --default-transition-duration: 150ms;
@@ -26,7 +29,6 @@
 
 /* ── Dark Mode Overrides ── */
 html.dark {
-  --color-accent: #857bed;
   --color-primary: rgb(255, 255, 255);
   --color-surface: rgb(15, 17, 19);
   --color-raised: rgb(29, 32, 36);
@@ -39,7 +41,6 @@ html.dark {
    when navigating between pages with view transitions) */
 @media (prefers-color-scheme: dark) {
   html:not(.light) {
-    --color-accent: #857bed;
     --color-primary: rgb(255, 255, 255);
     --color-surface: rgb(15, 17, 19);
     --color-raised: rgb(29, 32, 36);

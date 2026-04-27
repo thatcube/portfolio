@@ -1,4 +1,5 @@
 ---
+import LiquidLogo from "./LiquidLogo.astro";
 ---
 
 <header
@@ -6,9 +7,14 @@
   class="absolute top-0 left-0 right-0 z-50"
 >
   <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Primary">
-    <!-- Logo -->
-    <a href="/" class="font-display font-bold text-lg tracking-tight text-primary/90 transition-colors">
-      Brandon Moore
+    <!-- Brand: liquid logo + wordmark, single link to home -->
+    <a
+      href="/"
+      class="brand-link inline-flex items-center gap-2.5 font-display font-medium text-lg tracking-tight text-primary/90 transition-colors"
+      data-brand-trigger
+    >
+      <LiquidLogo />
+      <span>Brandon Moore</span>
     </a>
 
     <!-- Nav Links -->

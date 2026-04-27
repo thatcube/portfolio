@@ -1,0 +1,312 @@
+---
+// Always-alive liquid mark, brought back from the original
+// portfolio. Click triggers a drain → pause → spring-refill cycle.
+// Reduced-motion renders a static half-fill.
+---
+
+<span class="liquid-logo" aria-hidden="true">
+  <svg
+    viewBox="0 0 44 44"
+    xmlns="http://www.w3.org/2000/svg"
+    data-liquid-svg
+  >
+    <defs>
+      <clipPath id="liquid-logo-clip">
+        <circle cx="22" cy="22" r="12.5"></circle>
+      </clipPath>
+    </defs>
+    <circle
+      cx="22"
+      cy="22"
+      r="16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="8"
+    ></circle>
+    <g clip-path="url(#liquid-logo-clip)">
+      <path
+        data-liquid-surface
+        fill="currentColor"
+        d="M10 22 L34 22 L34 34 L10 34 Z"
+      ></path>
+    </g>
+    <g data-liquid-droplets fill="currentColor"></g>
+  </svg>
+</span>
+
+<style>
+  .liquid-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.55em;
+    height: 1.55em;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+  .liquid-logo svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* Allow droplets to render below the vessel without affecting layout */
+    overflow: visible;
+  }
+</style>
+
+<script>
+  (function () {
+    const svg = document.querySelector<SVGSVGElement>("[data-liquid-svg]");
+    if (!svg) return;
+
+    const surface = svg.querySelector<SVGPathElement>("[data-liquid-surface]");
+    const dropletsGroup = svg.querySelector<SVGGElement>(
+      "[data-liquid-droplets]"
+    );
+    // Trigger is the closest interactive ancestor (the brand link)
+    const trigger =
+      svg.closest<HTMLElement>("[data-brand-trigger]") ||
+      (svg.parentElement as HTMLElement | null);
+    if (!surface || !dropletsGroup || !trigger) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    // ── Geometry ────────────────────────────────────────────────────────────
+    const CX = 22;
+    const CY = 22;
+    const R = 12;
+    const TOP = CY - R;
+    const BOTTOM = CY + R;
+    const SAMPLES = 16;
+
+    // ── State ───────────────────────────────────────────────────────────────
+    const REST_LEVEL = 0.5;
+    let level = REST_LEVEL;
+    let vel = 0; // level velocity (for spring physics)
+    let phase = 0; // wave phase
+    let waveAmp = 1.6; // px (viewBox units)
+    let tilt = 0; // current tilt (rad)
+    let targetTilt = 0; // hover target tilt (rad)
+
+    type Mode = "idle" | "drain" | "pause" | "spring";
+    let mode: Mode = "idle";
+    let modeStart = 0;
+    let drainStartLevel = REST_LEVEL;
+    let nextDropletAt = 0;
+
+    const DRAIN_MS = 400;
+    const PAUSE_MS = 150;
+    const K = 90; // spring stiffness
+    const C = 9; // spring damping (underdamped → bounce, then settle)
+
+    type Droplet = {
+      x: number;
+      y: number;
+      vy: number;
+      r: number;
+      alpha: number;
+      el: SVGCircleElement;
+    };
+    const droplets: Droplet[] = [];
+
+    // ── Path builder ────────────────────────────────────────────────────────
+    const SVG_NS = "http://www.w3.org/2000/svg";
+
+    function buildSurfacePath() {
+      // level=0 → surface at BOTTOM (empty); level=1 → surface at TOP (full)
+      const baseY = BOTTOM - level * (R * 2);
+      const step = (R * 2) / SAMPLES;
+      const tanTilt = Math.tan(tilt);
+      let d = "";
+      for (let i = 0; i <= SAMPLES; i++) {
+        const x = CX - R + i * step;
+        const t = i / SAMPLES;
+        const wave = Math.sin(phase + t * Math.PI * 2.6) * waveAmp;
+        // Linear lean across width: dome tilts toward cursor
+        const lean = (t - 0.5) * (R * 2) * tanTilt;
+        const y = baseY + wave + lean;
+        d += (i === 0 ? "M" : " L") + x.toFixed(2) + " " + y.toFixed(2);
+      }
+      // Close down through the bottom of the inner circle (clip handles cropping)
+      d += " L " + (CX + R).toFixed(2) + " " + (BOTTOM + 2).toFixed(2);
+      d += " L " + (CX - R).toFixed(2) + " " + (BOTTOM + 2).toFixed(2);
+      d += " Z";
+      return d;
+    }
+
+    // ── Droplets ────────────────────────────────────────────────────────────
+    function emitDroplet() {
+      // Emit just below the vessel — the liquid is leaking out the bottom
+      const x = CX + (Math.random() - 0.5) * (R * 0.9);
+      const y = BOTTOM + 4 + Math.random() * 1.5;
+      const r = 1.0 + Math.random() * 0.8;
+      const el = document.createElementNS(SVG_NS, "circle");
+      el.setAttribute("r", r.toFixed(2));
+      el.setAttribute("cx", x.toFixed(2));
+      el.setAttribute("cy", y.toFixed(2));
+      el.setAttribute("opacity", "0.9");
+      dropletsGroup!.appendChild(el);
+      droplets.push({
+        x,
+        y,
+        vy: 22 + Math.random() * 14,
+        r,
+        alpha: 0.9,
+        el,
+      });
+    }
+
+    function updateDroplets(dt: number) {
+      for (let i = droplets.length - 1; i >= 0; i--) {
+        const d = droplets[i];
+        d.vy += 220 * dt; // gravity
+        d.y += d.vy * dt;
+        d.alpha -= dt * 1.6;
+        if (d.y > 72 || d.alpha <= 0) {
+          d.el.remove();
+          droplets.splice(i, 1);
+        } else {
+          d.el.setAttribute("cy", d.y.toFixed(2));
+          d.el.setAttribute("opacity", Math.max(0, d.alpha).toFixed(2));
+        }
+      }
+    }
+
+    // ── rAF loop ────────────────────────────────────────────────────────────
+    let rafId = 0;
+    let lastTime = 0;
+    let running = false;
+
+    function tick(now: number) {
+      const dtRaw = lastTime ? (now - lastTime) / 1000 : 0.016;
+      const dt = Math.min(0.05, dtRaw); // clamp big jumps
+      lastTime = now;
+
+      // Ambient wave — always advancing
+      phase += dt * 1.6;
+
+      // Tilt easing toward target
+      tilt += (targetTilt - tilt) * Math.min(1, dt * 9);
+
+      if (mode === "drain") {
+        const t = Math.min(1, (now - modeStart) / DRAIN_MS);
+        const eased = t * t; // ease-in
+        level = drainStartLevel * (1 - eased);
+        waveAmp = 1.6 + eased * 2.0;
+
+        if (now >= nextDropletAt && t < 0.95 && droplets.length < 8) {
+          emitDroplet();
+          nextDropletAt = now + 55 + Math.random() * 50;
+        }
+
+        if (t >= 1) {
+          level = 0;
+          mode = "pause";
+          modeStart = now;
+        }
+      } else if (mode === "pause") {
+        level = 0;
+        waveAmp = 1.2;
+        if (now - modeStart >= PAUSE_MS) {
+          mode = "spring";
+          vel = 0;
+        }
+      } else if (mode === "spring") {
+        // Damped harmonic oscillator toward REST_LEVEL
+        const acc = -K * (level - REST_LEVEL) - C * vel;
+        vel += acc * dt;
+        level += vel * dt;
+        // Wave amplitude rides the velocity — turbulent during refill, calm at rest
+        waveAmp = 1.6 + Math.min(3.5, Math.abs(vel) * 5);
+
+        if (
+          Math.abs(level - REST_LEVEL) < 0.003 &&
+          Math.abs(vel) < 0.05
+        ) {
+          level = REST_LEVEL;
+          vel = 0;
+          mode = "idle";
+        }
+      } else {
+        // idle: subtle breathing on level + amplitude
+        const breath = Math.sin(now * 0.0008) * 0.025;
+        level = REST_LEVEL + breath;
+        waveAmp = 1.6 + Math.sin(now * 0.0011) * 0.5;
+      }
+
+      updateDroplets(dt);
+      surface!.setAttribute("d", buildSurfacePath());
+
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      lastTime = 0;
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stop() {
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(rafId);
+    }
+
+    function renderStatic() {
+      level = REST_LEVEL;
+      waveAmp = 0;
+      tilt = 0;
+      phase = 0;
+      surface!.setAttribute("d", buildSurfacePath());
+    }
+
+    // ── Click → drain ───────────────────────────────────────────────────────
+    trigger.addEventListener("click", () => {
+      if (reduceMotion.matches) return;
+      drainStartLevel = level > 0.05 ? level : REST_LEVEL;
+      mode = "drain";
+      modeStart = performance.now();
+      nextDropletAt = modeStart;
+    });
+
+    // ── Hover tilt ──────────────────────────────────────────────────────────
+    trigger.addEventListener("pointermove", (e) => {
+      if (reduceMotion.matches) return;
+      const rect = svg.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const half = rect.width / 2 || 1;
+      const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / half));
+      targetTilt = dx * 0.06; // ~3.4° max
+    });
+    trigger.addEventListener("pointerleave", () => {
+      targetTilt = 0;
+    });
+
+    // ── Reduced motion ──────────────────────────────────────────────────────
+    function handleMotionPref() {
+      if (reduceMotion.matches) {
+        stop();
+        // Clear any in-flight droplets
+        droplets.forEach((d) => d.el.remove());
+        droplets.length = 0;
+        renderStatic();
+      } else {
+        start();
+      }
+    }
+    if ("addEventListener" in reduceMotion) {
+      reduceMotion.addEventListener("change", handleMotionPref);
+    }
+
+    // ── Visibility (pause when tab hidden) ──────────────────────────────────
+    document.addEventListener("visibilitychange", () => {
+      if (reduceMotion.matches) return;
+      if (document.hidden) stop();
+      else start();
+    });
+
+    // Boot
+    if (reduceMotion.matches) renderStatic();
+    else start();
+  })();
+</script>
