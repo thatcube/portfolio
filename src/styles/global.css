@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Use class-based dark mode (html.dark) instead of prefers-color-scheme */
+@variant dark (&:where(.dark, .dark *));
+
+/* ── Design Tokens ── */
+@theme {
+  --color-accent: #675ae8;
+  --color-primary: rgb(15, 17, 19);
+  --color-surface: #ffffff;
+  --color-raised: #ffffff;
+  --color-img-bg: rgb(246, 246, 248);
+  --color-border: rgb(0, 0, 0);
+
+  --font-display: "Gilroy", ui-sans-serif, system-ui, sans-serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+}
+
+/* ── Dark Mode Overrides ── */
+html.dark {
+  --color-accent: #857bed;
+  --color-primary: rgb(255, 255, 255);
+  --color-surface: rgb(15, 17, 19);
+  --color-raised: rgb(29, 32, 36);
+  --color-img-bg: rgb(24, 28, 31);
+  --color-border: rgb(255, 255, 255);
+}
+
+/* ── Base Styles ── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-surface);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* ── Prose Images ── */
+:where(article.prose) img {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+html.dark :where(article.prose) img {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Focus ── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── View Transitions ── */
+@view-transition {
+  navigation: auto;
+}
