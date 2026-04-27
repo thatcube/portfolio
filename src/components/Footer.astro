@@ -162,23 +162,39 @@ import { Icon } from 'astro-icon/components';
   .theme-btn[data-active] { opacity: 1; }
   /* "Lights on" flash: when the sun is freshly activated, briefly glow the
      same warm amber as its ray burst, then settle back to the standard
-     primary tint so the icon stays legible against any surface. */
+     primary tint so the icon stays legible against any surface.
+     Easing is linear for the color so the fade-down doesn't snap; the
+     drop-shadow has its own gentler curve via the filter waypoints. */
   .theme-btn[data-theme="light"][data-just-activated] .theme-icon-solid {
     animation:
       theme-icon-pop 0.5s cubic-bezier(0.34, 1.6, 0.5, 1),
-      theme-sun-glow 1.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      theme-sun-glow 2s linear;
   }
   @keyframes theme-sun-glow {
-    0%   { color: var(--color-primary); filter: none; }
-    18%  {
+    0% {
+      color: var(--color-primary);
+      filter: none;
+    }
+    8% {
       color: #f59e0b;
       filter: drop-shadow(0 0 6px color-mix(in srgb, #f59e0b 70%, transparent));
     }
-    55%  {
+    30% {
       color: #f59e0b;
-      filter: drop-shadow(0 0 4px color-mix(in srgb, #f59e0b 45%, transparent));
+      filter: drop-shadow(0 0 4px color-mix(in srgb, #f59e0b 50%, transparent));
     }
-    100% { color: var(--color-primary); filter: none; }
+    55% {
+      color: #d18a18;
+      filter: drop-shadow(0 0 2px color-mix(in srgb, #f59e0b 25%, transparent));
+    }
+    80% {
+      color: color-mix(in srgb, #f59e0b 35%, var(--color-primary));
+      filter: none;
+    }
+    100% {
+      color: var(--color-primary);
+      filter: none;
+    }
   }
   /* Tiny "pop" only on the button that was just activated — keeps the
      other-button transition a calm fade. */
