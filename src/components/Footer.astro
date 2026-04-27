@@ -3,33 +3,21 @@
 
 <footer class="border-t border-border/10 mt-24">
   <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between items-center gap-6">
-    <p class="text-sm text-primary/50">
-      &copy; {new Date().getFullYear()} Brandon Moore
+    <p class="text-sm text-primary/60">
+      Made with <span class="footer-heart" aria-hidden="true">♥</span><span class="sr-only">love</span> by Brandon. Say hi on
+      <a
+        href="https://www.linkedin.com/in/bmoore46/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+      >LinkedIn</a>
+      or
+      <a
+        href="mailto:brandoncmoore4@gmail.com"
+        class="footer-link"
+      >email</a>.
     </p>
     <div class="flex items-center gap-6">
-      <nav aria-label="Social">
-        <ul class="flex items-center gap-6 list-none m-0 p-0">
-          <li>
-            <a
-              href="https://www.linkedin.com/in/bmoore46/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-sm text-primary/60 transition-colors"
-            >
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <a
-              href="mailto:brandoncmoore4@gmail.com"
-              class="text-sm text-primary/60 transition-colors"
-            >
-              Email
-            </a>
-          </li>
-        </ul>
-      </nav>
-
       <!-- Theme Switcher -->
       <div
         class="flex items-center rounded-lg border border-border/10 p-0.5 gap-0.5"
@@ -113,6 +101,48 @@
   .theme-btn:hover::after,
   .theme-btn:focus-visible::after {
     opacity: 0.95;
+  }
+
+  .footer-link {
+    color: var(--color-primary);
+    opacity: 0.85;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    text-underline-offset: 3px;
+    transition: opacity 0.15s ease, text-decoration-color 0.15s ease;
+  }
+  .footer-link:hover,
+  .footer-link:focus-visible {
+    opacity: 1;
+    text-decoration-color: currentColor;
+  }
+
+  .footer-heart {
+    display: inline-block;
+    color: #ef4444;
+    transform: translateY(1px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .footer-heart {
+      animation: footer-heartbeat 1.6s ease-in-out infinite;
+    }
+  }
+  @keyframes footer-heartbeat {
+    0%, 60%, 100% { transform: translateY(1px) scale(1); }
+    20% { transform: translateY(1px) scale(1.18); }
+    40% { transform: translateY(1px) scale(1.05); }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
 
