@@ -2,62 +2,262 @@
 ---
 
 <header
-  class="sticky top-0 z-50 backdrop-blur-md bg-surface/80 border-b border-border/10"
+  id="site-header"
+  class="absolute top-0 left-0 right-0 z-50"
 >
-  <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+  <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Primary">
     <!-- Logo -->
-    <a href="/" class="font-display font-bold text-lg tracking-tight text-primary/90 hover:text-accent transition-colors">
+    <a href="/" class="font-display font-bold text-lg tracking-tight text-primary/90 transition-colors">
       Brandon Moore
     </a>
 
     <!-- Nav Links -->
-    <div class="flex items-center gap-8">
-      <!-- Work Dropdown -->
-      <div class="relative group">
+    <ul class="flex items-center gap-8 list-none m-0 p-0">
+      <!-- Work Disclosure -->
+      <li class="relative" data-disclosure>
         <button
-          class="text-sm font-medium text-primary/60 hover:text-primary/90 transition-colors flex items-center gap-1"
+          type="button"
+          class="text-sm font-medium text-primary/60 hover:text-primary/90 transition-colors flex items-center gap-1 py-2"
           aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="work-menu"
+          data-disclosure-trigger
         >
           Work
-          <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg
+            class="w-3.5 h-3.5 transition-transform duration-300"
+            data-disclosure-chevron
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
             <path d="M19 9l-7 7-7-7" />
           </svg>
         </button>
 
         <!-- Dropdown -->
         <div
-          class="absolute top-full right-0 mt-2 w-64 py-2 bg-raised rounded-xl shadow-lg border border-border/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-1 group-hover:translate-y-0"
+          id="work-menu"
+          class="dropdown-menu absolute top-full right-0 pt-3 w-72"
+          data-disclosure-panel
+          inert
         >
-          <a
-            href="/projects/get-app"
-            class="block px-4 py-2.5 text-sm text-primary/70 hover:bg-border/5 hover:text-accent transition-colors"
-          >
-            <span class="font-medium block">GET App Redesign</span>
-            <span class="text-xs text-primary/50">All-in-one app for college students</span>
-          </a>
-          <a
-            href="/projects/aqua-design-system"
-            class="block px-4 py-2.5 text-sm text-primary/70 hover:bg-border/5 hover:text-accent transition-colors"
-          >
-            <span class="font-medium block">Aqua Design System</span>
-            <span class="text-xs text-primary/50">First design system for two companies</span>
-          </a>
-          <a
-            href="/projects/patient-app"
-            class="block px-4 py-2.5 text-sm text-primary/70 hover:bg-border/5 hover:text-accent transition-colors"
-          >
-            <span class="font-medium block">Patient App</span>
-            <span class="text-xs text-primary/50">Food ordering for healthcare</span>
-          </a>
+          <ul class="p-2 bg-raised rounded-2xl shadow-xl border border-border/10 list-none m-0">
+            <li>
+              <a
+                href="/projects/get-app"
+                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors"
+              >
+                GET App Redesign
+              </a>
+            </li>
+            <li>
+              <a
+                href="/projects/aqua-design-system"
+                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors"
+              >
+                Aqua Design System
+              </a>
+            </li>
+            <li>
+              <a
+                href="/projects/patient-app"
+                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors"
+              >
+                Patient App
+              </a>
+            </li>
+          </ul>
         </div>
-      </div>
+      </li>
 
-      <a
-        href="/about"
-        class="text-sm font-medium text-primary/60 hover:text-primary/90 transition-colors"
-      >
-        About
-      </a>
-    </div>
+      <li>
+        <a
+          href="/about"
+          class="text-sm font-medium text-primary/60 hover:text-primary/90 transition-colors py-2"
+        >
+          About
+        </a>
+      </li>
+    </ul>
   </nav>
 </header>
+
+<style>
+  #site-header {
+    will-change: transform;
+    transition: background-color 250ms ease, border-color 250ms ease;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    backdrop-filter: none;
+  }
+
+  /* Only show frosted bg + border when pinned (i.e., re-appearing on scroll up) */
+  #site-header.is-pinned {
+    position: fixed;
+    transform: translateY(-100%);
+    background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    border-bottom-color: color-mix(in srgb, var(--color-border) 10%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  #site-header.is-pinned.is-visible {
+    transform: translateY(0);
+    transition:
+      transform 320ms cubic-bezier(0.165, 0.84, 0.44, 1),
+      background-color 250ms ease,
+      border-color 250ms ease;
+  }
+
+  /* Disclosure panel: visually hidden by default; JS controls .is-open and the
+     `inert` attribute (which blocks focus + interaction + hides from AT). */
+  .dropdown-menu {
+    transform: translateY(-4px) scale(0.96);
+    transform-origin: top right;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 200ms cubic-bezier(0.165, 0.84, 0.44, 1),
+      transform 240ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
+      visibility 240ms;
+  }
+  [data-disclosure].is-open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  [data-disclosure].is-open [data-disclosure-chevron] {
+    transform: rotate(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dropdown-menu {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const header = document.getElementById("site-header");
+    if (!header) return;
+
+    // ── Disclosure (Work menu) ─────────────────────────────────────────────
+    document.querySelectorAll<HTMLElement>("[data-disclosure]").forEach((root) => {
+      const trigger = root.querySelector<HTMLButtonElement>(
+        "[data-disclosure-trigger]"
+      );
+      const panel = root.querySelector<HTMLElement>("[data-disclosure-panel]");
+      if (!trigger || !panel) return;
+
+      let hoverCloseTimer: number | undefined;
+
+      const setOpen = (open: boolean) => {
+        root.classList.toggle("is-open", open);
+        trigger.setAttribute("aria-expanded", String(open));
+        if (open) {
+          panel.removeAttribute("inert");
+        } else {
+          panel.setAttribute("inert", "");
+        }
+      };
+
+      // Click toggles
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setOpen(trigger.getAttribute("aria-expanded") !== "true");
+      });
+
+      // Hover opens (mouse convenience). Small delay on close so users can move
+      // the cursor between trigger and panel without flicker.
+      const onEnter = () => {
+        if (hoverCloseTimer) {
+          clearTimeout(hoverCloseTimer);
+          hoverCloseTimer = undefined;
+        }
+        setOpen(true);
+      };
+      const onLeave = () => {
+        hoverCloseTimer = window.setTimeout(() => {
+          if (!root.contains(document.activeElement)) setOpen(false);
+        }, 120);
+      };
+      root.addEventListener("pointerenter", onEnter);
+      root.addEventListener("pointerleave", onLeave);
+
+      // Escape closes + returns focus
+      root.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && root.classList.contains("is-open")) {
+          setOpen(false);
+          trigger.focus();
+        }
+      });
+
+      // Click outside closes
+      document.addEventListener("click", (e) => {
+        if (!root.contains(e.target as Node)) setOpen(false);
+      });
+
+      // Focus leaving the disclosure subtree closes (keyboard tabbing past)
+      root.addEventListener("focusout", () => {
+        setTimeout(() => {
+          if (!root.contains(document.activeElement)) setOpen(false);
+        }, 0);
+      });
+    });
+
+    // ── Pin-on-scroll-up behavior ──────────────────────────────────────────
+    let lastY = window.scrollY;
+    let accumulated = 0;
+    let ticking = false;
+    const threshold = 60;
+
+    function update() {
+      const y = window.scrollY;
+      const delta = y - lastY;
+
+      if (y <= 0) {
+        header!.classList.remove("is-pinned", "is-visible");
+        accumulated = 0;
+        lastY = y;
+        ticking = false;
+        return;
+      }
+
+      if (Math.sign(delta) !== Math.sign(accumulated)) {
+        accumulated = delta;
+      } else {
+        accumulated += delta;
+      }
+
+      if (accumulated < -threshold) {
+        if (!header!.classList.contains("is-pinned")) {
+          header!.classList.add("is-pinned");
+          void header!.offsetHeight;
+        }
+        header!.classList.add("is-visible");
+      } else if (accumulated > threshold && header!.classList.contains("is-pinned")) {
+        header!.classList.remove("is-pinned", "is-visible");
+      }
+
+      lastY = y;
+      ticking = false;
+    }
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+  })();
+</script>

@@ -7,47 +7,71 @@
       &copy; {new Date().getFullYear()} Brandon Moore
     </p>
     <div class="flex items-center gap-6">
-      <a
-        href="https://www.linkedin.com/in/brandoncmoore/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-sm text-primary/60 hover:text-accent transition-colors"
-      >
-        LinkedIn
-      </a>
-      <a
-        href="mailto:brandoncmoore4@gmail.com"
-        class="text-sm text-primary/60 hover:text-accent transition-colors"
-      >
-        Email
-      </a>
+      <nav aria-label="Social">
+        <ul class="flex items-center gap-6 list-none m-0 p-0">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/bmoore46/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-primary/60 transition-colors"
+            >
+              LinkedIn
+            </a>
+          </li>
+          <li>
+            <a
+              href="mailto:brandoncmoore4@gmail.com"
+              class="text-sm text-primary/60 transition-colors"
+            >
+              Email
+            </a>
+          </li>
+        </ul>
+      </nav>
 
       <!-- Theme Switcher -->
-      <div class="flex items-center rounded-lg border border-border/10 p-0.5 gap-0.5">
+      <div
+        class="flex items-center rounded-lg border border-border/10 p-0.5 gap-0.5"
+        role="radiogroup"
+        aria-label="Color theme"
+      >
         <button
+          type="button"
+          role="radio"
+          aria-checked="false"
           data-theme="light"
+          data-tooltip="Light"
           aria-label="Light mode"
           class="theme-btn p-1.5 rounded-md transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <svg class="w-4 h-4" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
           </svg>
         </button>
         <button
+          type="button"
+          role="radio"
+          aria-checked="false"
           data-theme="system"
+          data-tooltip="System"
           aria-label="System theme"
           class="theme-btn p-1.5 rounded-md transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <svg class="w-4 h-4" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
           </svg>
         </button>
         <button
+          type="button"
+          role="radio"
+          aria-checked="false"
           data-theme="dark"
+          data-tooltip="Dark"
           aria-label="Dark mode"
           class="theme-btn p-1.5 rounded-md transition-colors"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <svg class="w-4 h-4" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
           </svg>
         </button>
@@ -60,10 +84,35 @@
   .theme-btn {
     color: var(--color-primary);
     opacity: 0.4;
+    position: relative;
   }
   .theme-btn[data-active] {
     opacity: 0.9;
     background-color: rgba(128, 128, 128, 0.12);
+  }
+  .theme-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: var(--color-primary);
+    color: var(--color-bg, #fff);
+    font-size: 11px;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  :global(.dark) .theme-btn::after {
+    color: #000;
+  }
+  .theme-btn:hover::after,
+  .theme-btn:focus-visible::after {
+    opacity: 0.95;
   }
 </style>
 
@@ -71,12 +120,26 @@
   function applyTheme(setting: string) {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const isDark = setting === "dark" || (setting === "system" && prefersDark);
-    document.documentElement.classList.toggle("dark", isDark);
+    const root = document.documentElement;
+    root.classList.remove("dark", "light");
+    if (isDark) {
+      root.classList.add("dark");
+    } else if (setting === "light") {
+      root.classList.add("light");
+    }
   }
 
   function updateButtons(active: string) {
-    document.querySelectorAll<HTMLButtonElement>(".theme-btn").forEach((btn) => {
-      if (btn.dataset.theme === active) {
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(".theme-btn")
+    );
+    const hasActive = buttons.some((b) => b.dataset.theme === active);
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.theme === active;
+      btn.setAttribute("aria-checked", isActive ? "true" : "false");
+      // Roving tabindex: only the checked radio (or first, as fallback) is tabbable.
+      btn.tabIndex = isActive || (!hasActive && btn === buttons[0]) ? 0 : -1;
+      if (isActive) {
         btn.setAttribute("data-active", "");
       } else {
         btn.removeAttribute("data-active");
@@ -88,12 +151,43 @@
   applyTheme(saved);
   updateButtons(saved);
 
-  document.querySelectorAll<HTMLButtonElement>(".theme-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const theme = btn.dataset.theme!;
-      localStorage.setItem("theme", theme);
-      applyTheme(theme);
-      updateButtons(theme);
+  const themeButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".theme-btn")
+  );
+
+  function selectTheme(btn: HTMLButtonElement, focus = false) {
+    const theme = btn.dataset.theme!;
+    localStorage.setItem("theme", theme);
+    applyTheme(theme);
+    updateButtons(theme);
+    if (focus) btn.focus();
+  }
+
+  themeButtons.forEach((btn, idx) => {
+    btn.addEventListener("click", () => selectTheme(btn));
+
+    btn.addEventListener("keydown", (e) => {
+      let nextIdx: number | null = null;
+      switch (e.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          nextIdx = (idx + 1) % themeButtons.length;
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          nextIdx = (idx - 1 + themeButtons.length) % themeButtons.length;
+          break;
+        case "Home":
+          nextIdx = 0;
+          break;
+        case "End":
+          nextIdx = themeButtons.length - 1;
+          break;
+      }
+      if (nextIdx !== null) {
+        e.preventDefault();
+        selectTheme(themeButtons[nextIdx], true);
+      }
     });
   });
 

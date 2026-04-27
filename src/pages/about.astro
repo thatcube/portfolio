@@ -1,71 +1,405 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AmbientBackground from "../components/AmbientBackground.astro";
+import portrait from "../assets/images/portrait.jpg";
+
+const experience = [
+  {
+    title: "Product Designer",
+    company: "Microsoft",
+    range: "April 2021 — Present",
+    current: true,
+  },
+  {
+    title: "Product Designer",
+    company: "CBORD & Horizon Software",
+    range: "Dec 2018 — April 2021",
+  },
+  {
+    title: "UI Developer",
+    company: "CBORD",
+    range: "May 2018 — Dec 2018",
+  },
+  {
+    title: "Software Development Intern",
+    company: "CBORD",
+    range: "Feb 2018 — May 2018",
+  },
+];
+
+const interests = [
+  { label: "Cycling", icon: "🚴" },
+  { label: "Hiking", icon: "🥾" },
+  { label: "Houseplants", icon: "🌱" },
+  { label: "Mechanical keyboards", icon: "⌨️" },
+  { label: "Coffee", icon: "☕" },
+  { label: "Photography", icon: "📷" },
+];
 ---
 
 <BaseLayout title="About — Brandon Moore">
-  <section class="max-w-5xl mx-auto px-6 pt-24 pb-12">
-    <h1 class="font-display font-extrabold text-4xl sm:text-5xl text-primary/95 mb-6">
-      About
-    </h1>
-    <p class="text-lg text-primary/75 max-w-2xl leading-relaxed">
-      I'm a product designer passionate about crafting inclusive and delightful digital experiences.
-      Currently designing at Microsoft, I focus on building products that work for everyone.
-    </p>
-  </section>
-
-  <!-- Experience -->
-  <section class="max-w-5xl mx-auto px-6 pb-24">
-    <h2 class="font-display font-bold text-2xl text-primary/90 mb-8">
-      Experience
-    </h2>
-    <div class="space-y-8">
-      <div class="border-l-2 border-accent pl-6">
-        <h3 class="font-display font-bold text-lg text-primary/90">
-          Product Designer
-        </h3>
-        <p class="text-accent font-medium text-sm">
-          Microsoft
-        </p>
-        <p class="text-sm text-primary/50 mt-1">
-          April 2021 &mdash; Present
-        </p>
+  <div class="about-wrap">
+    <AmbientBackground />
+  <section class="relative max-w-5xl mx-auto px-6 pt-24 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+      <div class="md:col-span-7 md:order-1">
+        <div class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Seattle · Designing at Microsoft</span>
+        </div>
+        <h1 class="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-primary/95 leading-[1.05] tracking-tight mt-6 mb-8">
+          A little about me.
+        </h1>
+        <div class="space-y-5 text-lg text-primary/75 leading-relaxed">
+          <p>
+            I'm Brandon, a product designer passionate about inclusive design.
+            I strive to create products and experiences built for all people.
+          </p>
+          <p>
+            I'm a developer-turned-designer
+            <span aria-hidden="true">🦄</span>
+            who still writes code from time to time. These days I mostly dabble
+            in CSS and tinker with motion.
+          </p>
+          <p>
+            Outside of design, you'll find me on a bike, on a trail, or fussing
+            over my houseplants and mechanical keyboards.
+          </p>
+        </div>
       </div>
-
-      <div class="border-l-2 border-border/10 pl-6">
-        <h3 class="font-display font-bold text-lg text-primary/90">
-          Product Designer
-        </h3>
-        <p class="text-primary/65 font-medium text-sm">
-          CBORD & Horizon Software
-        </p>
-        <p class="text-sm text-primary/50 mt-1">
-          Dec 2018 &mdash; April 2021
-        </p>
-      </div>
-
-      <div class="border-l-2 border-border/10 pl-6">
-        <h3 class="font-display font-bold text-lg text-primary/90">
-          UI Developer
-        </h3>
-        <p class="text-primary/65 font-medium text-sm">
-          CBORD
-        </p>
-        <p class="text-sm text-primary/50 mt-1">
-          May 2018 &mdash; Dec 2018
-        </p>
-      </div>
-
-      <div class="border-l-2 border-border/10 pl-6">
-        <h3 class="font-display font-bold text-lg text-primary/90">
-          Software Development Intern
-        </h3>
-        <p class="text-primary/65 font-medium text-sm">
-          CBORD
-        </p>
-        <p class="text-sm text-primary/50 mt-1">
-          Feb 2018 &mdash; May 2018
-        </p>
+      <div class="md:col-span-5 md:order-2 portrait-col">
+        <div class="portrait-stage">
+          <span class="portrait-blob" aria-hidden="true"></span>
+          <div class="portrait-frame">
+            <Image
+              src={portrait}
+              alt="Portrait of Brandon Moore"
+              widths={[400, 600, 900]}
+              sizes="(min-width: 768px) 400px, 75vw"
+              class="portrait-img"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <section class="max-w-3xl mx-auto px-6 pb-24">
+    <h2 class="font-display font-bold text-2xl text-primary/90 mb-12">
+      Experience
+    </h2>
+    <ol class="timeline">
+      {experience.map((item) => (
+        <li class={`timeline-item${item.current ? " is-current" : ""}`}>
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-head">
+            <h3 class="font-display font-bold text-xl text-primary/95">
+              {item.title}
+            </h3>
+            {item.current && <span class="now-badge">Now</span>}
+          </div>
+          <p class="text-primary/75 mt-1">{item.company}</p>
+          <p class="text-sm text-primary/50 mt-1 font-mono tracking-tight">
+            {item.range}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-6 pb-32">
+    <h2 class="font-display font-bold text-2xl text-primary/90 mb-8">
+      Off the clock
+    </h2>
+    <ul class="interests">
+      {interests.map((it) => (
+        <li class="interest-chip">
+          <span class="interest-icon" aria-hidden="true">{it.icon}</span>
+          <span>{it.label}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .about-wrap {
+    position: relative;
+  }
+
+  /* ── Status pill ── */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.95rem 0.45rem 0.8rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: color-mix(in srgb, var(--color-primary) 85%, transparent);
+    background: color-mix(in srgb, var(--color-primary) 7%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 14%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .status-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 9999px;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgb(34 197 94 / 0.6);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgb(34 197 94 / 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 0.5rem rgb(34 197 94 / 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgb(34 197 94 / 0);
+    }
+  }
+
+  /* ── Portrait ── */
+  .portrait-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  .portrait-stage {
+    position: relative;
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+  }
+
+  @media (max-width: 767px) {
+    .portrait-stage {
+      max-width: 17rem;
+      margin: 0 auto;
+    }
+  }
+
+  .portrait-blob {
+    position: absolute;
+    inset: -3rem;
+    z-index: 0;
+    background:
+      radial-gradient(
+        50% 50% at 30% 30%,
+        color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        45% 45% at 75% 75%,
+        color-mix(in srgb, #22c55e 18%, transparent) 0%,
+        transparent 70%
+      );
+    filter: blur(40px);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  :global(.dark) .portrait-blob {
+    opacity: 0.7;
+    filter: blur(48px);
+  }
+
+  .portrait-frame {
+    position: relative;
+    z-index: 1;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+    box-shadow:
+      0 0 0 0.4rem color-mix(in srgb, var(--color-primary) 5%, transparent),
+      0 24px 48px -24px rgb(0 0 0 / 0.28);
+    transform: rotate(-1.5deg);
+    transition: transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
+      box-shadow 400ms ease;
+  }
+
+  .portrait-frame:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow:
+      0 0 0 0.4rem color-mix(in srgb, var(--color-primary) 8%, transparent),
+      0 32px 64px -24px rgb(0 0 0 / 0.32);
+  }
+
+  .portrait-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 2.25rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    transition: background 300ms ease, box-shadow 300ms ease,
+      transform 300ms ease;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    background: var(--color-primary);
+    transform: scale(1.15);
+  }
+
+  .timeline-item.is-current .timeline-dot {
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgb(34 197 94 / 0.6);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .timeline-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0.325rem;
+    top: 1.6rem;
+    bottom: 0.5rem;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-primary) 18%, transparent),
+      color-mix(in srgb, var(--color-primary) 6%, transparent)
+    );
+  }
+
+  .timeline-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .now-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    color: #16a34a;
+    background: color-mix(in srgb, #22c55e 12%, transparent);
+    border: 1px solid color-mix(in srgb, #22c55e 24%, transparent);
+  }
+
+  :global(.dark) .now-badge {
+    color: #4ade80;
+  }
+
+  /* ── Interests ── */
+  .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .interest-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+    background: color-mix(in srgb, var(--color-primary) 4%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 8%, transparent);
+    transition: transform 400ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
+      background 250ms ease, border-color 250ms ease;
+  }
+
+  .interest-chip:hover {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--color-primary) 7%, transparent);
+    border-color: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  }
+
+  .interest-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  /* ── Reveal-on-scroll ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 700ms cubic-bezier(0.165, 0.84, 0.44, 1),
+      transform 700ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-dot,
+    .timeline-item.is-current .timeline-dot {
+      animation: none;
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .portrait-frame {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Add reveal class to timeline items + interests, then observe
+  const targets = document.querySelectorAll<HTMLElement>(
+    ".timeline-item, .interest-chip"
+  );
+  targets.forEach((el, i) => {
+    el.classList.add("reveal");
+    el.style.transitionDelay = `${i * 60}ms`;
+  });
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  targets.forEach((el) => io.observe(el));
+</script>

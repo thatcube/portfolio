@@ -16,7 +16,7 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
 {variant === "featured" ? (
   <a
     href={`/projects/${slug}`}
-    class="group block rounded-2xl p-4 -mx-4 transition-all duration-300 ease-out hover:bg-border/5 hover:scale-[1.02]"
+    class="group block rounded-2xl p-6 sm:p-12 -mx-6 sm:-mx-12 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
   >
     <div class="rounded-xl overflow-hidden bg-img-bg">
       <Image
@@ -29,9 +29,9 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
       />
     </div>
     <div class="pt-6">
-      <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-primary/90 group-hover:text-accent transition-colors">
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-primary/90 transition-colors">
         {title}
-      </h3>
+      </h2>
       <p class="mt-1 text-base text-primary/60">
         {shortDesc}
       </p>
@@ -40,7 +40,7 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
 ) : (
   <a
     href={`/projects/${slug}`}
-    class="group flex items-center gap-6 rounded-2xl p-4 -mx-4 transition-all duration-300 ease-out hover:bg-border/5 hover:scale-[1.02]"
+    class="group flex items-center gap-6 rounded-2xl p-6 sm:p-12 -mx-6 sm:-mx-12 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
   >
     <div class="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-xl overflow-hidden bg-img-bg">
       <Image
@@ -53,9 +53,9 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
       />
     </div>
     <div>
-      <h3 class="font-display font-bold text-xl sm:text-2xl text-primary/90 group-hover:text-accent transition-colors">
+      <h2 class="font-display font-bold text-xl sm:text-2xl text-primary/90 transition-colors">
         {title}
-      </h3>
+      </h2>
       <p class="mt-1 text-sm text-primary/60">
         {shortDesc}
       </p>

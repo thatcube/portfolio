@@ -1,0 +1,185 @@
+---
+// Ambient cursor-responsive gradient.
+// Renders absolute behind content; works in light + dark mode.
+---
+
+<div class="ambient-bg" aria-hidden="true">
+  <div class="blob blob-a" data-push="140" data-radius="1400"></div>
+  <div class="blob blob-b" data-push="120" data-radius="1300"></div>
+</div>
+
+<style>
+  .ambient-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    /* Fade to transparent at the bottom so it blends into content below */
+    mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(110px);
+    will-change: transform;
+    --px: 0px;
+    --py: 0px;
+    transform: translate3d(var(--px), var(--py), 0);
+  }
+
+  /* Pink/coral — bottom right, big */
+  .blob-a {
+    width: 80vw;
+    height: 80vw;
+    right: -20vw;
+    bottom: -25vw;
+    background: radial-gradient(
+      circle at center,
+      rgb(244 114 182 / 0.55),
+      rgb(244 114 182 / 0) 70%
+    );
+    animation: drift-a 26s ease-in-out infinite alternate;
+  }
+
+  /* Blue — top left, big */
+  .blob-b {
+    width: 75vw;
+    height: 75vw;
+    left: -25vw;
+    top: -25vw;
+    background: radial-gradient(
+      circle at center,
+      rgb(96 165 250 / 0.42),
+      rgb(96 165 250 / 0) 70%
+    );
+    animation: drift-b 32s ease-in-out infinite alternate;
+  }
+
+  /* Dark mode: reduce so they don't overpower */
+  :global(.dark) .blob-a {
+    background: radial-gradient(
+      circle at center,
+      rgb(244 114 182 / 0.25),
+      rgb(244 114 182 / 0) 70%
+    );
+  }
+  :global(.dark) .blob-b {
+    background: radial-gradient(
+      circle at center,
+      rgb(96 165 250 / 0.22),
+      rgb(96 165 250 / 0) 70%
+    );
+  }
+
+  @keyframes drift-a {
+    from { translate: 0 0; }
+    to   { translate: -8vw -4vw; }
+  }
+  @keyframes drift-b {
+    from { translate: 0 0; }
+    to   { translate: 5vw 6vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const bg = document.querySelector<HTMLElement>(".ambient-bg");
+  if (bg && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const blobs = Array.from(bg.querySelectorAll<HTMLElement>(".blob")).map(
+      (el) => ({
+        el,
+        push: parseFloat(el.dataset.push || "120"),
+        radius: parseFloat(el.dataset.radius || "1100"),
+        x: 0,
+        y: 0,
+        tx: 0,
+        ty: 0,
+      })
+    );
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let hasCursor = false;
+    let raf = 0;
+
+    const computeTargets = () => {
+      for (const b of blobs) {
+        if (!hasCursor) {
+          b.tx = 0;
+          b.ty = 0;
+          continue;
+        }
+        const r = b.el.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dx = cx - mouseX;
+        const dy = cy - mouseY;
+        const dist = Math.hypot(dx, dy);
+        // Gentle, wide falloff: linear fade from 1 → 0 over radius.
+        // No smoothstep, no quadratic — we want consistent slow drift, not a spike.
+        const strength = Math.max(0, 1 - dist / b.radius);
+        const nx = dist > 0.0001 ? dx / dist : 0;
+        const ny = dist > 0.0001 ? dy / dist : 0;
+        b.tx = nx * b.push * strength;
+        b.ty = ny * b.push * strength;
+      }
+    };
+
+    const tick = () => {
+      computeTargets();
+      let active = false;
+      for (const b of blobs) {
+        // Heavy inertia — slow lerp gives fluid, drifty motion
+        b.x += (b.tx - b.x) * 0.035;
+        b.y += (b.ty - b.y) * 0.035;
+        b.el.style.setProperty("--px", `${b.x.toFixed(2)}px`);
+        b.el.style.setProperty("--py", `${b.y.toFixed(2)}px`);
+        if (Math.abs(b.tx - b.x) > 0.1 || Math.abs(b.ty - b.y) > 0.1) {
+          active = true;
+        }
+      }
+      if (active || hasCursor) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = 0;
+      }
+    };
+
+    const start = () => {
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        hasCursor = true;
+        start();
+      },
+      { passive: true }
+    );
+
+    window.addEventListener("pointerleave", () => {
+      hasCursor = false;
+      start();
+    });
+
+    // Recompute on scroll so the proximity stays accurate as the page moves
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (hasCursor) start();
+      },
+      { passive: true }
+    );
+  }
+</script>
