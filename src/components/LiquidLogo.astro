@@ -10,26 +10,31 @@
     xmlns="http://www.w3.org/2000/svg"
     data-liquid-svg
   >
+    <!-- Single masked disc: ring + liquid are one continuous shape, so
+         below the waterline the inner-ring edge dissolves into the liquid
+         with no visible seam.
+           - Outer disc (r=20) is fully visible.
+           - Inner disc (r=12) is masked out (the empty bowl).
+           - Liquid path re-adds visibility below the wave, restoring a
+             seamless blend with the ring at the waterline. -->
     <defs>
-      <clipPath id="liquid-logo-clip">
-        <circle cx="22" cy="22" r="13"></circle>
-      </clipPath>
+      <mask id="liquid-logo-mask" maskUnits="userSpaceOnUse">
+        <circle cx="22" cy="22" r="20" fill="white"></circle>
+        <circle cx="22" cy="22" r="12" fill="black"></circle>
+        <path
+          data-liquid-surface
+          fill="white"
+          d="M10 22 L34 22 L34 34 L10 34 Z"
+        ></path>
+      </mask>
     </defs>
-    <g clip-path="url(#liquid-logo-clip)">
-      <path
-        data-liquid-surface
-        fill="currentColor"
-        d="M10 22 L34 22 L34 34 L10 34 Z"
-      ></path>
-    </g>
-    <!-- Solid donut drawn ON TOP — its inner edge hides any liquid bleed
-         past the inner circle, so there's no antialiased seam.
-         Outer ring r=20, inner hole r=12. evenodd punches the hole. -->
-    <path
+    <circle
+      cx="22"
+      cy="22"
+      r="20"
       fill="currentColor"
-      fill-rule="evenodd"
-      d="M2 22 a20 20 0 1 0 40 0 a20 20 0 1 0 -40 0 Z M10 22 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0 Z"
-    ></path>
+      mask="url(#liquid-logo-mask)"
+    ></circle>
     <g data-liquid-droplets fill="currentColor"></g>
   </svg>
 </span>
@@ -125,9 +130,9 @@
 
       const DRAIN_MS = 400;
       const PAUSE_MS = 150;
-      const K = 90;
-      const C = 9;
-      const C_BOOT = 17;
+      const K = 18;
+      const C = 3.6;
+      const C_BOOT = 6;
       let bootSpring = false;
 
       // Boot-droplet shower: when the user clicks the brand link from another
@@ -221,8 +226,8 @@
         const dt = Math.min(0.05, dtRaw);
         lastTime = now;
 
-        phase += dt * 1.05;
-        tilt += (targetTilt - tilt) * Math.min(1, dt * 9);
+        phase += dt * 0.7;
+        tilt += (targetTilt - tilt) * Math.min(1, dt * 6);
 
         const sloshAcc = -SLOSH_K * sloshOffset - SLOSH_C * sloshVel;
         sloshVel += sloshAcc * dt;
@@ -268,10 +273,10 @@
             bootSpring = false;
           }
         } else {
-          const breath = Math.sin(now * 0.0008) * 0.025;
+          const breath = Math.sin(now * 0.00055) * 0.025;
           level = REST_LEVEL + breath;
           const sloshTurb = Math.min(2.5, Math.abs(sloshVel) * 8);
-          waveAmp = 1.6 + Math.sin(now * 0.0011) * 0.5 + sloshTurb;
+          waveAmp = 1.6 + Math.sin(now * 0.00075) * 0.5 + sloshTurb;
         }
 
         // Boot droplet shower: independent of mode, runs for a short window
@@ -319,32 +324,55 @@
         else if (sloshVel < -0.6) sloshVel = -0.6;
       }
 
-      // ── Click → drain (+ flag if navigating) ───────────────────────────
-      // On home (same-URL), prevent default and run the visible drain in
-      // place. On any other page, set a sessionStorage flag and let the
-      // browser navigate (data-astro-reload triggers a full reload, so the
-      // drain is fully visible on the source page before unload, and the
-      // destination boots with droplets falling).
+      // ── Click handling ──────────────────────────────────────────────────
+      // On home (same-URL), DON'T drain/reset. Instead, each click stacks
+      // an impulse onto the existing physics: a downward kick on the spring,
+      // a sideways slosh, a bigger wave, and a burst of droplets. Spam-
+      // clicking just keeps perturbing the surface without ever snapping
+      // back to a fixed state.
+      //
+      // On any other page, do the visible drain (data-astro-reload → full
+      // reload), so the user sees the bowl empty before unload, and the
+      // destination boots with droplets falling.
       trigger.addEventListener("click", (e) => {
         if (reduceMotion.matches) return;
-        if (mode !== "idle") return;
 
         const isHome =
           window.location.pathname === "/" ||
           window.location.pathname === "/index.html";
 
+        if (isHome) {
+          e.preventDefault();
+          // Kick the existing surface — no state reset.
+          mode = "spring";
+          bootSpring = false;
+          // Downward impulse, randomized in magnitude and (slightly) sign so
+          // repeats don't feel mechanical. Clamp so we don't fling it.
+          const kick = 1.4 + Math.random() * 1.2;
+          vel = Math.max(-4.5, Math.min(4.5, vel - kick));
+          // Sideways slosh so the wave tilts and rolls.
+          sloshVel += (Math.random() - 0.5) * 0.55;
+          sloshVel = Math.max(-0.8, Math.min(0.8, sloshVel));
+          // Re-randomize phase a touch so the crest jumps.
+          phase += 0.6 + Math.random() * 0.8;
+          waveAmp = Math.min(5, waveAmp + 1.2 + Math.random() * 0.8);
+          // Burst of droplets, layered on top of any in-flight ones.
+          const burst = 3 + Math.floor(Math.random() * 3);
+          for (let i = 0; i < burst; i++) {
+            if (droplets.length < 14) emitDroplet();
+          }
+          return;
+        }
+
+        // Non-home: drain + flag for arrival shower.
+        if (mode !== "idle") return;
         drainStartLevel = level > 0.05 ? level : REST_LEVEL;
         mode = "drain";
         modeStart = performance.now();
         nextDropletAt = modeStart;
-
-        if (isHome) {
-          e.preventDefault();
-        } else {
-          try {
-            sessionStorage.setItem(BOOT_FLAG_KEY, "1");
-          } catch {}
-        }
+        try {
+          sessionStorage.setItem(BOOT_FLAG_KEY, "1");
+        } catch {}
       });
 
       trigger.addEventListener("pointermove", (e) => {
@@ -387,17 +415,27 @@
         } catch {}
 
         if (arriving) {
-          level = 0.0;
-          vel = 0;
+          // Randomize the entry so repeated home-nav doesn't look identical:
+          // start somewhere between empty-ish and ~1/4 full, give it a varied
+          // upward kick, an off-center tilt, and a randomized phase so the
+          // wave crest isn't always centered.
+          level = Math.random() * 0.22;
+          vel = 1.6 + Math.random() * 1.8;
+          tilt = (Math.random() - 0.5) * 0.18;
+          targetTilt = 0;
+          phase = Math.random() * Math.PI * 2;
+          sloshVel = (Math.random() - 0.5) * 0.5;
           mode = "spring";
           bootSpring = true;
-          // Shower for ~550ms after arrival, lined up with the spring rise.
           const t0 = performance.now();
-          bootDropletsUntil = t0 + 550;
-          bootNextDropletAt = t0 + 30;
+          const showerMs = 900 + Math.random() * 500;
+          bootDropletsUntil = t0 + showerMs;
+          bootNextDropletAt = t0 + Math.random() * 80;
         } else {
-          level = 0.18;
-          vel = 0;
+          level = 0.12 + Math.random() * 0.16;
+          vel = (Math.random() - 0.3) * 1.2;
+          tilt = (Math.random() - 0.5) * 0.12;
+          phase = Math.random() * Math.PI * 2;
           mode = "spring";
           bootSpring = true;
         }
