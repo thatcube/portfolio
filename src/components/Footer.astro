@@ -454,6 +454,12 @@ import { Icon } from 'astro-icon/components';
       z.style.left = (anchorX + ox) + "px";
       z.style.top = (anchorY + oy) + "px";
       z.style.fontSize = size + "px";
+      // Pre-apply the first keyframe inline so the initial paint already
+      // matches it. Without this the element flashes at its raw left/top
+      // (top-left corner anchored) for one frame before the animation
+      // kicks in and re-centers via translate(-50%, -50%).
+      z.style.transform = "translate(-50%, -50%) scale(0.5)";
+      z.style.opacity = "0";
       layer.appendChild(z);
 
       const driftX = 10 + Math.random() * 3;
