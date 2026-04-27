@@ -160,6 +160,9 @@ import { Icon } from 'astro-icon/components';
   .theme-btn:hover .theme-icon { transform: scale(1.08); }
   .theme-btn:active .theme-icon { transform: scale(0.92); }
   .theme-btn[data-active] { opacity: 1; }
+  /* Sun icon picks up the same warm amber as its hover rays so the icon
+     and its animation read as one piece (regardless of active state). */
+  .theme-btn[data-theme="light"] { color: #f59e0b; }
   /* Tiny "pop" only on the button that was just activated — keeps the
      other-button transition a calm fade. */
   .theme-btn[data-just-activated] .theme-icon-solid {
