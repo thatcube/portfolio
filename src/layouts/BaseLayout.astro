@@ -38,6 +38,10 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
         var main = document.getElementById("main-content");
         if (!main) return;
 
+        // Pages with .rise-el handle their own CSS animation — skip vt-rise
+        if (main.querySelector(".rise-el")) return;
+
+        // Stagger direct children of <main> for other pages
         var vh = window.innerHeight;
         var i = 0;
         for (var n = 0; n < main.children.length; n++) {

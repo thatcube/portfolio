@@ -12,11 +12,11 @@ const projects = (await getCollection("projects"))
   <!-- Hero -->
   <section class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center">
     <h1 class="font-mono font-medium text-primary/95 text-6xl sm:text-7xl lg:text-8xl leading-[1.05] tracking-tight lowercase">
-      <span class="block">hi.</span>
-      <span class="block">i'm</span>
-      <span class="block">brandon.</span>
+      <span class="block rise-el" style="--rise-delay: 0ms">hi.</span>
+      <span class="block rise-el" style="--rise-delay: 100ms">i'm</span>
+      <span class="block rise-el" style="--rise-delay: 200ms">brandon.</span>
     </h1>
-    <p class="font-mono text-base sm:text-lg text-primary/70 leading-relaxed mt-10 max-w-xl">
+    <p class="font-mono text-base sm:text-lg text-primary/70 leading-relaxed mt-10 max-w-xl rise-el" style="--rise-delay: 380ms">
       Product designer at Microsoft, currently shaping Power BI. I've spent the
       last few years thinking about data models, developer experiences, and AI.
     </p>
@@ -29,13 +29,15 @@ const projects = (await getCollection("projects"))
         {i > 0 && (
           <Squiggle variant={i % 2 === 0 ? "up" : "down"} class="my-10" />
         )}
-        <ProjectCard
-          title={project.data.title}
-          shortDesc={project.data.shortDesc}
-          slug={project.id}
-          thumbnail={project.data.thumbnail}
-          variant={i === 0 ? "featured" : "compact"}
-        />
+        <div class:list={[i === 0 && "rise-el"]} style={i === 0 ? "--rise-delay: 550ms" : undefined}>
+          <ProjectCard
+            title={project.data.title}
+            shortDesc={project.data.shortDesc}
+            slug={project.id}
+            thumbnail={project.data.thumbnail}
+            variant={i === 0 ? "featured" : "compact"}
+          />
+        </div>
       </>
     ))}
   </section>
