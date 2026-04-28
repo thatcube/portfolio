@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import Squiggle from "../components/Squiggle.astro";
+import DataModel from "../components/DataModel.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects"))
@@ -10,35 +10,155 @@ const projects = (await getCollection("projects"))
 
 <BaseLayout title="Brandon Moore — Designer">
   <!-- Hero -->
-  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center">
+  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20 flex flex-col">
     <h1 class="font-mono font-medium text-primary/95 text-6xl sm:text-7xl lg:text-8xl leading-[1.05] tracking-tight lowercase">
       <span class="block rise-el" style="--rise-delay: 0ms">hi.</span>
       <span class="block rise-el" style="--rise-delay: 100ms">i'm</span>
       <span class="block rise-el" style="--rise-delay: 200ms">brandon.</span>
     </h1>
+
     <p class="font-mono text-base sm:text-lg text-primary/70 leading-relaxed mt-10 max-w-xl rise-el" style="--rise-delay: 380ms">
       Product designer at Microsoft, currently shaping Power BI. I've spent the
       last few years thinking about data models, developer experiences, and AI.
     </p>
+
+    <div class="rise-el mt-16 sm:mt-20" style="--rise-delay: 480ms">
+      <DataModel />
+      <p class="font-mono text-xs sm:text-sm text-primary/40 mt-6 max-w-md">
+        Hover any table to filter <span class="text-primary/60">brandon</span>.
+      </p>
+    </div>
   </section>
 
   <!-- Projects -->
   <section class="max-w-5xl mx-auto px-6 pb-24">
-    {projects.map((project, i) => (
-      <>
-        {i > 0 && (
-          <Squiggle variant={i % 2 === 0 ? "up" : "down"} class="my-10" />
-        )}
-        <div class:list={[i === 0 && "rise-el"]} style={i === 0 ? "--rise-delay: 550ms" : undefined}>
+    <div class="projects-rail relative pl-10 sm:pl-16" data-rail-root>
+      <!-- Vertical hairline + scroll-tied droplet bead -->
+      <div class="rail" aria-hidden="true">
+        <span class="rail-line"></span>
+        <span class="rail-bead" data-rail-bead></span>
+      </div>
+
+      {projects.map((project, i) => (
+        <div
+          class:list={["project-row", i === 0 && "rise-el"]}
+          style={i === 0 ? "--rise-delay: 550ms" : undefined}
+        >
+          <span class="project-index font-mono text-xs sm:text-sm text-primary/40">
+            {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+          </span>
           <ProjectCard
             title={project.data.title}
             shortDesc={project.data.shortDesc}
             slug={project.id}
             thumbnail={project.data.thumbnail}
-            variant={i === 0 ? "featured" : "compact"}
+            variant="featured"
           />
         </div>
-      </>
-    ))}
+      ))}
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .projects-rail {
+    /* CSS var driven by JS: 0 → 1 across the section's scroll range */
+    --rail-progress: 0;
+  }
+
+  .project-row + .project-row {
+    margin-top: 6rem;
+  }
+  @media (min-width: 640px) {
+    .project-row + .project-row {
+      margin-top: 8rem;
+    }
+  }
+
+  .project-index {
+    display: block;
+    margin-bottom: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0.5rem;
+    width: 1px;
+    pointer-events: none;
+  }
+  @media (min-width: 640px) {
+    .rail {
+      left: 1.25rem;
+    }
+  }
+
+  .rail-line {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  }
+
+  .rail-bead {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--rail-progress) * 100%);
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: rgb(96, 165, 250);
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, rgb(96, 165, 250) 18%, transparent),
+      0 0 16px rgba(96, 165, 250, 0.55);
+    transform: translate(-50%, -50%);
+    transition: top 120ms linear;
+  }
+
+  :global(.dark) .rail-bead {
+    background: rgb(125, 184, 255);
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, rgb(125, 184, 255) 22%, transparent),
+      0 0 18px rgba(125, 184, 255, 0.5);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail-bead {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // Drive --rail-progress from the projects section's position in the viewport.
+  // Starts at 0 when section top reaches viewport top; reaches 1 when section
+  // bottom reaches viewport bottom. Clamped.
+  function initRail() {
+    const root = document.querySelector<HTMLElement>("[data-rail-root]");
+    if (!root) return;
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = root.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // Total scroll distance over which the section is "in play"
+      const total = rect.height + vh;
+      const traveled = vh - rect.top;
+      const p = Math.max(0, Math.min(1, traveled / total));
+      root.style.setProperty("--rail-progress", p.toFixed(4));
+    };
+
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+  }
+
+  initRail();
+  document.addEventListener("astro:page-load", initRail);
+</script>

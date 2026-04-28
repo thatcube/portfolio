@@ -1,0 +1,548 @@
+---
+// Personal data model — star schema where the fact table is `brandon` and
+// the dimensions are pieces of work + life. Designed to read as a real
+// Power BI / schema-tool diagram: rounded-rect tables with header strips,
+// type-annotated columns, curved relationships with cardinality markers
+// (1 / *), and droplets travelling along the edges.
+//
+// Hover a dim table → its edge highlights, the bead reverses (cross-filter
+// propagates *to* the fact), other tables/edges dim. That's the demo.
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props;
+
+interface Col { name: string; type: string; pk?: boolean; }
+interface DimSpec {
+  name: string;
+  cols: Col[];
+  angle: number;  // degrees, 0=right, 90=down (SVG y is flipped)
+  radius: number;
+}
+
+const dimSpecs: DimSpec[] = [
+  // Day-job (top half)
+  { name: "power_bi", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "pixels", type: "int" },
+      { name: "polish", type: "bool" },
+    ], angle: -78, radius: 230 },
+  { name: "data_models", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "schemas", type: "text" },
+      { name: "joins", type: "int" },
+    ], angle: -28, radius: 260 },
+  { name: "ai", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "agents", type: "text" },
+      { name: "intent", type: "text" },
+    ], angle: -132, radius: 240 },
+  { name: "accessibility", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "a11y", type: "text" },
+      { name: "humans", type: "text" },
+    ], angle: -178, radius: 240 },
+  // Off-hours (bottom half)
+  { name: "dev_xp", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "devs", type: "int" },
+      { name: "tools", type: "text" },
+    ], angle: 22, radius: 260 },
+  { name: "mech_keyboards", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "switches", type: "text" },
+      { name: "layout", type: "text" },
+    ], angle: 62, radius: 245 },
+  { name: "diy_projects", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "status", type: "text" },
+      { name: "wip", type: "bool" },
+    ], angle: 105, radius: 230 },
+  { name: "video_games", cols: [
+      { name: "id", type: "key", pk: true },
+      { name: "genre", type: "text" },
+      { name: "hours", type: "int" },
+    ], angle: 148, radius: 240 },
+];
+
+// Sizing
+const NAME_CHAR = 6.6;     // px per char at 11px name
+const COL_CHAR = 5.6;      // px per char at 9px col
+const TYPE_CHAR = 4.6;     // px per char at 7px type
+const PAD_X = 14;
+const HEADER_H = 22;
+const ROW_H = 14;
+const FACT_HEADER_H = 26;
+const FACT_ROW_H = 16;
+const FACT_NAME_CHAR = 7.6;
+const FACT_COL_CHAR = 6.6;
+
+function sizeTable(name: string, cols: Col[], opts: {
+  headerH: number; rowH: number; nameCh: number; colCh: number; minW: number;
+}) {
+  const longestCol = Math.max(0, ...cols.map(c =>
+    c.name.length * opts.colCh + 6 + c.type.length * TYPE_CHAR + (c.pk ? 8 : 0)
+  ));
+  const longestName = name.length * opts.nameCh;
+  const w = Math.max(opts.minW, Math.ceil(Math.max(longestCol, longestName) + PAD_X * 2));
+  const h = opts.headerH + cols.length * opts.rowH + 8;
+  return { w, h };
+}
+
+// Canvas center
+const CX = 480;
+const CY = 320;
+
+const factCols: Col[] = [
+  { name: "id", type: "key", pk: true },
+  { name: "design", type: "craft" },
+  { name: "code", type: "craft" },
+  { name: "obsessions", type: "many" },
+];
+const factSize = sizeTable("brandon", factCols, {
+  headerH: FACT_HEADER_H, rowH: FACT_ROW_H, nameCh: FACT_NAME_CHAR, colCh: FACT_COL_CHAR, minW: 150,
+});
+const fact = {
+  x: CX - factSize.w / 2,
+  y: CY - factSize.h / 2,
+  w: factSize.w,
+  h: factSize.h,
+  name: "brandon",
+  cols: factCols,
+};
+
+const dims = dimSpecs.map((spec) => {
+  const { w, h } = sizeTable(spec.name, spec.cols, {
+    headerH: HEADER_H, rowH: ROW_H, nameCh: NAME_CHAR, colCh: COL_CHAR, minW: 110,
+  });
+  const rad = (spec.angle * Math.PI) / 180;
+  const cx = CX + Math.cos(rad) * spec.radius;
+  const cy = CY + Math.sin(rad) * spec.radius;
+  return { x: cx - w / 2, y: cy - h / 2, w, h, name: spec.name, cols: spec.cols };
+});
+
+function curve(fx: number, fy: number, tx: number, ty: number, bow: number) {
+  const mx = (fx + tx) / 2;
+  const my = (fy + ty) / 2;
+  const dx = tx - fx;
+  const dy = ty - fy;
+  const len = Math.hypot(dx, dy) || 1;
+  const px = -dy / len;
+  const py = dx / len;
+  const offset = len * bow;
+  return `M ${fx} ${fy} Q ${mx + px * offset} ${my + py * offset} ${tx} ${ty}`;
+}
+
+function anchor(rect: { x: number; y: number; w: number; h: number }, toX: number, toY: number) {
+  const cx = rect.x + rect.w / 2;
+  const cy = rect.y + rect.h / 2;
+  const dx = toX - cx;
+  const dy = toY - cy;
+  if (dx === 0 && dy === 0) return { x: cx, y: cy };
+  const tx = dx === 0 ? Infinity : (rect.w / 2) / Math.abs(dx);
+  const ty = dy === 0 ? Infinity : (rect.h / 2) / Math.abs(dy);
+  const t = Math.min(tx, ty);
+  return { x: cx + dx * t, y: cy + dy * t };
+}
+
+const factCx = fact.x + fact.w / 2;
+const factCy = fact.y + fact.h / 2;
+
+const edges = dims.map((d, i) => {
+  const dCx = d.x + d.w / 2;
+  const dCy = d.y + d.h / 2;
+  const a = anchor(fact, dCx, dCy);
+  const b = anchor(d, factCx, factCy);
+  const bow = i % 2 === 0 ? 0.13 : -0.13;
+  // Forward path: fact → dim. Used for the drop animation.
+  const forward = curve(a.x, a.y, b.x, b.y, bow);
+  // Reverse path: dim → fact. Used on hover.
+  const reverse = curve(b.x, b.y, a.x, a.y, -bow);
+  return { forward, reverse, a, b, target: d.name };
+});
+
+// Cardinality marker positions: small offset along the line at each end
+function offsetAlong(from: { x: number; y: number }, to: { x: number; y: number }, dist: number) {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const len = Math.hypot(dx, dy) || 1;
+  return { x: from.x + (dx / len) * dist, y: from.y + (dy / len) * dist };
+}
+---
+
+<svg
+  class:list={["data-model", className]}
+  viewBox="0 0 960 640"
+  fill="none"
+  aria-hidden="true"
+  data-data-model
+>
+  <!-- Edges -->
+  <g class="edges" stroke="currentColor" stroke-width="1.25" vector-effect="non-scaling-stroke" fill="none">
+    {edges.map((e, i) => (
+      <path
+        class="edge"
+        d={e.forward}
+        data-edge={e.target}
+        style={`--i: ${i}`}
+      />
+    ))}
+  </g>
+
+  <!-- Cardinality markers (1 on dim side, * on fact side) -->
+  <g class="cardinality" fill="currentColor" font-family="var(--font-mono)">
+    {edges.map((e, i) => {
+      const oneSide = offsetAlong(e.b, e.a, 10);
+      const manySide = offsetAlong(e.a, e.b, 10);
+      return (
+        <g class="card-pair" data-card-edge={e.target} style={`--i: ${i}`}>
+          <text class="card-mark" x={oneSide.x} y={oneSide.y + 3} text-anchor="middle">1</text>
+          <text class="card-mark" x={manySide.x} y={manySide.y + 3} text-anchor="middle">*</text>
+        </g>
+      );
+    })}
+  </g>
+
+  <!-- Dimension tables -->
+  {dims.map((t, i) => (
+    <g
+      class="table"
+      style={`--i: ${i + 1}`}
+      data-table={t.name}
+      tabindex="0"
+    >
+      <rect
+        x={t.x} y={t.y} width={t.w} height={t.h}
+        rx="6"
+        fill="var(--color-surface)"
+        stroke="currentColor"
+        stroke-width="1.25"
+        vector-effect="non-scaling-stroke"
+      />
+      <!-- Header strip -->
+      <rect
+        class="table-header-strip"
+        x={t.x} y={t.y} width={t.w} height={HEADER_H}
+        rx="6"
+      />
+      <line
+        x1={t.x} y1={t.y + HEADER_H} x2={t.x + t.w} y2={t.y + HEADER_H}
+        stroke="currentColor" stroke-width="1" opacity="0.4"
+        vector-effect="non-scaling-stroke"
+      />
+      <text class="table-name" x={t.x + PAD_X} y={t.y + 15}>{t.name}</text>
+
+      {t.cols.map((col, j) => {
+        const rowY = t.y + HEADER_H + j * ROW_H;
+        return (
+          <>
+            <text class="col-name" x={t.x + PAD_X} y={rowY + 10}>
+              {col.pk && <tspan class="pk-mark">▸ </tspan>}
+              {col.name}
+            </text>
+            <text class="col-type" x={t.x + t.w - PAD_X} y={rowY + 10} text-anchor="end">{col.type}</text>
+            {j < t.cols.length - 1 && (
+              <line
+                x1={t.x} y1={rowY + ROW_H}
+                x2={t.x + t.w} y2={rowY + ROW_H}
+                stroke="currentColor" stroke-width="1" opacity="0.08"
+                vector-effect="non-scaling-stroke"
+              />
+            )}
+          </>
+        );
+      })}
+    </g>
+  ))}
+
+  <!-- Fact table (on top) -->
+  <g class="table table-fact" style="--i: 0">
+    <rect
+      x={fact.x} y={fact.y} width={fact.w} height={fact.h}
+      rx="8"
+      fill="var(--color-surface)"
+      stroke="currentColor"
+      stroke-width="1.5"
+      vector-effect="non-scaling-stroke"
+    />
+    <rect
+      class="table-header-strip fact-strip"
+      x={fact.x} y={fact.y} width={fact.w} height={FACT_HEADER_H}
+      rx="8"
+    />
+    <line
+      x1={fact.x} y1={fact.y + FACT_HEADER_H} x2={fact.x + fact.w} y2={fact.y + FACT_HEADER_H}
+      stroke="currentColor" stroke-width="1" opacity="0.55"
+      vector-effect="non-scaling-stroke"
+    />
+    <text class="table-name fact-name" x={fact.x + PAD_X} y={fact.y + 18}>{fact.name}</text>
+
+    {fact.cols.map((col, j) => {
+      const rowY = fact.y + FACT_HEADER_H + j * FACT_ROW_H;
+      return (
+        <>
+          <text class="col-name fact-col" x={fact.x + PAD_X} y={rowY + 11}>
+            {col.pk && <tspan class="pk-mark">▸ </tspan>}
+            {col.name}
+          </text>
+          <text class="col-type fact-type" x={fact.x + fact.w - PAD_X} y={rowY + 11} text-anchor="end">{col.type}</text>
+          {j < fact.cols.length - 1 && (
+            <line
+              x1={fact.x} y1={rowY + FACT_ROW_H}
+              x2={fact.x + fact.w} y2={rowY + FACT_ROW_H}
+              stroke="currentColor" stroke-width="1" opacity="0.1"
+              vector-effect="non-scaling-stroke"
+            />
+          )}
+        </>
+      );
+    })}
+  </g>
+
+  <!-- Auto-running droplets (forward, fact → dim) -->
+  {edges.map((e, i) => (
+    <g class="bead bead-forward" data-bead-edge={e.target} style={`--i: ${i}`}>
+      <circle r="3.2" fill="rgb(96, 165, 250)">
+        <animateMotion
+          dur="4s"
+          begin={`${2.4 + i * 0.45}s`}
+          repeatCount="indefinite"
+          path={e.forward}
+          rotate="auto"
+          keyTimes="0; 0.55; 1"
+          keyPoints="0; 1; 1"
+          calcMode="spline"
+          keySplines="0.65 0 0.35 1; 0 0 1 1"
+        />
+      </circle>
+    </g>
+  ))}
+
+  <!-- Hover-only droplets (reverse, dim → fact). Hidden until edge is hovered. -->
+  {edges.map((e, i) => (
+    <g class="bead bead-reverse" data-bead-edge-rev={e.target} style={`--i: ${i}`}>
+      <circle r="3.2" fill="rgb(244, 114, 182)">
+        <animateMotion
+          dur="1.4s"
+          repeatCount="indefinite"
+          path={e.reverse}
+          rotate="auto"
+        />
+      </circle>
+    </g>
+  ))}
+</svg>
+
+<style>
+  .data-model {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--color-primary);
+    overflow: visible;
+    --hover-name: none;
+  }
+
+  .table {
+    cursor: pointer;
+    transition: opacity 250ms ease;
+  }
+  .table-fact {
+    cursor: default;
+  }
+
+  .table-header-strip {
+    fill: color-mix(in srgb, var(--color-primary) 5%, transparent);
+  }
+  .fact-strip {
+    fill: color-mix(in srgb, rgb(96, 165, 250) 10%, transparent);
+  }
+
+  .table-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    fill: currentColor;
+    opacity: 0.95;
+    letter-spacing: 0.02em;
+  }
+  .fact-name {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .col-name {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    fill: currentColor;
+    opacity: 0.7;
+  }
+  .fact-col {
+    font-size: 10px;
+    opacity: 0.85;
+  }
+  .col-type {
+    font-family: var(--font-mono);
+    font-size: 7.5px;
+    fill: currentColor;
+    opacity: 0.4;
+    letter-spacing: 0.04em;
+  }
+  .fact-type {
+    font-size: 8px;
+    opacity: 0.5;
+  }
+  .pk-mark {
+    fill: rgb(96, 165, 250);
+  }
+  :global(.dark) .pk-mark {
+    fill: rgb(125, 184, 255);
+  }
+
+  .card-mark {
+    font-size: 9px;
+    opacity: 0.55;
+    font-weight: 500;
+  }
+
+  /* Edges */
+  .edge {
+    opacity: 0;
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    animation:
+      dm-edge-draw 1000ms cubic-bezier(0.65, 0, 0.35, 1) forwards,
+      dm-edge-fade 700ms ease forwards;
+    animation-delay: calc(0.7s + var(--i) * 0.07s);
+    transition: opacity 250ms ease, stroke 250ms ease;
+  }
+
+  .card-pair {
+    opacity: 0;
+    animation: dm-card-in 400ms ease forwards;
+    animation-delay: calc(1.7s + var(--i) * 0.05s);
+    transition: opacity 250ms ease;
+  }
+
+  /* Tables */
+  .table {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(0.7);
+    animation: dm-table-in 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: calc(0.4s + var(--i) * 0.08s);
+  }
+  .table-fact {
+    animation-delay: 0.3s;
+  }
+
+  /* Beads */
+  .bead-forward {
+    opacity: 0;
+    animation: dm-bead-in 400ms ease forwards;
+    animation-delay: calc(2.4s + var(--i) * 0.45s);
+  }
+  .bead-forward circle {
+    filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.7));
+  }
+  :global(.dark) .bead-forward circle {
+    fill: rgb(125, 184, 255);
+    filter: drop-shadow(0 0 6px rgba(125, 184, 255, 0.65));
+  }
+  .bead-reverse {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .bead-reverse circle {
+    filter: drop-shadow(0 0 6px rgba(244, 114, 182, 0.75));
+  }
+
+  /* Hover state — driven by [data-hovered] on the SVG via JS */
+  .data-model[data-hovered] .table:not([data-table-active]):not(.table-fact) {
+    opacity: 0.25;
+  }
+  .data-model[data-hovered] .edge:not([data-edge-active]) {
+    opacity: 0.1;
+  }
+  .data-model[data-hovered] .card-pair:not([data-card-active]) {
+    opacity: 0.15;
+  }
+  .data-model[data-hovered] .bead-forward:not([data-bead-active]) {
+    opacity: 0;
+  }
+  .data-model[data-hovered] .edge[data-edge-active] {
+    opacity: 0.85;
+    stroke: rgb(244, 114, 182);
+  }
+  .data-model[data-hovered] .bead-reverse[data-bead-rev-active] {
+    opacity: 1;
+  }
+
+  :global(.dark) .data-model[data-hovered] .edge[data-edge-active] {
+    stroke: rgb(248, 167, 209);
+  }
+
+  @keyframes dm-edge-draw { to { stroke-dashoffset: 0; } }
+  @keyframes dm-edge-fade { to { opacity: 0.35; } }
+  @keyframes dm-table-in { to { opacity: 1; transform: scale(1); } }
+  @keyframes dm-bead-in { to { opacity: 1; } }
+  @keyframes dm-card-in { to { opacity: 0.55; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .edge, .table, .bead-forward, .card-pair {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      stroke-dashoffset: 0;
+    }
+    .edge { opacity: 0.35; }
+    .card-pair { opacity: 0.55; }
+    .bead-forward circle, .bead-reverse circle {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  function initDataModel() {
+    const svg = document.querySelector<SVGSVGElement>("[data-data-model]");
+    if (!svg) return;
+
+    const tables = svg.querySelectorAll<SVGGElement>(".table[data-table]");
+
+    const setActive = (name: string | null) => {
+      // Clear previous
+      svg.querySelectorAll<SVGElement>("[data-edge-active], [data-table-active], [data-card-active], [data-bead-active], [data-bead-rev-active]")
+        .forEach((el) => {
+          el.removeAttribute("data-edge-active");
+          el.removeAttribute("data-table-active");
+          el.removeAttribute("data-card-active");
+          el.removeAttribute("data-bead-active");
+          el.removeAttribute("data-bead-rev-active");
+        });
+
+      if (!name) {
+        svg.removeAttribute("data-hovered");
+        return;
+      }
+      svg.setAttribute("data-hovered", "");
+      svg.querySelector<SVGPathElement>(`.edge[data-edge="${name}"]`)?.setAttribute("data-edge-active", "");
+      svg.querySelector<SVGGElement>(`.table[data-table="${name}"]`)?.setAttribute("data-table-active", "");
+      svg.querySelector<SVGGElement>(`.card-pair[data-card-edge="${name}"]`)?.setAttribute("data-card-active", "");
+      svg.querySelector<SVGGElement>(`.bead-forward[data-bead-edge="${name}"]`)?.setAttribute("data-bead-active", "");
+      svg.querySelector<SVGGElement>(`.bead-reverse[data-bead-edge-rev="${name}"]`)?.setAttribute("data-bead-rev-active", "");
+    };
+
+    tables.forEach((table) => {
+      const name = table.getAttribute("data-table");
+      if (!name) return;
+      table.addEventListener("pointerenter", () => setActive(name));
+      table.addEventListener("pointerleave", () => setActive(null));
+      table.addEventListener("focus", () => setActive(name));
+      table.addEventListener("blur", () => setActive(null));
+    });
+  }
+
+  initDataModel();
+  document.addEventListener("astro:page-load", initDataModel);
+</script>
