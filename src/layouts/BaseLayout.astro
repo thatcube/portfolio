@@ -62,19 +62,48 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
       });
     </script>
 
-    <!-- Prevent FOUC for dark mode -->
+    <!-- Prevent FOUC for dark mode.
+         Idempotent: only adds/removes classes if they're not already in the
+         desired state. Avoids a transient "neither class" moment that would
+         otherwise trigger CSS color transitions. -->
     <script is:inline>
       (function() {
         var theme = localStorage.getItem("theme") || "system";
         var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         var root = document.documentElement;
-        root.classList.remove("dark", "light");
-        if (theme === "dark" || (theme === "system" && prefersDark)) {
-          root.classList.add("dark");
-        } else if (theme === "light") {
-          root.classList.add("light");
+        var wantDark = theme === "dark" || (theme === "system" && prefersDark);
+        var wantLight = theme === "light";
+        var hasDark = root.classList.contains("dark");
+        var hasLight = root.classList.contains("light");
+        if (wantDark) {
+          if (!hasDark) root.classList.add("dark");
+          if (hasLight) root.classList.remove("light");
+        } else if (wantLight) {
+          if (!hasLight) root.classList.add("light");
+          if (hasDark) root.classList.remove("dark");
+        } else {
+          if (hasDark) root.classList.remove("dark");
+          if (hasLight) root.classList.remove("light");
         }
       })();
+    </script>
+
+    <!-- Preserve theme class across SPA navigation.
+         ClientRouter copies attributes from the incoming server-rendered
+         <html> onto the live <html> during swap. The server can't know the
+         user's theme, so the incoming html has no `dark`/`light` class.
+         Without this, the live html briefly loses its class → CSS vars flip
+         to light defaults → `transition-colors` on nav links animates from
+         black → white. That's the dark-mode flash on every navigation.
+         Patching the incoming document BEFORE swap keeps the class set so
+         attribute reconciliation is a no-op. -->
+    <script is:inline>
+      document.addEventListener("astro:before-swap", function (e) {
+        var src = document.documentElement.classList;
+        var dest = e.newDocument.documentElement.classList;
+        if (src.contains("dark")) dest.add("dark");
+        if (src.contains("light")) dest.add("light");
+      });
     </script>
   </head>
   <body class="min-h-screen flex flex-col">

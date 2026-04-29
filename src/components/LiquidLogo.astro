@@ -451,9 +451,14 @@
       // Use document-level delegation so the handler survives SPA navs
       // (transition:persist keeps the SVG but the <a> wrapper is replaced).
       //
-      // The brand link is a normal SPA-navigated <a>, so the SVG element
-      // persists across navigation. That means drain → pause → spring plays
-      // continuously across the page swap with no flash or DOM recreation.
+      // CRITICAL: bind in the CAPTURE phase. Astro's ClientRouter attaches
+      // its own click listener on document (bubble phase) at startup, before
+      // our handler is bound. If we bind in bubble phase, Astro's listener
+      // fires first and kicks off SPA navigation before our preventDefault
+      // can stop it — so a same-page click on the brand link from / back to
+      // / would still trigger a full SPA nav, replaying the page's rise-in
+      // animation. Capture phase makes us run first, so preventDefault()
+      // takes effect before ClientRouter sees the click.
       if (!(window as any).__liquidClickBound) {
         (window as any).__liquidClickBound = true;
 
@@ -467,15 +472,22 @@
             window.location.pathname === "/index.html";
 
           if (isHome) {
+            // Already home — never navigate. Just kick the logo and (if
+            // scrolled) smooth-scroll back to top. Stop propagation so
+            // Astro's ClientRouter doesn't see the click at all.
             e.preventDefault();
+            e.stopPropagation();
             current.kick();
+            if (window.scrollY > 0) {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
             return;
           }
 
           // Non-home: trigger drain; SPA nav happens on its own and the
           // animation plays through because the SVG is persisted.
           current.drain();
-        });
+        }, true); // capture phase
       }
       function kick() {
         mode = "spring";
@@ -496,11 +508,16 @@
       }
 
       function drain() {
-        if (mode !== "idle") return;
+        // Allow drain to interrupt any non-drain mode. Previously this
+        // bailed out when mode !== "idle", which meant clicking the brand
+        // link on /about while the home-page kick spring was still settling
+        // would silently skip the drain → no droplets, no animation, just
+        // a bare SPA nav. The "click feels dead sometimes" bug.
+        if (mode === "drain") return;
         drainStartLevel = level > 0.05 ? level : REST_LEVEL;
         mode = "drain";
         modeStart = performance.now();
-        nextDropletAt = modeStart;
+        nextDropletAt = performance.now();
       }
 
       // Hover/focus state setters — exposed via `current` so document-level

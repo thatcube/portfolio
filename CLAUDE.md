@@ -91,3 +91,6 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
   consistent with the rest of the system. Pills are reserved for genuinely
   pill-shaped UI like single status tokens — and even then, ask first.
 
+
+# cool animations
+https://lusion.co/ the project items here have cool effects on scroll
