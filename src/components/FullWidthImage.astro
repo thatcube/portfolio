@@ -11,13 +11,13 @@ interface Props {
 const { src, alt, caption } = Astro.props;
 ---
 
-<figure class="not-prose -mx-6 sm:-mx-12 lg:-mx-24 my-12">
+<figure class="full-bleed not-prose my-16 flex flex-col items-center">
   <Image
     src={src}
     alt={alt}
-    widths={[800, 1200, 1920]}
+    widths={[800, 1200, 1920, 2400]}
     sizes="100vw"
-    class="w-full rounded-xl"
+    class="block max-w-full max-h-[80vh] w-auto h-auto"
   />
   {caption && (
     <figcaption class="text-center text-sm text-primary/50 mt-3 px-6">
@@ -25,3 +25,13 @@ const { src, alt, caption } = Astro.props;
     </figcaption>
   )}
 </figure>
+
+<style>
+  /* Break out of any constrained ancestor (e.g. prose max-w-3xl) and span
+     the full viewport width without triggering horizontal scroll. */
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+</style>
