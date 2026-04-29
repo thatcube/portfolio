@@ -55,6 +55,10 @@
     height: 100%;
     /* Allow droplets to render below the vessel without affecting layout */
     overflow: visible;
+    /* Force smooth curve rasterization on lower-DPI displays. Without this,
+       browsers may use shape-rendering: auto which snaps small circles to
+       pixel grid → jagged edges on 1x monitors. */
+    shape-rendering: geometricPrecision;
   }
 </style>
 

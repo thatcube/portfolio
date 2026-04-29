@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import Squiggle from "../components/Squiggle.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects"))
@@ -23,22 +22,17 @@ const projects = (await getCollection("projects"))
   </section>
 
   <!-- Projects -->
-  <section class="max-w-5xl mx-auto px-6 pb-24">
+  <section class="max-w-5xl mx-auto px-6 pb-24 space-y-6">
     {projects.map((project, i) => (
-      <>
-        {i > 0 && (
-          <Squiggle variant={i % 2 === 0 ? "up" : "down"} class="my-10" />
-        )}
-        <div class:list={[i === 0 && "rise-el"]} style={i === 0 ? "--rise-delay: 550ms" : undefined}>
-          <ProjectCard
-            title={project.data.title}
-            shortDesc={project.data.shortDesc}
-            slug={project.id}
-            thumbnail={project.data.thumbnail}
-            variant={i === 0 ? "featured" : "compact"}
-          />
-        </div>
-      </>
+      <div class:list={[i === 0 && "rise-el"]} style={i === 0 ? "--rise-delay: 550ms" : undefined}>
+        <ProjectCard
+          title={project.data.title}
+          shortDesc={project.data.shortDesc}
+          slug={project.id}
+          thumbnail={project.data.thumbnail}
+          variant={i === 0 ? "featured" : "compact"}
+        />
+      </div>
     ))}
   </section>
 </BaseLayout>

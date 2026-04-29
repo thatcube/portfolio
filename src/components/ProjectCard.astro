@@ -16,22 +16,20 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
 {variant === "featured" ? (
   <a
     href={`/projects/${slug}`}
-    class="group block rounded-2xl p-6 sm:p-12 -mx-6 sm:-mx-12 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
+    class="group block rounded-2xl border border-border/10 p-5 sm:p-6 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
   >
-    <div
-      class="rounded-xl overflow-hidden bg-img-bg"
-    >
+    <div class="rounded-xl overflow-hidden bg-img-bg">
       <Image
         src={thumbnail}
         alt={title}
         widths={[800, 1200]}
-        sizes="(max-width: 640px) 100vw, 960px"
+        sizes="(max-width: 640px) 100vw, 880px"
         class="w-full h-full object-cover"
         loading="eager"
       />
     </div>
-    <div class="pt-6">
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-primary/90 transition-colors">
+    <div class="pt-5">
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-primary/90">
         {title}
       </h2>
       <p class="mt-1 text-base text-primary/60">
@@ -42,9 +40,9 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
 ) : (
   <a
     href={`/projects/${slug}`}
-    class="group flex items-center gap-6 rounded-2xl p-6 sm:p-12 -mx-6 sm:-mx-12 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
+    class="group flex items-center gap-5 rounded-2xl border border-border/10 p-4 sm:p-5 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
   >
-    <div class="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-xl overflow-hidden bg-img-bg">
+    <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden bg-img-bg">
       <Image
         src={thumbnail}
         alt={title}
@@ -54,8 +52,8 @@ const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
         loading="lazy"
       />
     </div>
-    <div>
-      <h2 class="font-display font-bold text-xl sm:text-2xl text-primary/90 transition-colors">
+    <div class="min-w-0">
+      <h2 class="font-display font-bold text-xl sm:text-2xl text-primary/90">
         {title}
       </h2>
       <p class="mt-1 text-sm text-primary/60">
