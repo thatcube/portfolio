@@ -11,5 +11,11 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [mdx(), icon()]
+  integrations: [mdx(), icon()],
+
+  redirects: {
+    '/projects/aqua-design-system': '/aqua',
+    '/projects/get-app': '/get',
+    '/projects/patient-app': '/patient',
+  },
 });

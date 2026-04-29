@@ -10,17 +10,16 @@
     xmlns="http://www.w3.org/2000/svg"
     data-liquid-svg
   >
-    <!-- Single masked disc: ring + liquid are one continuous shape, so
-         below the waterline the inner-ring edge dissolves into the liquid
-         with no visible seam.
-           - Outer disc (r=20) is fully visible.
-           - Inner disc (r=12) is masked out (the empty bowl).
-           - Liquid path re-adds visibility below the wave, restoring a
-             seamless blend with the ring at the waterline. -->
+    <!-- Masked disc: ring + liquid are one continuous shape, so the inner
+         ring edge dissolves into the liquid below the waterline with no
+         visible seam. The mask radii (and the visible disc radius) are
+         driven by JS each frame, so on hover the ring grows in diameter
+         while keeping its 8-unit thickness, and the water fills the larger
+         interior naturally. -->
     <defs>
       <mask id="liquid-logo-mask" maskUnits="userSpaceOnUse">
-        <circle cx="22" cy="22" r="20" fill="white"></circle>
-        <circle cx="22" cy="22" r="12" fill="black"></circle>
+        <circle data-ring-outer cx="22" cy="22" r="20" fill="white"></circle>
+        <circle data-ring-inner cx="22" cy="22" r="12" fill="black"></circle>
         <path
           data-liquid-surface
           fill="white"
@@ -29,6 +28,7 @@
       </mask>
     </defs>
     <circle
+      data-ring-disc
       cx="22"
       cy="22"
       r="20"
@@ -38,6 +38,47 @@
     <g data-liquid-droplets fill="currentColor"></g>
   </svg>
 </span>
+
+<!--
+  CRITICAL: this is a SYNCHRONOUS inline script (is:inline keeps it in place
+  and unbundled). It runs immediately, before first paint, so it can rewrite
+  the SVG's `r` attributes AND surface path to match a hover state that
+  survived a full page reload (the brand link uses data-astro-reload).
+  Without this, the hoisted module script below runs AFTER first paint,
+  causing a visible small→large "jump" when navigating home from another
+  page while hovering the logo. Keep this script tiny and dependency-free.
+-->
+<script is:inline>
+  // Pre-paint hydration: if the cursor was hovering the brand link when the
+  // user clicked it (data-astro-reload triggers full reload), restore the
+  // expanded ring + filled bowl synchronously, before first paint, so there
+  // is no visible "small ring" flash + spring-up on arrival.
+  //
+  // We use a dedicated hover flag (set/cleared in setHover) instead of
+  // elementFromPoint, which is unreliable before layout completes.
+  (function () {
+    try {
+      if (sessionStorage.getItem("liquidLogo:hovered") !== "1") return;
+      var svg = document.querySelector("[data-liquid-svg]");
+      if (!svg) return;
+      var disc = svg.querySelector("[data-ring-disc]");
+      var outer = svg.querySelector("[data-ring-outer]");
+      var inner = svg.querySelector("[data-ring-inner]");
+      var surface = svg.querySelector("[data-liquid-surface]");
+      // Match constants in the deferred module: outer 20→23, inner 12→16.
+      if (disc) disc.setAttribute("r", "23");
+      if (outer) outer.setAttribute("r", "23");
+      if (inner) inner.setAttribute("r", "16");
+      // Surface path for the expanded bowl (R=16, CY=22, level=0.5).
+      // Without this, the water only fills the small bowl while the ring
+      // is already big — leaving a visible gap at the bottom on first paint.
+      if (surface) {
+        surface.setAttribute("d", "M2 22 L42 22 L42 42 L2 42 Z");
+      }
+      window.__liquidPreHover = true;
+    } catch (e) {}
+  })();
+</script>
 
 <style>
   .liquid-logo {
@@ -74,6 +115,7 @@
     // on every `astro:page-load` so the new SVG comes alive.
     const SVG_NS = "http://www.w3.org/2000/svg";
     const BOOT_FLAG_KEY = "liquidLogo:boot";
+    const POINTER_KEY = "liquidLogo:pointer";
 
     // Module-scope reference to the current instance's animation hooks so
     // document/window-level listeners (bound once per session) can talk to
@@ -85,8 +127,20 @@
       bootShower: () => void;
       kick: () => void;
       drain: () => void;
+      setHover: (active: boolean) => void;
+      setTilt: (clientX: number) => void;
+      setPressed: (active: boolean) => void;
       reduceMotion: MediaQueryList;
     } | null = null;
+
+    // Last known pointer position, used to re-evaluate hover after SPA nav
+    // OR full page reload (the brand link uses data-astro-reload). For
+    // reload survival we also mirror it into sessionStorage on every move.
+    let lastPointer: { x: number; y: number } | null = null;
+    try {
+      const stored = sessionStorage.getItem(POINTER_KEY);
+      if (stored) lastPointer = JSON.parse(stored);
+    } catch {}
 
     function initLiquidLogo() {
       const svg = document.querySelector<SVGSVGElement>("[data-liquid-svg]");
@@ -116,19 +170,22 @@
       const dropletsGroup = svg.querySelector<SVGGElement>(
         "[data-liquid-droplets]"
       );
+      const ringDisc = svg.querySelector<SVGCircleElement>("[data-ring-disc]");
+      const ringMaskOuter = svg.querySelector<SVGCircleElement>("[data-ring-outer]");
+      const ringMaskInner = svg.querySelector<SVGCircleElement>("[data-ring-inner]");
       const trigger =
         svg.closest<HTMLElement>("[data-brand-trigger]") ||
         (svg.parentElement as HTMLElement | null);
       if (!surface || !dropletsGroup || !trigger) return;
+      if (!ringDisc || !ringMaskOuter || !ringMaskInner) return;
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      // ── Geometry ────────────────────────────────────────────────────────
+      // ── Geometry ─────────────────────────────────────────────────
       const CX = 22;
       const CY = 22;
-      const R = 12;
-      const TOP = CY - R;
-      const BOTTOM = CY + R;
+      const R_BASE = 12; // resting bowl radius (inner edge of ring)
+      const OUTER_BASE = 20; // resting outer edge of ring (thickness 8)
       const SAMPLES = 16;
 
       // ── State ───────────────────────────────────────────────────────────
@@ -139,7 +196,20 @@
       let waveAmp = 1.6;
       let tilt = 0;
       let targetTilt = 0;
-
+      // Ring expansion: spring-animated additive offset added to BOTH the
+      // inner and outer ring radii, so thickness stays constant (8) but the
+      // ring grows in diameter on hover. The bowl path uses the inner radius
+      // each frame, so the water automatically fills the new interior — no
+      // separate "water lifts" animation needed.
+      let ringExpand = 0;
+      let ringExpandVel = 0;
+      let ringTarget = 0;
+      const RING_MAX_EXPAND = 3; // outer 20→23 on full hover
+      // Inner expands more than outer so the ring also visually thins on
+      // hover (12→16 vs outer 20→23 → thickness 8→7).
+      const INNER_EXPAND_FACTOR = 4 / 3;
+      const RING_K = 110;
+      const RING_C = 13;
       type Mode = "idle" | "drain" | "pause" | "spring";
       let mode: Mode = "idle";
       let modeStart = 0;
@@ -177,6 +247,11 @@
 
       // ── Path builder ────────────────────────────────────────────────────
       function buildSurfacePath() {
+        // Bowl radius grows with the ring during hover, so the water fills
+        // the larger interior automatically. Uses the inner radius which
+        // expands faster than the outer so the ring also thins.
+        const R = R_BASE + ringExpand * INNER_EXPAND_FACTOR;
+        const BOTTOM = CY + R;
         const effectiveLevel = level + sloshOffset;
         const baseY = BOTTOM - effectiveLevel * (R * 2);
         const HALF_W = R + 4;
@@ -199,6 +274,8 @@
 
       // ── Droplets ────────────────────────────────────────────────────────
       function emitDroplet() {
+        const R = R_BASE + ringExpand * INNER_EXPAND_FACTOR;
+        const BOTTOM = CY + R;
         const x = CX + (Math.random() - 0.5) * (R * 0.9);
         const y = BOTTOM + 4 + Math.random() * 1.5;
         const r = 1.6 + Math.random() * 1.0;
@@ -309,8 +386,23 @@
           bootNextDropletAt = now + 120 + Math.random() * 100;
         }
 
+        // Ring expansion spring (independent of water spring).
+        const ringAcc =
+          -RING_K * (ringExpand - ringTarget) - RING_C * ringExpandVel;
+        ringExpandVel += ringAcc * dt;
+        ringExpand += ringExpandVel * dt;
+
         updateDroplets(dt);
         surface!.setAttribute("d", buildSurfacePath());
+
+        // Drive ring radii from ringExpand. Outer grows by ringExpand;
+        // inner grows slightly faster so the ring also thins on hover.
+        const outerR = OUTER_BASE + ringExpand;
+        const innerR = R_BASE + ringExpand * INNER_EXPAND_FACTOR;
+        ringDisc!.setAttribute("r", outerR.toFixed(2));
+        ringMaskOuter!.setAttribute("r", outerR.toFixed(2));
+        ringMaskInner!.setAttribute("r", innerR.toFixed(2));
+
         rafId = requestAnimationFrame(tick);
       }
 
@@ -332,7 +424,13 @@
         waveAmp = 0;
         tilt = 0;
         phase = 0;
+        ringExpand = 0;
+        ringExpandVel = 0;
+        ringTarget = 0;
         surface!.setAttribute("d", buildSurfacePath());
+        ringDisc!.setAttribute("r", String(OUTER_BASE));
+        ringMaskOuter!.setAttribute("r", String(OUTER_BASE));
+        ringMaskInner!.setAttribute("r", String(R_BASE));
       }
 
       function pumpScroll(dy: number) {
@@ -353,22 +451,11 @@
       // Use document-level delegation so the handler survives SPA navs
       // (transition:persist keeps the SVG but the <a> wrapper is replaced).
       //
-      // mousedown sets the boot flag before data-astro-reload navigates away.
-      // click handles the on-home impulse + drain animation.
+      // The brand link is a normal SPA-navigated <a>, so the SVG element
+      // persists across navigation. That means drain → pause → spring plays
+      // continuously across the page swap with no flash or DOM recreation.
       if (!(window as any).__liquidClickBound) {
         (window as any).__liquidClickBound = true;
-
-        document.addEventListener("mousedown", (e) => {
-          const brandLink = (e.target as HTMLElement).closest<HTMLElement>("[data-brand-trigger]");
-          if (!brandLink) return;
-          const isHome =
-            window.location.pathname === "/" ||
-            window.location.pathname === "/index.html";
-          if (!isHome) {
-            console.log("[liquid] mousedown: setting boot flag");
-            try { sessionStorage.setItem(BOOT_FLAG_KEY, "1"); } catch {}
-          }
-        });
 
         document.addEventListener("click", (e) => {
           const brandLink = (e.target as HTMLElement).closest<HTMLElement>("[data-brand-trigger]");
@@ -385,7 +472,8 @@
             return;
           }
 
-          // Non-home: drain animation (flag already set via mousedown)
+          // Non-home: trigger drain; SPA nav happens on its own and the
+          // animation plays through because the SVG is persisted.
           current.drain();
         });
       }
@@ -415,17 +503,46 @@
         nextDropletAt = modeStart;
       }
 
-      trigger.addEventListener("pointermove", (e) => {
+      // Hover/focus state setters — exposed via `current` so document-level
+      // delegated listeners (bound once per session) can drive whichever
+      // instance is currently mounted. No splash here: the ring spring alone
+      // produces a smooth, continuous transition because level=0.5 keeps the
+      // waterline at CY while the bowl walls grow around it.
+      let isHovered = false;
+      let isPressed = false;
+      function syncRingTarget() {
+        // Press collapses the hover expansion back to rest (no overshoot
+        // smaller than normal). Hover expands. Neither = rest.
+        if (isPressed) ringTarget = 0;
+        else if (isHovered) ringTarget = RING_MAX_EXPAND;
+        else ringTarget = 0;
+      }
+      function setHover(active: boolean) {
+        if (active && reduceMotion.matches) return;
+        isHovered = active;
+        if (!active) targetTilt = 0;
+        syncRingTarget();
+        // Persist hover state across navigations (incl. full reloads from
+        // the brand link's data-astro-reload). The pre-paint inline script
+        // reads this flag to seed the new page's SVG before first paint.
+        try {
+          if (active) sessionStorage.setItem("liquidLogo:hovered", "1");
+          else sessionStorage.removeItem("liquidLogo:hovered");
+        } catch {}
+      }
+      function setPressed(active: boolean) {
+        if (reduceMotion.matches) return;
+        isPressed = active;
+        syncRingTarget();
+      }
+      function setTilt(clientX: number) {
         if (reduceMotion.matches) return;
         const rect = svg.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const half = rect.width / 2 || 1;
-        const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / half));
+        const dx = Math.max(-1, Math.min(1, (clientX - cx) / half));
         targetTilt = dx * 0.06;
-      });
-      trigger.addEventListener("pointerleave", () => {
-        targetTilt = 0;
-      });
+      }
 
       // ── Reduced motion ──────────────────────────────────────────────────
       function handleMotionPref() {
@@ -443,6 +560,23 @@
       }
 
       // ── Boot ────────────────────────────────────────────────────────────
+      // Pick up the pre-paint inline script's verdict: if it determined
+      // the cursor was over the brand link at page load and already wrote
+      // expanded radii to the SVG, start the simulation already at MAX so
+      // the spring is at rest there — no animation up from 0.
+      if (
+        !reduceMotion.matches &&
+        ((window as any).__liquidPreHover ||
+          (lastPointer &&
+            document
+              .elementFromPoint(lastPointer.x, lastPointer.y)
+              ?.closest?.("[data-brand-trigger]")))
+      ) {
+        ringExpand = RING_MAX_EXPAND;
+        ringTarget = RING_MAX_EXPAND;
+        (window as any).__liquidPreHover = false;
+      }
+
       if (reduceMotion.matches) {
         renderStatic();
       } else {
@@ -470,15 +604,127 @@
         start();
       }
 
-      current = { start, stop, pumpScroll, bootShower, kick, drain, reduceMotion };
+      current = { start, stop, pumpScroll, bootShower, kick, drain, setHover, setTilt, setPressed, reduceMotion };
     }
 
     // Re-init on every page (initial + every SPA nav under ClientRouter).
-    document.addEventListener("astro:page-load", initLiquidLogo);
+    document.addEventListener("astro:page-load", () => {
+      initLiquidLogo();
+      // After SPA nav, the brand <a> is a fresh DOM node so the previous
+      // pointerover never fired for it. Re-evaluate hover state from the
+      // last known pointer position so a hover started on the previous page
+      // carries through visually.
+      //
+      // Defer to rAF so this runs AFTER any pointerout events triggered by
+      // the DOM swap (which would otherwise overwrite our setHover call).
+      const reapplyHover = () => {
+        if (current && lastPointer) {
+          const el = document.elementFromPoint(lastPointer.x, lastPointer.y);
+          const overBrand = !!el?.closest?.("[data-brand-trigger]");
+          current.setHover(overBrand);
+          if (overBrand) current.setTilt(lastPointer.x);
+        }
+      };
+      requestAnimationFrame(() => {
+        reapplyHover();
+        // One more on the next frame in case pointerout straggles in.
+        requestAnimationFrame(reapplyHover);
+      });
+    });
 
     // One-time global listeners that talk to whichever instance is current.
     if (!(window as any).__liquidLogoGlobal) {
       (window as any).__liquidLogoGlobal = true;
+      let lastPointerSaveAt = 0;
+
+      // Document-delegated hover/focus so it works across SPA navs (the
+      // brand <a> is recreated each nav, but the persisted SVG and our
+      // module-scope `current` are stable). Use pointerover/out which
+      // bubble, and ignore inner-element transitions via relatedTarget.
+      document.addEventListener("pointerover", (e) => {
+        if (!current) return;
+        const t = (e.target as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (!t) return;
+        const from = (e.relatedTarget as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (from === t) return;
+        current.setHover(true);
+      });
+      document.addEventListener("pointerout", (e) => {
+        if (!current) return;
+        const t = (e.target as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (!t) return;
+        const to = (e.relatedTarget as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (to === t) return;
+        current.setHover(false);
+      });
+      document.addEventListener("pointermove", (e) => {
+        lastPointer = { x: e.clientX, y: e.clientY };
+        // Throttled mirror to sessionStorage so a full reload (brand link is
+        // data-astro-reload) can pick up where we left off.
+        const nowMs = performance.now();
+        if (nowMs - lastPointerSaveAt > 60) {
+          lastPointerSaveAt = nowMs;
+          try {
+            sessionStorage.setItem(POINTER_KEY, JSON.stringify(lastPointer));
+          } catch {}
+        }
+        if (!current) return;
+        const t = (e.target as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (!t) return;
+        current.setTilt(e.clientX);
+      });
+      document.addEventListener("focusin", (e) => {
+        if (!current) return;
+        const t = (e.target as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (t) current.setHover(true);
+      });
+      document.addEventListener("focusout", (e) => {
+        if (!current) return;
+        const t = (e.target as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (t) current.setHover(false);
+      });
+
+      // Press-down on the brand link: ring shrinks while held. Released on
+      // pointerup ANYWHERE so we don't get stuck pressed if the user drags
+      // off before releasing.
+      document.addEventListener("pointerdown", (e) => {
+        if (!current) return;
+        const t = (e.target as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (!t) return;
+        current.setPressed(true);
+      });
+      const releasePress = () => current?.setPressed(false);
+      document.addEventListener("pointerup", releasePress);
+      document.addEventListener("pointercancel", releasePress);
+      window.addEventListener("blur", releasePress);
+      // Keyboard activation (Enter/Space) on focused brand link.
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        const t = (document.activeElement as HTMLElement | null)?.closest?.(
+          "[data-brand-trigger]"
+        );
+        if (t) current?.setPressed(true);
+      });
+      document.addEventListener("keyup", (e) => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        current?.setPressed(false);
+      });
       let lastScrollY = window.scrollY || 0;
       window.addEventListener(
         "scroll",

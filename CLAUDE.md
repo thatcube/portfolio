@@ -68,16 +68,18 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Project notes
 
-**Old portfolio (still live at brandonmoore.design):**
+**Old portfolio (still live at old.brandonmoore.design):**
 - Local path: `/Users/brandon/Development/Portfolio-old`
 - Stack: Gatsby + Sanity (monorepo: `web/` + `studio/`)
-- Logo lives at `web/src/components/header.js` and `web/src/images/favicon.svg` — a circle with a half-fill "liquid" shape (the inner dome). Originally Brandon imagined this liquid sloshing on interaction; that animation was never implemented.
-- Useful reference for: prior copy, asset history, the liquid-logo concept, project case study content.
+- Logo lives at `web/src/components/header.js` and `web/src/images/favicon.svg` — a circle with a half-fill "liquid" shape (the inner dome). Brandon originally imagined the liquid sloshing on interaction; that animation was never implemented in the old site.
+- The slosh **is now implemented** in this site at `src/components/LiquidLogo.astro` — click the logo for a drain → refill cycle, with droplet shower on full page reload (brand link uses `data-astro-reload`).
+- Useful reference for: prior copy, asset history, project case study content.
 
 **About Brandon (for copy / positioning):**
 - Product Designer on the Power BI design team at Microsoft (since he started there).
 - Based in Newfield, NY — says "Ithaca, NY" publicly.
 - Strong accessibility background, but day-to-day is mostly product design now.
+- **Technical designer.** Hand-codes his own portfolio. Previously worked as a front-end developer (didn't love it at the time, partly because pre-AI debugging was a slog). Builds his own PCs. Comfortable in code — this is part of his point of view, not a side-skill to mention in passing.
 - Loves: prototypes, pixel pushing, motion, microinteractions.
 - The 🦄 unicorn easter-egg emoji in the about copy is intentional — keep it.
 

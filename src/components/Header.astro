@@ -8,14 +8,14 @@ import LiquidLogo from "./LiquidLogo.astro";
 >
   <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Primary">
     <!-- Brand: liquid logo + wordmark, single link to home.
-         `data-astro-reload` opts this link out of ClientRouter so the drain
-         + droplet animation has time to play visibly (view-transition
-         snapshots paint above real DOM and would hide it otherwise). -->
+         Stays on SPA nav so the LiquidLogo SVG persists across navigation
+         (transition:persist on the SVG wrapper). The drain/spring animation
+         continues seamlessly across the page swap — no full reload, no
+         repaint flash. -->
     <a
       href="/"
       class="brand-link inline-flex items-center gap-2.5 font-display font-medium text-lg tracking-tight text-primary/90 transition-colors"
       data-brand-trigger
-      data-astro-reload
     >
       <LiquidLogo />
       <span>Brandon Moore</span>
@@ -57,24 +57,24 @@ import LiquidLogo from "./LiquidLogo.astro";
           <ul class="p-2 bg-raised rounded-2xl shadow-xl border border-border/10 list-none m-0">
             <li>
               <a
-                href="/projects/get-app"
-                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors whitespace-nowrap"
+                href="/get"
+                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
               >
                 GET App Redesign
               </a>
             </li>
             <li>
               <a
-                href="/projects/aqua-design-system"
-                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors whitespace-nowrap"
+                href="/aqua"
+                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
               >
                 Aqua Design System
               </a>
             </li>
             <li>
               <a
-                href="/projects/patient-app"
-                class="block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 hover:bg-border/5 hover:text-primary/90 transition-colors whitespace-nowrap"
+                href="/patient"
+                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
               >
                 Patient App
               </a>
@@ -151,25 +151,29 @@ import LiquidLogo from "./LiquidLogo.astro";
     }
   }
 
-  /* ── Nav link hover pill ─────────────────────────────────────────────────
-     Pill background expands from the center on hover/focus/open. Subtle —
-     matches the rest of the surface treatments and doesn't compete with the
-     liquid logo for attention. */
+  /* ── Nav link hover pill ───────────────────────────────────────────
+     Same family as the theme-toggle indicator: a soft "liquid" blob that
+     squishes in on hover and counter-squishes on click. Text stays put —
+     only the background moves so it reads as a watery surface settling
+     under the cursor. */
   .nav-link {
     position: relative;
     isolation: isolate;
+    transition: color 200ms ease;
   }
   .nav-link::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: color-mix(in srgb, var(--color-border) 12%, transparent);
+    background: color-mix(in srgb, var(--color-border) 14%, transparent);
     opacity: 0;
-    transform: scale(0.85);
+    /* Start squashed wider-than-tall so the entry reads as a liquid blob
+       expanding into shape, not a uniform fade-in. */
+    transform: scale(0.7, 0.5);
     transition:
       opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 280ms cubic-bezier(0.34, 1.4, 0.64, 1);
+      transform 360ms cubic-bezier(0.34, 1.55, 0.5, 1);
     z-index: -1;
     pointer-events: none;
   }
@@ -177,13 +181,56 @@ import LiquidLogo from "./LiquidLogo.astro";
   .nav-link:focus-visible::before,
   [data-disclosure].is-open .nav-link::before {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1, 1);
+  }
+  .nav-link:active::before {
+    /* Counter-squish on click — like the theme indicator's slosh. */
+    transform: scale(1.04, 0.86);
+    transition-duration: 140ms;
+  }
+
+  /* ── Dropdown items ────────────────────────────────────────────────
+     Same liquid blob family as the nav links, just sized for the wider
+     dropdown rows. */
+  .dropdown-item {
+    position: relative;
+    isolation: isolate;
+    color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+    transition: color 200ms ease;
+  }
+  .dropdown-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: color-mix(in srgb, var(--color-primary) 7%, transparent);
+    opacity: 0;
+    transform: scale(0.7, 0.5);
+    transition:
+      opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 360ms cubic-bezier(0.34, 1.55, 0.5, 1);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .dropdown-item:hover,
+  .dropdown-item:focus-visible {
+    color: color-mix(in srgb, var(--color-primary) 95%, transparent);
+  }
+  .dropdown-item:hover::before,
+  .dropdown-item:focus-visible::before {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+  .dropdown-item:active::before {
+    transform: scale(1.03, 0.88);
+    transition-duration: 140ms;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .nav-link::before {
+    .nav-link::before,
+    .dropdown-item::before {
       transition: opacity 200ms ease;
-      transform: none;
+      transform: none !important;
     }
   }
 </style>

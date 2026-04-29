@@ -3,6 +3,10 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <footer class="border-t border-border/10 mt-24">
+  <!-- Optional project nav slot — case study pages render prev/next here so
+       wayfinding is grouped with footer chrome instead of butting up against
+       article content. Empty on every other page. -->
+  <slot name="project-nav" />
   <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between items-center gap-6">
     <p class="text-sm text-primary/60">
       Made with <span class="footer-heart" aria-hidden="true">♥</span><span class="sr-only">love</span> by Brandon. Say hi on
@@ -21,7 +25,7 @@ import { Icon } from 'astro-icon/components';
     <div class="flex items-center gap-6">
       <!-- Theme Switcher -->
       <div
-        class="theme-switcher flex items-center rounded-xl p-1 gap-1"
+        class="theme-switcher flex items-center rounded-2xl p-1 gap-1"
         role="radiogroup"
         aria-label="Color theme"
       >
@@ -34,7 +38,7 @@ import { Icon } from 'astro-icon/components';
           data-theme="light"
           data-tooltip="Light"
           aria-label="Light mode"
-          class="theme-btn p-2 rounded-lg"
+          class="theme-btn p-2 rounded-xl"
         >
           <Icon name="ph:sun" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
           <Icon name="ph:sun-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
@@ -46,7 +50,7 @@ import { Icon } from 'astro-icon/components';
           data-theme="system"
           data-tooltip="System"
           aria-label="System theme"
-          class="theme-btn p-2 rounded-lg"
+          class="theme-btn p-2 rounded-xl"
         >
           <Icon name="ph:circle-half" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
           <Icon name="ph:circle-half-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
@@ -58,7 +62,7 @@ import { Icon } from 'astro-icon/components';
           data-theme="dark"
           data-tooltip="Dark"
           aria-label="Dark mode"
-          class="theme-btn p-2 rounded-lg"
+          class="theme-btn p-2 rounded-xl"
         >
           <Icon name="ph:moon" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
           <Icon name="ph:moon-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
@@ -96,7 +100,7 @@ import { Icon } from 'astro-icon/components';
     left: var(--indicator-x, 0px);
     width: var(--indicator-w, 0px);
     height: calc(100% - 8px);
-    border-radius: 8px;
+    border-radius: 12px;
     background: color-mix(in srgb, var(--color-primary) var(--theme-indicator-mix, 12%), transparent);
     transform-origin: center;
     pointer-events: none;
@@ -232,7 +236,7 @@ import { Icon } from 'astro-icon/components';
     left: 50%;
     transform: translateX(-50%) translateY(4px) scale(0.94);
     padding: 6px 10px;
-    border-radius: 7px;
+    border-radius: 8px;
     background-color: var(--color-primary);
     color: var(--color-surface);
     font-size: 11.5px;

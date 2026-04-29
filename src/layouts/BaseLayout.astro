@@ -83,6 +83,8 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
     <main id="main-content" tabindex="-1" class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <Footer>
+      <slot name="project-nav" slot="project-nav" />
+    </Footer>
   </body>
 </html>

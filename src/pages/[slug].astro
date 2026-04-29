@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import { Icon } from 'astro-icon/components';
 
@@ -23,24 +23,12 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
 ---
 
 <BaseLayout title={`${title} — Brandon Moore`} description={shortDesc}>
-  <!-- Back link -->
-  <section class="max-w-5xl mx-auto px-6 pt-24 pb-8">
-    <a
-      href="/"
-      class="rise-el inline-flex items-center gap-2 text-sm text-primary/60 transition-colors"
-      style="--rise-delay: 0ms"
-    >
-      <Icon name="ph:arrow-left" class="w-4 h-4" aria-hidden="true" />
-      Back to projects
-    </a>
-  </section>
-
   <!-- Title + description -->
-  <section class="max-w-5xl mx-auto px-6 pb-12">
-    <h1 class="rise-el font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-primary/95 mb-4" style="--rise-delay: 80ms">
+  <section class="max-w-5xl mx-auto px-6 pt-24 pb-12">
+    <h1 class="rise-el font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-primary/95 mb-4" style="--rise-delay: 0ms">
       {title}
     </h1>
-    <p class="rise-el text-lg text-primary/70 max-w-2xl" style="--rise-delay: 180ms">
+    <p class="rise-el text-lg text-primary/70 max-w-2xl" style="--rise-delay: 100ms">
       {shortDesc}
     </p>
   </section>
@@ -48,8 +36,8 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
   <!-- Hero Image -->
   <section class="max-w-5xl mx-auto px-6 pb-12">
     <div
-      class="rise-el rounded-2xl overflow-hidden border border-border/10"
-      style="--rise-delay: 280ms"
+      class="rise-el rounded-3xl overflow-hidden border border-border/10"
+      style="--rise-delay: 200ms"
     >
       <Image
         src={heroImage}
@@ -66,7 +54,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
     <section class="max-w-5xl mx-auto px-6 pb-12" aria-label="Project overview">
       <dl class="grid grid-cols-1 sm:grid-cols-3 gap-6 m-0">
         {problem && (
-          <div class="rise-el p-6 rounded-xl border border-border/10" style="--rise-delay: 400ms">
+          <div class="rise-el p-6 rounded-2xl border border-border/10" style="--rise-delay: 320ms">
             <div class="w-9 h-9 rounded-full bg-border/10 flex items-center justify-center mb-5" aria-hidden="true">
               <Icon name="ph:target" class="w-5 h-5 text-primary/90" aria-hidden="true" />
             </div>
@@ -75,7 +63,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
           </div>
         )}
         {solution && (
-          <div class="rise-el p-6 rounded-xl border border-border/10" style="--rise-delay: 520ms">
+          <div class="rise-el p-6 rounded-2xl border border-border/10" style="--rise-delay: 440ms">
             <div class="w-9 h-9 rounded-full bg-border/10 flex items-center justify-center mb-5" aria-hidden="true">
               <Icon name="ph:check" class="w-5 h-5 text-primary/90" aria-hidden="true" />
             </div>
@@ -84,7 +72,7 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
           </div>
         )}
         {role && (
-          <div class="rise-el p-6 rounded-xl border border-border/10" style="--rise-delay: 640ms">
+          <div class="rise-el p-6 rounded-2xl border border-border/10" style="--rise-delay: 560ms">
             <div class="w-9 h-9 rounded-full bg-border/10 flex items-center justify-center mb-5" aria-hidden="true">
               <Icon name="ph:user-fill" class="w-5 h-5 text-primary/90" aria-hidden="true" />
             </div>
@@ -101,45 +89,51 @@ const { title, shortDesc, problem, solution, role, heroImage } = project.data;
     <Content />
   </article>
 
-  <!-- Prev / Next Navigation -->
-  <nav class="max-w-5xl mx-auto px-6 pb-24" aria-label="Project navigation">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <!-- Prev / Next Navigation — rendered into the Footer's project-nav slot so
+       it groups with footer chrome instead of sitting flush with article
+       content. Only project pages fill this slot. -->
+  <nav slot="project-nav" aria-label="Project navigation">
+    <div class="max-w-5xl mx-auto px-6 pt-24 pb-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
       <a
-        href={`/projects/${prev.id}`}
-        class="group block rounded-2xl p-12 border border-border/10 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
+        href={`/${prev.id}`}
+        class="group flex items-center gap-5 rounded-2xl p-4 border border-border/10 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.02] active:scale-100"
       >
-        <p class="text-xs font-medium uppercase tracking-wider text-primary/50 mb-2">Previous</p>
-        <h3 class="font-display font-bold text-2xl sm:text-3xl text-primary/90 mb-9 pb-9 -mx-12 px-12 border-b border-border/10">
-          {prev.data.title}
-        </h3>
-        <div class="rounded-xl overflow-hidden aspect-[16/9]">
+        <div class="w-16 h-16 shrink-0 rounded-xl overflow-hidden">
           <Image
             src={prev.data.thumbnail}
             alt={prev.data.title}
-            widths={[400, 800]}
-            sizes="(max-width: 640px) 100vw, 480px"
+            widths={[128, 256]}
+            sizes="128px"
             class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
+        <div class="min-w-0">
+          <p class="text-xs font-medium uppercase tracking-wider text-primary/50 mb-1">Previous</p>
+          <h3 class="font-display font-bold text-base sm:text-lg text-primary/90 truncate m-0">
+            {prev.data.title}
+          </h3>
+        </div>
       </a>
       <a
-        href={`/projects/${next.id}`}
-        class="group block rounded-2xl p-12 border border-border/10 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94] sm:text-right"
+        href={`/${next.id}`}
+        class="group flex items-center gap-5 rounded-2xl p-4 border border-border/10 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.02] active:scale-100 sm:flex-row-reverse sm:text-right"
       >
-        <p class="text-xs font-medium uppercase tracking-wider text-primary/50 mb-2">Next</p>
-        <h3 class="font-display font-bold text-2xl sm:text-3xl text-primary/90 mb-9 pb-9 -mx-12 px-12 border-b border-border/10">
-          {next.data.title}
-        </h3>
-        <div class="rounded-xl overflow-hidden aspect-[16/9]">
+        <div class="w-16 h-16 shrink-0 rounded-xl overflow-hidden">
           <Image
             src={next.data.thumbnail}
             alt={next.data.title}
-            widths={[400, 800]}
-            sizes="(max-width: 640px) 100vw, 480px"
+            widths={[128, 256]}
+            sizes="128px"
             class="w-full h-full object-cover"
             loading="lazy"
           />
+        </div>
+        <div class="min-w-0">
+          <p class="text-xs font-medium uppercase tracking-wider text-primary/50 mb-1">Next</p>
+          <h3 class="font-display font-bold text-base sm:text-lg text-primary/90 truncate m-0">
+            {next.data.title}
+          </h3>
         </div>
       </a>
     </div>

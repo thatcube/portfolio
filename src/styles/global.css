@@ -72,7 +72,7 @@ body {
 
 /* ── Prose Images ── */
 :where(article.prose) img {
-  border-radius: 0.75rem;
+  border-radius: 1.25rem;
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -100,7 +100,7 @@ main:focus-visible {
   left: 0.75rem;
   z-index: 100;
   padding: 0.625rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   background: var(--color-primary);
   color: var(--color-surface);
   font-size: 0.875rem;
