@@ -94,3 +94,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 # cool animations
 https://lusion.co/ the project items here have cool effects on scroll
+
+here are some must read articles you can read and learn about to apply to anything animation related: https://emilkowal.ski/ui/the-magic-of-clip-path
+https://emilkowal.ski/ui/7-practical-animation-tips
+
+You should incorporate using blur, motion, and clip paths to create beautiful animations on most interactions.
+ Read into Emil Kowalski. He's not advocating against animation here at all, he's just about making it purposeful: https://emilkowal.ski/ui/you-dont-need-animations "But sometimes the purpose of an animation might just be to bring delight."
+
+ Strive to always use whole pixels for elements on the page. It creates a consistent visual grid and looks much better on displays that struggle to show half or partial pixels. 

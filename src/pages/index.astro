@@ -71,9 +71,11 @@ const projects = (await getCollection("projects")).sort(
 
   <!-- Archive -->
   <section class="max-w-5xl mx-auto px-6 pb-24">
-    <details class="archive group">
+    <details
+      class="archive group rounded-3xl border border-border/15 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)]"
+    >
       <summary
-        class="archive-summary list-none cursor-pointer rounded-3xl border border-border/15 p-7 sm:p-9 flex items-center justify-between gap-6 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.02] active:scale-100"
+        class="archive-summary list-none cursor-pointer p-7 sm:p-9 flex items-center justify-between gap-6 transition-colors duration-300 hover:bg-border/[0.04]"
       >
         <div class="min-w-0">
           <p
@@ -107,7 +109,7 @@ const projects = (await getCollection("projects")).sort(
         </svg>
       </summary>
 
-      <div class="archive-content space-y-4 pt-4">
+      <div class="archive-content">
         {
           projects.map((project) => (
             <ProjectCard
@@ -115,7 +117,7 @@ const projects = (await getCollection("projects")).sort(
               shortDesc={project.data.shortDesc}
               slug={project.id}
               thumbnail={project.data.thumbnail}
-              variant="compact"
+              variant="nested"
             />
           ))
         }
@@ -138,41 +140,141 @@ const projects = (await getCollection("projects")).sort(
   .archive-summary::-webkit-details-marker {
     display: none;
   }
+
+  /* Whole container lifts on hover only when collapsed — when open, the
+     summary is just the header of a larger container, so scaling it would
+     feel wrong. */
+  .archive:not([open]) {
+    transform: scale(1);
+  }
+  .archive:not([open]):hover {
+    transform: scale(1.02);
+  }
+  .archive:not([open]):active {
+    transform: scale(1);
+  }
+
   .archive[open] .archive-chevron {
     transform: rotate(180deg);
   }
 
-  /* Reveal the 3 project cards with a soft cascade when the disclosure opens.
-     Uses CSS-only entrance animations — keeps the markup clean and matches the
-     `rise-el` family used elsewhere on the site. */
-  .archive[open] .archive-content > * {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: archive-rise 480ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* Content is clipped during the JS-driven height animation. */
+  .archive-content {
+    overflow: hidden;
   }
-  .archive[open] .archive-content > *:nth-child(1) {
-    animation-delay: 60ms;
+
+  /* Hairline dividers between summary and rows, and between rows.
+     `:global()` is required because `.archive-row` is rendered by the
+     ProjectCard component and lives in a different style scope. */
+  .archive-content > :global(.archive-row) {
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-border) 12%, transparent);
   }
-  .archive[open] .archive-content > *:nth-child(2) {
-    animation-delay: 140ms;
-  }
-  .archive[open] .archive-content > *:nth-child(3) {
-    animation-delay: 220ms;
-  }
-  @keyframes archive-rise {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+
   @media (prefers-reduced-motion: reduce) {
-    .archive[open] .archive-content > * {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-    .archive-chevron {
+    .archive-chevron,
+    .archive:not([open]):hover {
       transition: none;
+      transform: none;
     }
   }
 </style>
+
+<script>
+  // Animated <details> open/close using the Web Animations API. CSS-only
+  // approaches (`::details-content` + `interpolate-size`) don't have broad
+  // enough browser support yet, so we drive it from JS. Re-binds on every
+  // `astro:page-load` because ClientRouter swaps the DOM on navigation.
+  function initArchive() {
+    const details = document.querySelector<HTMLDetailsElement>(
+      "details.archive",
+    );
+    if (!details) return;
+
+    const summary = details.querySelector<HTMLElement>(".archive-summary");
+    const content = details.querySelector<HTMLElement>(".archive-content");
+    if (!summary || !content) return;
+
+    // Avoid double-binding if this script runs twice for the same DOM.
+    if (details.dataset.animatedReady === "1") return;
+    details.dataset.animatedReady = "1";
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    let animation: Animation | null = null;
+    let isClosing = false;
+    let isOpening = false;
+
+    const easeOpen = "cubic-bezier(0.16, 1, 0.3, 1)";
+    const easeClose = "cubic-bezier(0.7, 0, 0.84, 0)";
+
+    function open() {
+      // Set [open] so the content is laid out, then animate from 0 → height.
+      details!.open = true;
+      const height = content!.scrollHeight;
+
+      if (reduceMotion.matches) return;
+
+      isOpening = true;
+      animation?.cancel();
+      animation = content!.animate(
+        [
+          { height: "0px", opacity: 0 },
+          { height: `${height}px`, opacity: 1 },
+        ],
+        { duration: 480, easing: easeOpen },
+      );
+      animation.onfinish = () => {
+        isOpening = false;
+        animation = null;
+      };
+      animation.oncancel = () => {
+        isOpening = false;
+      };
+    }
+
+    function close() {
+      if (reduceMotion.matches) {
+        details!.open = false;
+        return;
+      }
+
+      const height = content!.scrollHeight;
+      isClosing = true;
+      animation?.cancel();
+      animation = content!.animate(
+        [
+          { height: `${height}px`, opacity: 1 },
+          { height: "0px", opacity: 0 },
+        ],
+        { duration: 320, easing: easeClose },
+      );
+      animation.onfinish = () => {
+        details!.open = false;
+        isClosing = false;
+        animation = null;
+      };
+      animation.oncancel = () => {
+        isClosing = false;
+      };
+    }
+
+    summary.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (isClosing || !details.open) {
+        open();
+      } else if (isOpening || details.open) {
+        close();
+      }
+    });
+
+    // Keyboard support: <summary> natively toggles on Enter/Space, but
+    // because we preventDefault on click, we also need to handle the
+    // keydown that produces a click. The browser fires a `click` event
+    // for both, so the click handler above already covers it.
+  }
+
+  document.addEventListener("astro:page-load", initArchive);
+</script>
