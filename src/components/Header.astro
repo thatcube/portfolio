@@ -23,68 +23,6 @@ import LiquidLogo from "./LiquidLogo.astro";
 
     <!-- Nav Links -->
     <ul class="flex items-center gap-1 list-none m-0 p-0">
-      <!-- Work Disclosure -->
-      <li class="relative" data-disclosure>
-        <button
-          type="button"
-          class="nav-link text-sm font-medium text-primary/70 hover:text-primary/90 transition-colors flex items-center gap-1 px-3 py-2 rounded-xl"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-controls="work-menu"
-          data-disclosure-trigger
-        >
-          Work
-          <svg
-            class="w-3.5 h-3.5 transition-transform duration-300"
-            data-disclosure-chevron
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"
-          >
-            <path d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-
-        <!-- Dropdown -->
-        <div
-          id="work-menu"
-          class="dropdown-menu absolute top-full right-0 pt-1 w-max max-w-xs"
-          data-disclosure-panel
-          inert
-        >
-          <ul
-            class="p-2 bg-raised rounded-2xl shadow-xl border border-border/10 list-none m-0"
-          >
-            <li>
-              <a
-                href="/get"
-                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
-              >
-                GET App Redesign
-              </a>
-            </li>
-            <li>
-              <a
-                href="/aqua"
-                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
-              >
-                Aqua Design System
-              </a>
-            </li>
-            <li>
-              <a
-                href="/patient"
-                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
-              >
-                Patient App
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
       <li>
         <a
           href="/about"
@@ -129,36 +67,6 @@ import LiquidLogo from "./LiquidLogo.astro";
       border-color 250ms ease;
   }
 
-  /* Disclosure panel: visually hidden by default; JS controls .is-open and the
-     `inert` attribute (which blocks focus + interaction + hides from AT). */
-  .dropdown-menu {
-    transform: translateY(-4px) scale(0.96);
-    transform-origin: top right;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition:
-      opacity 200ms cubic-bezier(0.165, 0.84, 0.44, 1),
-      transform 240ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
-      visibility 240ms;
-  }
-  [data-disclosure].is-open .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
-  }
-
-  [data-disclosure].is-open [data-disclosure-chevron] {
-    transform: rotate(180deg);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .dropdown-menu {
-      transition: none;
-    }
-  }
-
   /* ── Nav link hover pill ───────────────────────────────────────────
      Same family as the theme-toggle indicator: a soft "liquid" blob that
      squishes in on hover and counter-squishes on click. Text stays put —
@@ -186,8 +94,7 @@ import LiquidLogo from "./LiquidLogo.astro";
     pointer-events: none;
   }
   .nav-link:hover::before,
-  .nav-link:focus-visible::before,
-  [data-disclosure].is-open .nav-link::before {
+  .nav-link:focus-visible::before {
     opacity: 1;
     transform: scale(1, 1);
   }
@@ -197,46 +104,8 @@ import LiquidLogo from "./LiquidLogo.astro";
     transition-duration: 140ms;
   }
 
-  /* ── Dropdown items ────────────────────────────────────────────────
-     Same liquid blob family as the nav links, just sized for the wider
-     dropdown rows. */
-  .dropdown-item {
-    position: relative;
-    isolation: isolate;
-    color: color-mix(in srgb, var(--color-primary) 80%, transparent);
-    transition: color 200ms ease;
-  }
-  .dropdown-item::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: color-mix(in srgb, var(--color-primary) 7%, transparent);
-    opacity: 0;
-    transform: scale(0.7, 0.5);
-    transition:
-      opacity 220ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 360ms cubic-bezier(0.34, 1.55, 0.5, 1);
-    z-index: -1;
-    pointer-events: none;
-  }
-  .dropdown-item:hover,
-  .dropdown-item:focus-visible {
-    color: color-mix(in srgb, var(--color-primary) 95%, transparent);
-  }
-  .dropdown-item:hover::before,
-  .dropdown-item:focus-visible::before {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
-  .dropdown-item:active::before {
-    transform: scale(1.03, 0.88);
-    transition-duration: 140ms;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .nav-link::before,
-    .dropdown-item::before {
+    .nav-link::before {
       transition: opacity 200ms ease;
       transform: none !important;
     }
@@ -244,101 +113,6 @@ import LiquidLogo from "./LiquidLogo.astro";
 </style>
 
 <script>
-  // Header is re-rendered on every ClientRouter navigation, so the disclosure
-  // listeners need to re-bind on each `astro:page-load`. The scroll listener
-  // attaches to `window` and only needs to bind once per session.
-  function bindDisclosures() {
-    document
-      .querySelectorAll<HTMLElement>("[data-disclosure]")
-      .forEach((root) => {
-        if ((root as any).__disclosureBound) return;
-        (root as any).__disclosureBound = true;
-
-        const trigger = root.querySelector<HTMLButtonElement>(
-          "[data-disclosure-trigger]",
-        );
-        const panel = root.querySelector<HTMLElement>(
-          "[data-disclosure-panel]",
-        );
-        if (!trigger || !panel) return;
-
-        let hoverCloseTimer: number | undefined;
-
-        const setOpen = (open: boolean) => {
-          root.classList.toggle("is-open", open);
-          trigger.setAttribute("aria-expanded", String(open));
-          if (open) {
-            panel.removeAttribute("inert");
-          } else {
-            panel.setAttribute("inert", "");
-          }
-        };
-
-        // Click toggles
-        trigger.addEventListener("click", (e) => {
-          e.stopPropagation();
-          setOpen(trigger.getAttribute("aria-expanded") !== "true");
-        });
-
-        // Hover opens (mouse convenience). Small delay on close so users can move
-        // the cursor between trigger and panel without flicker.
-        const onEnter = () => {
-          if (hoverCloseTimer) {
-            clearTimeout(hoverCloseTimer);
-            hoverCloseTimer = undefined;
-          }
-          setOpen(true);
-        };
-        const onLeave = () => {
-          hoverCloseTimer = window.setTimeout(() => {
-            if (!root.contains(document.activeElement)) setOpen(false);
-          }, 120);
-        };
-        root.addEventListener("pointerenter", onEnter);
-        root.addEventListener("pointerleave", onLeave);
-
-        // Escape closes + returns focus
-        root.addEventListener("keydown", (e) => {
-          if (e.key === "Escape" && root.classList.contains("is-open")) {
-            setOpen(false);
-            trigger.focus();
-          }
-        });
-
-        // Focus leaving the disclosure subtree closes (keyboard tabbing past)
-        root.addEventListener("focusout", () => {
-          setTimeout(() => {
-            if (!root.contains(document.activeElement)) setOpen(false);
-          }, 0);
-        });
-      });
-  }
-
-  // Click-outside is a single document-level listener; bind once per session.
-  if (!(window as any).__headerDocClickBound) {
-    (window as any).__headerDocClickBound = true;
-    document.addEventListener("click", (e) => {
-      document
-        .querySelectorAll<HTMLElement>("[data-disclosure]")
-        .forEach((root) => {
-          if (
-            !root.contains(e.target as Node) &&
-            root.classList.contains("is-open")
-          ) {
-            const trigger = root.querySelector<HTMLButtonElement>(
-              "[data-disclosure-trigger]",
-            );
-            const panel = root.querySelector<HTMLElement>(
-              "[data-disclosure-panel]",
-            );
-            root.classList.remove("is-open");
-            trigger?.setAttribute("aria-expanded", "false");
-            panel?.setAttribute("inert", "");
-          }
-        });
-    });
-  }
-
   // ── Pin-on-scroll-up behavior ────────────────────────────────────────────
   if (!(window as any).__headerScrollBound) {
     (window as any).__headerScrollBound = true;
@@ -399,7 +173,4 @@ import LiquidLogo from "./LiquidLogo.astro";
       { passive: true },
     );
   }
-
-  bindDisclosures();
-  document.addEventListener("astro:page-load", bindDisclosures);
 </script>
