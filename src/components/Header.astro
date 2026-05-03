@@ -2,11 +2,11 @@
 import LiquidLogo from "./LiquidLogo.astro";
 ---
 
-<header
-  id="site-header"
-  class="absolute top-0 left-0 right-0 z-50"
->
-  <nav class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Primary">
+<header id="site-header" class="absolute top-0 left-0 right-0 z-50">
+  <nav
+    class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between"
+    aria-label="Primary"
+  >
     <!-- Brand: liquid logo + wordmark, single link to home.
          Stays on SPA nav so the LiquidLogo SVG persists across navigation
          (transition:persist on the SVG wrapper). The drain/spring animation
@@ -14,7 +14,7 @@ import LiquidLogo from "./LiquidLogo.astro";
          repaint flash. -->
     <a
       href="/"
-      class="brand-link inline-flex items-center gap-2.5 font-display font-medium text-lg tracking-tight text-primary/90 transition-colors"
+      class="brand-link inline-flex items-center gap-2.5 font-display font-bold text-lg tracking-tight text-primary/90 transition-colors"
       data-brand-trigger
     >
       <LiquidLogo />
@@ -23,66 +23,6 @@ import LiquidLogo from "./LiquidLogo.astro";
 
     <!-- Nav Links -->
     <ul class="flex items-center gap-1 list-none m-0 p-0">
-      <!-- Work Disclosure -->
-      <li class="relative" data-disclosure>
-        <button
-          type="button"
-          class="nav-link text-sm font-medium text-primary/70 hover:text-primary/90 transition-colors flex items-center gap-1 px-3 py-2 rounded-xl"
-          aria-haspopup="true"
-          aria-expanded="false"
-          aria-controls="work-menu"
-          data-disclosure-trigger
-        >
-          Work
-          <svg
-            class="w-3.5 h-3.5 transition-transform duration-300"
-            data-disclosure-chevron
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"
-          >
-            <path d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-
-        <!-- Dropdown -->
-        <div
-          id="work-menu"
-          class="dropdown-menu absolute top-full right-0 pt-1 w-max max-w-xs"
-          data-disclosure-panel
-          inert
-        >
-          <ul class="p-2 bg-raised rounded-2xl shadow-xl border border-border/10 list-none m-0">
-            <li>
-              <a
-                href="/get"
-                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
-              >
-                GET App Redesign
-              </a>
-            </li>
-            <li>
-              <a
-                href="/aqua"
-                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
-              >
-                Aqua Design System
-              </a>
-            </li>
-            <li>
-              <a
-                href="/patient"
-                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
-              >
-                Patient App
-              </a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
       <li>
         <a
           href="/about"
@@ -98,7 +38,9 @@ import LiquidLogo from "./LiquidLogo.astro";
 <style>
   #site-header {
     will-change: transform;
-    transition: background-color 250ms ease, border-color 250ms ease;
+    transition:
+      background-color 250ms ease,
+      border-color 250ms ease;
     background-color: transparent;
     border-bottom: 1px solid transparent;
     backdrop-filter: none;
@@ -109,7 +51,11 @@ import LiquidLogo from "./LiquidLogo.astro";
     position: fixed;
     transform: translateY(-100%);
     background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
-    border-bottom-color: color-mix(in srgb, var(--color-border) 10%, transparent);
+    border-bottom-color: color-mix(
+      in srgb,
+      var(--color-border) 10%,
+      transparent
+    );
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -240,83 +186,94 @@ import LiquidLogo from "./LiquidLogo.astro";
   // listeners need to re-bind on each `astro:page-load`. The scroll listener
   // attaches to `window` and only needs to bind once per session.
   function bindDisclosures() {
-    document.querySelectorAll<HTMLElement>("[data-disclosure]").forEach((root) => {
-      if ((root as any).__disclosureBound) return;
-      (root as any).__disclosureBound = true;
+    document
+      .querySelectorAll<HTMLElement>("[data-disclosure]")
+      .forEach((root) => {
+        if ((root as any).__disclosureBound) return;
+        (root as any).__disclosureBound = true;
 
-      const trigger = root.querySelector<HTMLButtonElement>(
-        "[data-disclosure-trigger]"
-      );
-      const panel = root.querySelector<HTMLElement>("[data-disclosure-panel]");
-      if (!trigger || !panel) return;
+        const trigger = root.querySelector<HTMLButtonElement>(
+          "[data-disclosure-trigger]",
+        );
+        const panel = root.querySelector<HTMLElement>(
+          "[data-disclosure-panel]",
+        );
+        if (!trigger || !panel) return;
 
-      let hoverCloseTimer: number | undefined;
+        let hoverCloseTimer: number | undefined;
 
-      const setOpen = (open: boolean) => {
-        root.classList.toggle("is-open", open);
-        trigger.setAttribute("aria-expanded", String(open));
-        if (open) {
-          panel.removeAttribute("inert");
-        } else {
-          panel.setAttribute("inert", "");
-        }
-      };
+        const setOpen = (open: boolean) => {
+          root.classList.toggle("is-open", open);
+          trigger.setAttribute("aria-expanded", String(open));
+          if (open) {
+            panel.removeAttribute("inert");
+          } else {
+            panel.setAttribute("inert", "");
+          }
+        };
 
-      // Click toggles
-      trigger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        setOpen(trigger.getAttribute("aria-expanded") !== "true");
+        // Click toggles
+        trigger.addEventListener("click", (e) => {
+          e.stopPropagation();
+          setOpen(trigger.getAttribute("aria-expanded") !== "true");
+        });
+
+        // Hover opens (mouse convenience). Small delay on close so users can move
+        // the cursor between trigger and panel without flicker.
+        const onEnter = () => {
+          if (hoverCloseTimer) {
+            clearTimeout(hoverCloseTimer);
+            hoverCloseTimer = undefined;
+          }
+          setOpen(true);
+        };
+        const onLeave = () => {
+          hoverCloseTimer = window.setTimeout(() => {
+            if (!root.contains(document.activeElement)) setOpen(false);
+          }, 120);
+        };
+        root.addEventListener("pointerenter", onEnter);
+        root.addEventListener("pointerleave", onLeave);
+
+        // Escape closes + returns focus
+        root.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && root.classList.contains("is-open")) {
+            setOpen(false);
+            trigger.focus();
+          }
+        });
+
+        // Focus leaving the disclosure subtree closes (keyboard tabbing past)
+        root.addEventListener("focusout", () => {
+          setTimeout(() => {
+            if (!root.contains(document.activeElement)) setOpen(false);
+          }, 0);
+        });
       });
-
-      // Hover opens (mouse convenience). Small delay on close so users can move
-      // the cursor between trigger and panel without flicker.
-      const onEnter = () => {
-        if (hoverCloseTimer) {
-          clearTimeout(hoverCloseTimer);
-          hoverCloseTimer = undefined;
-        }
-        setOpen(true);
-      };
-      const onLeave = () => {
-        hoverCloseTimer = window.setTimeout(() => {
-          if (!root.contains(document.activeElement)) setOpen(false);
-        }, 120);
-      };
-      root.addEventListener("pointerenter", onEnter);
-      root.addEventListener("pointerleave", onLeave);
-
-      // Escape closes + returns focus
-      root.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && root.classList.contains("is-open")) {
-          setOpen(false);
-          trigger.focus();
-        }
-      });
-
-      // Focus leaving the disclosure subtree closes (keyboard tabbing past)
-      root.addEventListener("focusout", () => {
-        setTimeout(() => {
-          if (!root.contains(document.activeElement)) setOpen(false);
-        }, 0);
-      });
-    });
   }
 
   // Click-outside is a single document-level listener; bind once per session.
   if (!(window as any).__headerDocClickBound) {
     (window as any).__headerDocClickBound = true;
     document.addEventListener("click", (e) => {
-      document.querySelectorAll<HTMLElement>("[data-disclosure]").forEach((root) => {
-        if (!root.contains(e.target as Node) && root.classList.contains("is-open")) {
-          const trigger = root.querySelector<HTMLButtonElement>(
-            "[data-disclosure-trigger]"
-          );
-          const panel = root.querySelector<HTMLElement>("[data-disclosure-panel]");
-          root.classList.remove("is-open");
-          trigger?.setAttribute("aria-expanded", "false");
-          panel?.setAttribute("inert", "");
-        }
-      });
+      document
+        .querySelectorAll<HTMLElement>("[data-disclosure]")
+        .forEach((root) => {
+          if (
+            !root.contains(e.target as Node) &&
+            root.classList.contains("is-open")
+          ) {
+            const trigger = root.querySelector<HTMLButtonElement>(
+              "[data-disclosure-trigger]",
+            );
+            const panel = root.querySelector<HTMLElement>(
+              "[data-disclosure-panel]",
+            );
+            root.classList.remove("is-open");
+            trigger?.setAttribute("aria-expanded", "false");
+            panel?.setAttribute("inert", "");
+          }
+        });
     });
   }
 
@@ -358,7 +315,10 @@ import LiquidLogo from "./LiquidLogo.astro";
           void header.offsetHeight;
         }
         header.classList.add("is-visible");
-      } else if (accumulated > threshold && header.classList.contains("is-pinned")) {
+      } else if (
+        accumulated > threshold &&
+        header.classList.contains("is-pinned")
+      ) {
         header.classList.remove("is-pinned", "is-visible");
       }
 
@@ -374,7 +334,7 @@ import LiquidLogo from "./LiquidLogo.astro";
           ticking = true;
         }
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
