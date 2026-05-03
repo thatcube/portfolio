@@ -108,13 +108,13 @@ const projects = (await getCollection("projects")).sort(
      Uses an inline SVG rounded rect as a background so we control dash + gap
      length independently. Color is driven by the live border token. */
   .empty-state {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='1 14'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='10 12'/></svg>");
   }
   :root.dark .empty-state {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='1 14'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='10 12'/></svg>");
   }
   :root:not(.dark) .empty-state {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(0 0 0 / 0.18)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='1 14'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(0 0 0 / 0.18)' stroke-width='1.5' stroke-linecap='round' stroke-dasharray='10 12'/></svg>");
   }
 
   /* Hide the default disclosure marker across browsers */
