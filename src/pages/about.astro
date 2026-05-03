@@ -12,17 +12,20 @@ const experience = [
   },
   {
     title: "Product Designer",
-    company: 'CBORD <a href="https://illumiatech.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a> & Horizon Software',
+    company:
+      'CBORD <a href="https://illumiatech.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a> & Horizon Software',
     range: "Dec 2018 — April 2021",
   },
   {
     title: "UI Developer",
-    company: 'CBORD <a href="https://illumiatech.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a>',
+    company:
+      'CBORD <a href="https://illumiatech.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a>',
     range: "May 2018 — Dec 2018",
   },
   {
     title: "Software Development Intern",
-    company: 'CBORD <a href="https://illumiatech.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a>',
+    company:
+      'CBORD <a href="https://illumiatech.com" target="_blank" rel="noopener noreferrer" class="company-link">(now Illumia)</a>',
     range: "Feb 2018 — May 2018",
   },
 ];
@@ -40,7 +43,9 @@ const interests = [
 
 <BaseLayout title="About — Brandon Moore">
   <!-- Intro -->
-  <section class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center">
+  <section
+    class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center"
+  >
     <div class="intro-grid">
       <div class="intro-text">
         <h1
@@ -52,18 +57,18 @@ const interests = [
         <div class="prose-block">
           <p>
             I'm Brandon, a product designer on the Power BI team at Microsoft.
-            I'm passionate about inclusive design, and probably more
-            interested in your loading state than I should be.
+            I'm passionate about inclusive design, and probably more interested
+            in your loading state than I should be.
           </p>
           <p>
             I started my career as a developer before moving into design, and
-            the two never really separated for me. Designing is still my
-            craft, but knowing how things get built (and being willing to get
-            my hands dirty) shapes how I approach every problem.
+            the two never really separated for me. Designing is still my craft,
+            but knowing how things get built (and being willing to get my hands
+            dirty) shapes how I approach every problem.
           </p>
           <p>
-            When I'm not designing, I'm usually building something else: a
-            side project, a PC, an over-engineered home setup.
+            When I'm not designing, I'm usually building something else: a side
+            project, a PC, an over-engineered home setup.
           </p>
         </div>
       </div>
@@ -103,7 +108,7 @@ const interests = [
                 </h3>
                 {item.current && <span class="now-badge">Now</span>}
               </div>
-              <p class="text-primary/75 mt-1" set:html={item.company}></p>
+              <p class="text-primary/75 mt-1" set:html={item.company} />
               <p class="text-sm text-primary/50 mt-1 font-mono tracking-tight">
                 {item.range}
               </p>
@@ -162,7 +167,8 @@ const interests = [
     max-width: 64rem;
     margin: 0 auto;
     border: 0;
-    border-top: 1px solid color-mix(in srgb, var(--color-border) 12%, transparent);
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-border) 12%, transparent);
   }
 
   /* ── Body prose ───────────────────────────────────────────────────────── */
@@ -182,7 +188,11 @@ const interests = [
   .company-link {
     color: color-mix(in srgb, var(--color-primary) 60%, transparent);
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--color-primary) 25%,
+      transparent
+    );
     text-underline-offset: 0.18em;
     text-decoration-thickness: 1px;
     transition:
@@ -192,7 +202,11 @@ const interests = [
   .company-link:hover,
   .company-link:focus-visible {
     color: var(--color-primary);
-    text-decoration-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--color-primary) 60%,
+      transparent
+    );
   }
 
   /* ── Section inner (caps reading width within max-w-5xl frame) ───────── */
@@ -249,7 +263,8 @@ const interests = [
     border: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
     transform: translate(1.75rem, 1.5rem) rotate(8deg);
     transition: transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42);
-    animation: portrait-shadow-settle 1200ms cubic-bezier(0.345, 0.115, 0.135, 1.42) 420ms backwards;
+    animation: portrait-shadow-settle 1200ms
+      cubic-bezier(0.345, 0.115, 0.135, 1.42) 420ms backwards;
   }
 
   .portrait-stack:hover .portrait-shadow-card {
@@ -262,17 +277,20 @@ const interests = [
     border-radius: 2rem;
     overflow: hidden;
     background: var(--color-img-bg);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 12%, transparent);
+    box-shadow: 0 0 0 1px
+      color-mix(in srgb, var(--color-primary) 12%, transparent);
     transform: translate(-1rem, 0) rotate(-4deg);
     transition:
       transform 600ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
       box-shadow 400ms ease;
-    animation: portrait-frame-settle 1100ms cubic-bezier(0.345, 0.115, 0.135, 1.42) 220ms backwards;
+    animation: portrait-frame-settle 1100ms
+      cubic-bezier(0.345, 0.115, 0.135, 1.42) 220ms backwards;
   }
 
   .portrait-stack:hover .portrait-frame {
     transform: translate(-1rem, 0) rotate(-3deg) scale(1.015);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent);
+    box-shadow: 0 0 0 1px
+      color-mix(in srgb, var(--color-primary) 18%, transparent);
   }
 
   .portrait-img {
@@ -502,7 +520,7 @@ const interests = [
 
 <script>
   const targets = document.querySelectorAll<HTMLElement>(
-    ".timeline-item, .interest-chip"
+    ".timeline-item, .interest-chip",
   );
 
   const vh = window.innerHeight;
@@ -525,7 +543,7 @@ const interests = [
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.15 },
   );
   aboveFold.forEach((el) => io.observe(el));
 </script>

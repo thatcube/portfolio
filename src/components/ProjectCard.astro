@@ -13,52 +13,50 @@ interface Props {
 const { title, shortDesc, slug, thumbnail, variant = "compact" } = Astro.props;
 ---
 
-{variant === "featured" ? (
-  <a
-    href={`/${slug}`}
-    class="group block rounded-3xl border border-border/10 p-8 sm:p-12 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
-  >
-    <div class="rounded-2xl overflow-hidden">
-      <Image
-        src={thumbnail}
-        alt={title}
-        widths={[800, 1200]}
-        sizes="(max-width: 640px) 100vw, 880px"
-        class="w-full h-full object-cover"
-        loading="eager"
-      />
-    </div>
-    <div class="mt-8 pt-8 -mx-8 sm:-mx-12 px-8 sm:px-12 border-t border-border/10">
-      <h2 class="font-display font-bold text-2xl sm:text-3xl text-primary/90">
-        {title}
-      </h2>
-      <p class="mt-1 text-base text-primary/60">
-        {shortDesc}
-      </p>
-    </div>
-  </a>
-) : (
-  <a
-    href={`/${slug}`}
-    class="group flex items-stretch gap-8 rounded-3xl border border-border/10 p-7 sm:p-10 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
-  >
-    <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden">
-      <Image
-        src={thumbnail}
-        alt={title}
-        widths={[128, 256]}
-        sizes="128px"
-        class="w-full h-full object-cover"
-        loading="lazy"
-      />
-    </div>
-    <div class="min-w-0 -my-7 sm:-my-10 py-7 sm:py-10 pl-8 border-l border-border/10 self-stretch flex flex-col justify-center">
-      <h2 class="font-display font-bold text-xl sm:text-2xl text-primary/90">
-        {title}
-      </h2>
-      <p class="mt-1 text-sm text-primary/60">
-        {shortDesc}
-      </p>
-    </div>
-  </a>
-)}
+{
+  variant === "featured" ? (
+    <a
+      href={`/${slug}`}
+      class="group block rounded-3xl border border-border/10 p-8 sm:p-12 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
+    >
+      <div class="rounded-2xl overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          widths={[800, 1200]}
+          sizes="(max-width: 640px) 100vw, 880px"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </div>
+      <div class="mt-8 pt-8 -mx-8 sm:-mx-12 px-8 sm:px-12 border-t border-border/10">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-primary/90">
+          {title}
+        </h2>
+        <p class="mt-1 text-base text-primary/60">{shortDesc}</p>
+      </div>
+    </a>
+  ) : (
+    <a
+      href={`/${slug}`}
+      class="group flex items-stretch gap-8 rounded-3xl border border-border/10 p-7 sm:p-10 transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)] hover:bg-border/5 hover:scale-[1.03] active:scale-100 max-sm:hover:scale-[0.97] max-sm:active:scale-[0.94]"
+    >
+      <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden">
+        <Image
+          src={thumbnail}
+          alt={title}
+          widths={[128, 256]}
+          sizes="128px"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+      <div class="min-w-0 -my-7 sm:-my-10 py-7 sm:py-10 pl-8 border-l border-border/10 self-stretch flex flex-col justify-center">
+        <h2 class="font-display font-bold text-xl sm:text-2xl text-primary/90">
+          {title}
+        </h2>
+        <p class="mt-1 text-sm text-primary/60">{shortDesc}</p>
+      </div>
+    </a>
+  )
+}

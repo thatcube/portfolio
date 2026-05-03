@@ -11,7 +11,7 @@ const projects = (await getCollection("projects")).sort(
 <BaseLayout title="Brandon Moore — Designer">
   <!-- Hero -->
   <section
-    class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center"
+    class="max-w-5xl mx-auto px-6 pt-24 pb-20 min-h-screen flex flex-col justify-center"
   >
     <h1
       class="font-mono font-medium text-primary/95 text-6xl sm:text-7xl lg:text-8xl leading-[1.05] tracking-tight lowercase"
@@ -29,24 +29,19 @@ const projects = (await getCollection("projects")).sort(
     </p>
   </section>
 
-  <!-- Currently callout -->
+  <!-- Empty-state placeholder for current work -->
   <section class="max-w-5xl mx-auto px-6 pb-12">
     <aside
-      class="currently rounded-3xl border border-border/15 bg-border/[0.03] p-8 sm:p-10"
-      aria-label="What I'm working on now"
+      class="rounded-3xl border border-dashed border-border/25 bg-transparent p-8 sm:p-10 text-center"
+      aria-label="No current work to show"
     >
       <p
-        class="font-mono text-xs uppercase tracking-[0.18em] text-primary/50 mb-4"
+        class="font-mono text-xs uppercase tracking-[0.18em] text-primary/40 mb-3"
       >
-        Now
+        No recent work to show
       </p>
-      <p class="text-lg sm:text-xl text-primary/85 leading-relaxed">
-        Designing developer experiences, AI, and semantic models on the Power BI
-        team at Microsoft.
-        <a href="mailto:brandoncmoore4@gmail.com" class="currently-link"
-          >Reach out</a
-        >
-        if you'd like to collaborate.
+      <p class="font-mono text-sm sm:text-base text-primary/55 leading-relaxed max-w-md mx-auto">
+        My Power BI work at Microsoft isn't public.
       </p>
     </aside>
   </section>
@@ -107,25 +102,6 @@ const projects = (await getCollection("projects")).sort(
 </BaseLayout>
 
 <style>
-  .currently-link {
-    color: var(--color-primary);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    text-decoration-color: color-mix(
-      in srgb,
-      var(--color-primary) 35%,
-      transparent
-    );
-    transition:
-      text-decoration-color 200ms ease,
-      color 200ms ease;
-  }
-  .currently-link:hover,
-  .currently-link:focus-visible {
-    text-decoration-color: var(--color-primary);
-  }
-
   /* Hide the default disclosure marker across browsers */
   .archive-summary::-webkit-details-marker {
     display: none;

@@ -23,6 +23,68 @@ import LiquidLogo from "./LiquidLogo.astro";
 
     <!-- Nav Links -->
     <ul class="flex items-center gap-1 list-none m-0 p-0">
+      <!-- Work Disclosure -->
+      <li class="relative" data-disclosure>
+        <button
+          type="button"
+          class="nav-link text-sm font-medium text-primary/70 hover:text-primary/90 transition-colors flex items-center gap-1 px-3 py-2 rounded-xl"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="work-menu"
+          data-disclosure-trigger
+        >
+          Work
+          <svg
+            class="w-3.5 h-3.5 transition-transform duration-300"
+            data-disclosure-chevron
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div
+          id="work-menu"
+          class="dropdown-menu absolute top-full right-0 pt-1 w-max max-w-xs"
+          data-disclosure-panel
+          inert
+        >
+          <ul
+            class="p-2 bg-raised rounded-2xl shadow-xl border border-border/10 list-none m-0"
+          >
+            <li>
+              <a
+                href="/get"
+                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
+              >
+                GET App Redesign
+              </a>
+            </li>
+            <li>
+              <a
+                href="/aqua"
+                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
+              >
+                Aqua Design System
+              </a>
+            </li>
+            <li>
+              <a
+                href="/patient"
+                class="dropdown-item block px-4 py-2.5 rounded-xl text-sm font-medium text-primary/80 whitespace-nowrap"
+              >
+                Patient App
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
       <li>
         <a
           href="/about"

@@ -9,7 +9,10 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Brandon Moore — Product Designer on the Power BI team at Microsoft, crafting the details that make products feel alive." } = Astro.props;
+const {
+  title,
+  description = "Brandon Moore — Product Designer on the Power BI team at Microsoft, crafting the details that make products feel alive.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -33,7 +36,9 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
       document.addEventListener("astro:after-swap", function () {
         document.documentElement.classList.add("vt-ready");
 
-        var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
         if (prefersReduced) return;
 
         var main = document.getElementById("main-content");
@@ -52,10 +57,14 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
           el.style.setProperty("--vt-stagger", i);
           el.classList.add("vt-rise");
           (function (node) {
-            node.addEventListener("animationend", function () {
-              node.classList.remove("vt-rise");
-              node.style.removeProperty("--vt-stagger");
-            }, { once: true });
+            node.addEventListener(
+              "animationend",
+              function () {
+                node.classList.remove("vt-rise");
+                node.style.removeProperty("--vt-stagger");
+              },
+              { once: true },
+            );
           })(el);
           i++;
         }
@@ -67,9 +76,11 @@ const { title, description = "Brandon Moore — Product Designer on the Power BI
          desired state. Avoids a transient "neither class" moment that would
          otherwise trigger CSS color transitions. -->
     <script is:inline>
-      (function() {
+      (function () {
         var theme = localStorage.getItem("theme") || "system";
-        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
         var root = document.documentElement;
         var wantDark = theme === "dark" || (theme === "system" && prefersDark);
         var wantLight = theme === "light";

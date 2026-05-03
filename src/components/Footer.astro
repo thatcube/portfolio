@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 ---
 
 <footer class="border-t border-border/10 mt-24">
@@ -7,20 +7,21 @@ import { Icon } from 'astro-icon/components';
        wayfinding is grouped with footer chrome instead of butting up against
        article content. Empty on every other page. -->
   <slot name="project-nav" />
-  <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between items-center gap-6">
+  <div
+    class="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between items-center gap-6"
+  >
     <p class="text-sm text-primary/60">
-      Made with <span class="footer-heart" aria-hidden="true">♥</span><span class="sr-only">love</span> by Brandon. Say hi on
+      Made with <span class="footer-heart" aria-hidden="true">♥</span><span
+        class="sr-only">love</span
+      > by Brandon. Say hi on
       <a
         href="https://www.linkedin.com/in/bmoore46/"
         target="_blank"
         rel="noopener noreferrer"
-        class="footer-link"
-      >LinkedIn</a>
+        class="footer-link">LinkedIn</a
+      >
       or
-      <a
-        href="mailto:brandoncmoore4@gmail.com"
-        class="footer-link"
-      >email</a>.
+      <a href="mailto:brandoncmoore4@gmail.com" class="footer-link">email</a>.
     </p>
     <div class="flex items-center gap-6">
       <!-- Theme Switcher -->
@@ -40,8 +41,16 @@ import { Icon } from 'astro-icon/components';
           aria-label="Light mode"
           class="theme-btn p-2 rounded-xl"
         >
-          <Icon name="ph:sun" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
-          <Icon name="ph:sun-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
+          <Icon
+            name="ph:sun"
+            class="theme-icon theme-icon-outline w-4 h-4"
+            aria-hidden="true"
+          />
+          <Icon
+            name="ph:sun-fill"
+            class="theme-icon theme-icon-solid w-4 h-4"
+            aria-hidden="true"
+          />
         </button>
         <button
           type="button"
@@ -52,8 +61,16 @@ import { Icon } from 'astro-icon/components';
           aria-label="System theme"
           class="theme-btn p-2 rounded-xl"
         >
-          <Icon name="ph:circle-half" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
-          <Icon name="ph:circle-half-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
+          <Icon
+            name="ph:circle-half"
+            class="theme-icon theme-icon-outline w-4 h-4"
+            aria-hidden="true"
+          />
+          <Icon
+            name="ph:circle-half-fill"
+            class="theme-icon theme-icon-solid w-4 h-4"
+            aria-hidden="true"
+          />
         </button>
         <button
           type="button"
@@ -64,8 +81,16 @@ import { Icon } from 'astro-icon/components';
           aria-label="Dark mode"
           class="theme-btn p-2 rounded-xl"
         >
-          <Icon name="ph:moon" class="theme-icon theme-icon-outline w-4 h-4" aria-hidden="true" />
-          <Icon name="ph:moon-fill" class="theme-icon theme-icon-solid w-4 h-4" aria-hidden="true" />
+          <Icon
+            name="ph:moon"
+            class="theme-icon theme-icon-outline w-4 h-4"
+            aria-hidden="true"
+          />
+          <Icon
+            name="ph:moon-fill"
+            class="theme-icon theme-icon-solid w-4 h-4"
+            aria-hidden="true"
+          />
         </button>
       </div>
     </div>
@@ -90,7 +115,9 @@ import { Icon } from 'astro-icon/components';
     --theme-indicator-mix: 14%;
   }
   @media (prefers-color-scheme: light) {
-    :where(html:not(.dark)) .theme-switcher { --theme-indicator-mix: 10%; }
+    :where(html:not(.dark)) .theme-switcher {
+      --theme-indicator-mix: 10%;
+    }
   }
 
   /* Sliding "liquid" indicator that morphs between active buttons. */
@@ -101,7 +128,11 @@ import { Icon } from 'astro-icon/components';
     width: var(--indicator-w, 0px);
     height: calc(100% - 8px);
     border-radius: 12px;
-    background: color-mix(in srgb, var(--color-primary) var(--theme-indicator-mix, 12%), transparent);
+    background: color-mix(
+      in srgb,
+      var(--color-primary) var(--theme-indicator-mix, 12%),
+      transparent
+    );
     transform-origin: center;
     pointer-events: none;
     z-index: 0;
@@ -113,7 +144,9 @@ import { Icon } from 'astro-icon/components';
       opacity 0.2s ease;
     will-change: left, width, transform;
   }
-  .theme-switcher[data-ready] .theme-indicator { opacity: 1; }
+  .theme-switcher[data-ready] .theme-indicator {
+    opacity: 1;
+  }
   .theme-switcher[data-sliding] .theme-indicator {
     transform: scaleY(0.86);
   }
@@ -155,15 +188,31 @@ import { Icon } from 'astro-icon/components';
   }
   /* Default: show outline, hide solid. Both at natural scale so a state
      swap is a simple cross-fade with no perceived shrink. */
-  .theme-icon-solid { opacity: 0; }
-  .theme-icon-outline { opacity: 1; }
+  .theme-icon-solid {
+    opacity: 0;
+  }
+  .theme-icon-outline {
+    opacity: 1;
+  }
   /* Active: outline out, solid in. */
-  .theme-btn[data-active] .theme-icon-outline { opacity: 0; }
-  .theme-btn[data-active] .theme-icon-solid { opacity: 1; }
-  .theme-btn:hover { opacity: 0.9; }
-  .theme-btn:hover .theme-icon { transform: scale(1.08); }
-  .theme-btn:active .theme-icon { transform: scale(0.92); }
-  .theme-btn[data-active] { opacity: 1; }
+  .theme-btn[data-active] .theme-icon-outline {
+    opacity: 0;
+  }
+  .theme-btn[data-active] .theme-icon-solid {
+    opacity: 1;
+  }
+  .theme-btn:hover {
+    opacity: 0.9;
+  }
+  .theme-btn:hover .theme-icon {
+    transform: scale(1.08);
+  }
+  .theme-btn:active .theme-icon {
+    transform: scale(0.92);
+  }
+  .theme-btn[data-active] {
+    opacity: 1;
+  }
   /* "Lights on" flash: when the sun is freshly activated, briefly glow the
      same warm amber as its ray burst, then settle back to the standard
      primary tint so the icon stays legible against any surface.
@@ -223,9 +272,18 @@ import { Icon } from 'astro-icon/components';
     animation: theme-icon-pop 0.5s cubic-bezier(0.34, 1.6, 0.5, 1);
   }
   @keyframes theme-icon-pop {
-    0%   { opacity: 0; transform: scale(0.6) rotate(-8deg); }
-    45%  { opacity: 1; transform: scale(1.18) rotate(4deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0); }
+    0% {
+      opacity: 0;
+      transform: scale(0.6) rotate(-8deg);
+    }
+    45% {
+      opacity: 1;
+      transform: scale(1.18) rotate(4deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+    }
   }
 
   /* ── Tooltip ────────────────────────────────────────────────────────── */
@@ -284,8 +342,10 @@ import { Icon } from 'astro-icon/components';
   }
   /* Prevent stacked tooltips: when a sibling is being hovered,
      suppress focus-visible tooltips on the others. */
-  [role="radiogroup"]:has(.theme-btn:hover) .theme-btn:focus-visible:not(:hover)::after,
-  [role="radiogroup"]:has(.theme-btn:hover) .theme-btn:focus-visible:not(:hover)::before {
+  [role="radiogroup"]:has(.theme-btn:hover)
+    .theme-btn:focus-visible:not(:hover)::after,
+  [role="radiogroup"]:has(.theme-btn:hover)
+    .theme-btn:focus-visible:not(:hover)::before {
     opacity: 0;
   }
 
@@ -298,16 +358,24 @@ import { Icon } from 'astro-icon/components';
       transition-duration: 0.01ms !important;
       animation: none !important;
     }
-    .theme-btn[data-just-activated] svg { animation: none; }
+    .theme-btn[data-just-activated] svg {
+      animation: none;
+    }
   }
 
   .footer-link {
     color: var(--color-primary);
     opacity: 0.85;
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--color-primary) 25%,
+      transparent
+    );
     text-underline-offset: 3px;
-    transition: opacity 0.15s ease, text-decoration-color 0.15s ease;
+    transition:
+      opacity 0.15s ease,
+      text-decoration-color 0.15s ease;
   }
   .footer-link:hover,
   .footer-link:focus-visible {
@@ -326,9 +394,17 @@ import { Icon } from 'astro-icon/components';
     }
   }
   @keyframes footer-heartbeat {
-    0%, 60%, 100% { transform: translateY(1px) scale(1); }
-    20% { transform: translateY(1px) scale(1.18); }
-    40% { transform: translateY(1px) scale(1.05); }
+    0%,
+    60%,
+    100% {
+      transform: translateY(1px) scale(1);
+    }
+    20% {
+      transform: translateY(1px) scale(1.18);
+    }
+    40% {
+      transform: translateY(1px) scale(1.05);
+    }
   }
 
   .sr-only {
@@ -379,7 +455,9 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   function applyTheme(setting: string) {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
     const isDark = setting === "dark" || (setting === "system" && prefersDark);
     const root = document.documentElement;
     root.classList.remove("dark", "light");
@@ -392,7 +470,7 @@ import { Icon } from 'astro-icon/components';
 
   function updateButtons(active: string) {
     const buttons = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(".theme-btn")
+      document.querySelectorAll<HTMLButtonElement>(".theme-btn"),
     );
     const hasActive = buttons.some((b) => b.dataset.theme === active);
     buttons.forEach((btn) => {
@@ -416,7 +494,9 @@ import { Icon } from 'astro-icon/components';
     const switcher = document.querySelector<HTMLElement>(".theme-switcher");
     if (!switcher) return;
     const indicator = switcher.querySelector<HTMLElement>(".theme-indicator");
-    const active = switcher.querySelector<HTMLElement>(".theme-btn[data-active]");
+    const active = switcher.querySelector<HTMLElement>(
+      ".theme-btn[data-active]",
+    );
     if (!indicator || !active) return;
 
     const sRect = switcher.getBoundingClientRect();
@@ -487,7 +567,7 @@ import { Icon } from 'astro-icon/components';
           delay: i * 18,
           easing: "cubic-bezier(0.34, 0, 0.64, 1)",
           fill: "forwards",
-        }
+        },
       );
       anim.onfinish = () => ray.remove();
     }
@@ -503,16 +583,16 @@ import { Icon } from 'astro-icon/components';
     // Each z gets its own start offset AND drift vector so the trio fans
     // out into a sleep-puff instead of trailing in a single line.
     const zs = [
-      { text: "z", size: 9,  delay: 0,   ox: -4, oy:  3, dx:  4, dy: -14 },
-      { text: "z", size: 11, delay: 140, ox:  1, oy:  0, dx: 11, dy: -17 },
-      { text: "Z", size: 13, delay: 280, ox:  6, oy: -3, dx: 18, dy: -20 },
+      { text: "z", size: 9, delay: 0, ox: -4, oy: 3, dx: 4, dy: -14 },
+      { text: "z", size: 11, delay: 140, ox: 1, oy: 0, dx: 11, dy: -17 },
+      { text: "Z", size: 13, delay: 280, ox: 6, oy: -3, dx: 18, dy: -20 },
     ];
     for (const { text, size, delay, ox, oy, dx, dy } of zs) {
       const z = document.createElement("span");
       z.className = "theme-zzz";
       z.textContent = text;
-      z.style.left = (anchorX + ox) + "px";
-      z.style.top = (anchorY + oy) + "px";
+      z.style.left = anchorX + ox + "px";
+      z.style.top = anchorY + oy + "px";
       z.style.fontSize = size + "px";
       // Pre-apply the first keyframe inline so the initial paint already
       // matches it. Without this the element flashes at its raw left/top
@@ -545,7 +625,7 @@ import { Icon } from 'astro-icon/components';
           delay,
           easing: "cubic-bezier(0.4, 0, 0.6, 1)",
           fill: "forwards",
-        }
+        },
       );
       anim.onfinish = () => z.remove();
     }
@@ -556,7 +636,7 @@ import { Icon } from 'astro-icon/components';
   // load and after every view-transition swap.
   function bindThemeButtons() {
     const themeButtons = Array.from(
-      document.querySelectorAll<HTMLButtonElement>(".theme-btn")
+      document.querySelectorAll<HTMLButtonElement>(".theme-btn"),
     );
 
     function selectTheme(btn: HTMLButtonElement, focus = false) {
@@ -579,7 +659,7 @@ import { Icon } from 'astro-icon/components';
       window.clearTimeout((btn as any).__justActivatedTimer);
       (btn as any).__justActivatedTimer = window.setTimeout(
         () => btn.removeAttribute("data-just-activated"),
-        700
+        700,
       );
     }
 
@@ -626,11 +706,13 @@ import { Icon } from 'astro-icon/components';
   // OS-level scheme changes only need to be wired once per browsing session.
   if (!(window as any).__themeOsListenerBound) {
     (window as any).__themeOsListenerBound = true;
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-      const current = localStorage.getItem("theme") || "system";
-      if (current === "system") {
-        applyTheme("system");
-      }
-    });
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => {
+        const current = localStorage.getItem("theme") || "system";
+        if (current === "system") {
+          applyTheme("system");
+        }
+      });
   }
 </script>

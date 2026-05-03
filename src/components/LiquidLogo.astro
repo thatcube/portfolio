@@ -5,11 +5,7 @@
 ---
 
 <span class="liquid-logo" aria-hidden="true" transition:persist="liquid-logo">
-  <svg
-    viewBox="0 0 44 44"
-    xmlns="http://www.w3.org/2000/svg"
-    data-liquid-svg
-  >
+  <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" data-liquid-svg>
     <!-- Masked disc: ring + liquid are one continuous shape, so the inner
          ring edge dissolves into the liquid below the waterline with no
          visible seam. The mask radii (and the visible disc radius) are
@@ -20,10 +16,7 @@
       <mask id="liquid-logo-mask" maskUnits="userSpaceOnUse">
         <circle data-ring-outer cx="22" cy="22" r="20" fill="white"></circle>
         <circle data-ring-inner cx="22" cy="22" r="12" fill="black"></circle>
-        <path
-          data-liquid-surface
-          fill="white"
-          d="M10 22 L34 22 L34 34 L10 34 Z"
+        <path data-liquid-surface fill="white" d="M10 22 L34 22 L34 34 L10 34 Z"
         ></path>
       </mask>
     </defs>
@@ -33,8 +26,7 @@
       cy="22"
       r="20"
       fill="currentColor"
-      mask="url(#liquid-logo-mask)"
-    ></circle>
+      mask="url(#liquid-logo-mask)"></circle>
     <g data-liquid-droplets fill="currentColor"></g>
   </svg>
 </span>
@@ -144,7 +136,10 @@
 
     function initLiquidLogo() {
       const svg = document.querySelector<SVGSVGElement>("[data-liquid-svg]");
-      if (!svg) { console.log("[liquid] no SVG found"); return; }
+      if (!svg) {
+        console.log("[liquid] no SVG found");
+        return;
+      }
 
       if ((svg as any).__liquidInit) {
         let arriving = false;
@@ -152,7 +147,12 @@
           arriving = sessionStorage.getItem(BOOT_FLAG_KEY) === "1";
           if (arriving) sessionStorage.removeItem(BOOT_FLAG_KEY);
         } catch {}
-        console.log("[liquid] already init, arriving:", arriving, "current:", !!current);
+        console.log(
+          "[liquid] already init, arriving:",
+          arriving,
+          "current:",
+          !!current,
+        );
         if (arriving && current) {
           current.bootShower();
         }
@@ -166,20 +166,26 @@
       // burning frames).
       if (current) current.stop();
 
-      const surface = svg.querySelector<SVGPathElement>("[data-liquid-surface]");
+      const surface = svg.querySelector<SVGPathElement>(
+        "[data-liquid-surface]",
+      );
       const dropletsGroup = svg.querySelector<SVGGElement>(
-        "[data-liquid-droplets]"
+        "[data-liquid-droplets]",
       );
       const ringDisc = svg.querySelector<SVGCircleElement>("[data-ring-disc]");
-      const ringMaskOuter = svg.querySelector<SVGCircleElement>("[data-ring-outer]");
-      const ringMaskInner = svg.querySelector<SVGCircleElement>("[data-ring-inner]");
+      const ringMaskOuter =
+        svg.querySelector<SVGCircleElement>("[data-ring-outer]");
+      const ringMaskInner =
+        svg.querySelector<SVGCircleElement>("[data-ring-inner]");
       const trigger =
         svg.closest<HTMLElement>("[data-brand-trigger]") ||
         (svg.parentElement as HTMLElement | null);
       if (!surface || !dropletsGroup || !trigger) return;
       if (!ringDisc || !ringMaskOuter || !ringMaskInner) return;
 
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      );
 
       // ── Geometry ─────────────────────────────────────────────────
       const CX = 22;
@@ -358,10 +364,7 @@
           level += vel * dt;
           waveAmp = 1.6 + Math.min(3.5, Math.abs(vel) * 5);
 
-          if (
-            Math.abs(level - REST_LEVEL) < 0.003 &&
-            Math.abs(vel) < 0.05
-          ) {
+          if (Math.abs(level - REST_LEVEL) < 0.003 && Math.abs(vel) < 0.05) {
             level = REST_LEVEL;
             vel = 0;
             mode = "idle";
@@ -462,32 +465,38 @@
       if (!(window as any).__liquidClickBound) {
         (window as any).__liquidClickBound = true;
 
-        document.addEventListener("click", (e) => {
-          const brandLink = (e.target as HTMLElement).closest<HTMLElement>("[data-brand-trigger]");
-          if (!brandLink || !current) return;
-          if (current.reduceMotion.matches) return;
+        document.addEventListener(
+          "click",
+          (e) => {
+            const brandLink = (e.target as HTMLElement).closest<HTMLElement>(
+              "[data-brand-trigger]",
+            );
+            if (!brandLink || !current) return;
+            if (current.reduceMotion.matches) return;
 
-          const isHome =
-            window.location.pathname === "/" ||
-            window.location.pathname === "/index.html";
+            const isHome =
+              window.location.pathname === "/" ||
+              window.location.pathname === "/index.html";
 
-          if (isHome) {
-            // Already home — never navigate. Just kick the logo and (if
-            // scrolled) smooth-scroll back to top. Stop propagation so
-            // Astro's ClientRouter doesn't see the click at all.
-            e.preventDefault();
-            e.stopPropagation();
-            current.kick();
-            if (window.scrollY > 0) {
-              window.scrollTo({ top: 0, behavior: "smooth" });
+            if (isHome) {
+              // Already home — never navigate. Just kick the logo and (if
+              // scrolled) smooth-scroll back to top. Stop propagation so
+              // Astro's ClientRouter doesn't see the click at all.
+              e.preventDefault();
+              e.stopPropagation();
+              current.kick();
+              if (window.scrollY > 0) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+              return;
             }
-            return;
-          }
 
-          // Non-home: trigger drain; SPA nav happens on its own and the
-          // animation plays through because the SVG is persisted.
-          current.drain();
-        }, true); // capture phase
+            // Non-home: trigger drain; SPA nav happens on its own and the
+            // animation plays through because the SVG is persisted.
+            current.drain();
+          },
+          true,
+        ); // capture phase
       }
       function kick() {
         mode = "spring";
@@ -621,7 +630,18 @@
         start();
       }
 
-      current = { start, stop, pumpScroll, bootShower, kick, drain, setHover, setTilt, setPressed, reduceMotion };
+      current = {
+        start,
+        stop,
+        pumpScroll,
+        bootShower,
+        kick,
+        drain,
+        setHover,
+        setTilt,
+        setPressed,
+        reduceMotion,
+      };
     }
 
     // Re-init on every page (initial + every SPA nav under ClientRouter).
@@ -661,11 +681,11 @@
       document.addEventListener("pointerover", (e) => {
         if (!current) return;
         const t = (e.target as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (!t) return;
         const from = (e.relatedTarget as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (from === t) return;
         current.setHover(true);
@@ -673,11 +693,11 @@
       document.addEventListener("pointerout", (e) => {
         if (!current) return;
         const t = (e.target as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (!t) return;
         const to = (e.relatedTarget as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (to === t) return;
         current.setHover(false);
@@ -695,7 +715,7 @@
         }
         if (!current) return;
         const t = (e.target as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (!t) return;
         current.setTilt(e.clientX);
@@ -703,14 +723,14 @@
       document.addEventListener("focusin", (e) => {
         if (!current) return;
         const t = (e.target as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (t) current.setHover(true);
       });
       document.addEventListener("focusout", (e) => {
         if (!current) return;
         const t = (e.target as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (t) current.setHover(false);
       });
@@ -721,7 +741,7 @@
       document.addEventListener("pointerdown", (e) => {
         if (!current) return;
         const t = (e.target as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (!t) return;
         current.setPressed(true);
@@ -734,7 +754,7 @@
       document.addEventListener("keydown", (e) => {
         if (e.key !== "Enter" && e.key !== " ") return;
         const t = (document.activeElement as HTMLElement | null)?.closest?.(
-          "[data-brand-trigger]"
+          "[data-brand-trigger]",
         );
         if (t) current?.setPressed(true);
       });
@@ -752,7 +772,7 @@
           lastScrollY = y;
           current.pumpScroll(dy);
         },
-        { passive: true }
+        { passive: true },
       );
       document.addEventListener("visibilitychange", () => {
         if (!current || current.reduceMotion.matches) return;
