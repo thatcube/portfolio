@@ -32,7 +32,7 @@ const projects = (await getCollection("projects")).sort(
   <!-- Empty-state placeholder for current work -->
   <section class="max-w-5xl mx-auto px-6 pb-12">
     <aside
-      class="rounded-3xl border border-dashed border-border/25 bg-transparent p-8 sm:p-10 text-center"
+      class="empty-state rounded-3xl bg-transparent p-8 sm:p-10 text-center"
       aria-label="No current work to show"
     >
       <p
@@ -40,7 +40,9 @@ const projects = (await getCollection("projects")).sort(
       >
         No recent work to show
       </p>
-      <p class="font-mono text-sm sm:text-base text-primary/55 leading-relaxed max-w-md mx-auto">
+      <p
+        class="font-mono text-sm sm:text-base text-primary/55 leading-relaxed max-w-md mx-auto"
+      >
         My Power BI work at Microsoft isn't public.
       </p>
     </aside>
@@ -102,6 +104,19 @@ const projects = (await getCollection("projects")).sort(
 </BaseLayout>
 
 <style>
+  /* Custom dashed border with wider gaps than CSS `border-style: dashed` allows.
+     Uses an inline SVG rounded rect as a background so we control dash + gap
+     length independently. Color is driven by the live border token. */
+  .empty-state {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='1.25' stroke-dasharray='4 12'/></svg>");
+  }
+  :root.dark .empty-state {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='1.25' stroke-dasharray='4 12'/></svg>");
+  }
+  :root:not(.dark) .empty-state {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(0 0 0 / 0.18)' stroke-width='1.25' stroke-dasharray='4 12'/></svg>");
+  }
+
   /* Hide the default disclosure marker across browsers */
   .archive-summary::-webkit-details-marker {
     display: none;
