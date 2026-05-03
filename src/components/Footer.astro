@@ -642,8 +642,59 @@ import { Icon } from "astro-icon/components";
     function selectTheme(btn: HTMLButtonElement, focus = false) {
       const theme = btn.dataset.theme!;
       localStorage.setItem("theme", theme);
-      applyTheme(theme);
-      updateButtons(theme);
+
+      // Full-viewport clip-path reveal of the new theme — a clean wipe
+      // up from the bottom edge. Uses the View Transitions API: the
+      // browser snapshots the current page, applies our DOM mutation,
+      // and crossfades — except we override the crossfade with a
+      // clip-path inset() animation (see html.theme-switching
+      // ::view-transition-* in global.css). Same-document transition,
+      // so it runs independently of Astro's ClientRouter nav transitions.
+      const reduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const supportsVT =
+        typeof (document as any).startViewTransition === "function";
+
+      if (!supportsVT || reduced) {
+        applyTheme(theme);
+        updateButtons(theme);
+      } else {
+        const root = document.documentElement;
+
+        // If a previous theme transition is still mid-flight (rapid
+        // clicking, or it overlaps with an Astro nav transition), skip
+        // animating this swap — the browser will reject overlapping
+        // startViewTransition() calls with a DOMException otherwise.
+        // We still apply the theme synchronously so the click registers.
+        if (root.classList.contains("theme-switching")) {
+          applyTheme(theme);
+          updateButtons(theme);
+        } else {
+          root.classList.add("theme-switching");
+
+          const cleanup = () => {
+            root.classList.remove("theme-switching");
+          };
+
+          try {
+            const transition = (document as any).startViewTransition(() => {
+              applyTheme(theme);
+              updateButtons(theme);
+            });
+            // `.finished` rejects if the browser skips the transition (e.g.
+            // another one starts). Swallow it — the DOM mutation already
+            // ran inside the callback, so the theme is correctly applied.
+            transition.finished.then(cleanup, cleanup);
+          } catch {
+            // startViewTransition itself threw (e.g. unsupported edge case).
+            applyTheme(theme);
+            updateButtons(theme);
+            cleanup();
+          }
+        }
+      }
+
       if (focus) btn.focus();
       // Always emit the theme-appropriate ornament on click — even if the
       // theme didn't actually change, it confirms the click registered.
@@ -664,6 +715,17 @@ import { Icon } from "astro-icon/components";
     }
 
     themeButtons.forEach((btn, idx) => {
+      // Astro re-runs this script on every page-load (initial + after each
+      // view-transition swap). The footer DOM is replaced, so the old
+      // listeners die with it — but the very first page load fires both
+      // the inline `bindThemeButtons()` call AND the `astro:page-load`
+      // handler against the same buttons, which would attach the click
+      // handler twice. Two synchronous selectTheme() calls per click =
+      // first starts a view-transition, second immediately mutates the
+      // DOM under it = no visible animation. Guard with a marker.
+      if ((btn as any).__themeBound) return;
+      (btn as any).__themeBound = true;
+
       btn.addEventListener("click", () => selectTheme(btn));
 
       btn.addEventListener("keydown", (e) => {

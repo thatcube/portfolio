@@ -199,6 +199,34 @@ html:not(.vt-ready) main:has(.rise-el) {
   object-fit: cover;
 }
 
+/* ── Theme switch transition ────────────────────────────────────────────
+   Scoped via html.theme-switching so it only runs for the theme toggle's
+   startViewTransition() call — never for ClientRouter navigation swaps.
+
+   Clean wipe up from the bottom edge: the old layer stays put and the
+   new layer's clip-path inset() collapses from `100% 0 0 0` (fully
+   clipped) to `0 0 0 0` (fully revealed). Stays a perfect rectangle the
+   whole way — no transform, no scale, no edge artifacts. */
+html.theme-switching::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+html.theme-switching::view-transition-new(root) {
+  z-index: 2;
+  mix-blend-mode: normal;
+  animation: theme-fx-slide 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes theme-fx-slide {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   ::view-transition-old(root),
