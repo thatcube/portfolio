@@ -32,16 +32,37 @@ const projects = (await getCollection("projects")).sort(
   <!-- Empty-state placeholder for current work -->
   <section class="max-w-5xl mx-auto px-6 pb-12">
     <aside
-      class="empty-state rounded-3xl bg-transparent p-8 sm:p-10 text-center"
+      class="empty-state relative rounded-3xl bg-transparent p-8 sm:p-10 text-center"
       aria-label="No current work to show"
     >
+      <svg
+        class="empty-state-border absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+        preserveAspectRatio="none"
+      >
+        <rect
+          x="1.5"
+          y="1.5"
+          width="100%"
+          height="100%"
+          rx="22.5"
+          ry="22.5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-dasharray="14 16"
+          vector-effect="non-scaling-stroke"
+          style="width: calc(100% - 3px); height: calc(100% - 3px);"
+        ></rect>
+      </svg>
       <p
-        class="font-mono text-xs uppercase tracking-[0.18em] text-primary/40 mb-3"
+        class="relative font-mono text-xs uppercase tracking-[0.18em] text-primary/40 mb-3"
       >
         No recent work to show
       </p>
       <p
-        class="font-mono text-sm sm:text-base text-primary/55 leading-relaxed max-w-md mx-auto"
+        class="relative font-mono text-sm sm:text-base text-primary/55 leading-relaxed max-w-md mx-auto"
       >
         My Power BI work at Microsoft isn't public.
       </p>
@@ -104,17 +125,13 @@ const projects = (await getCollection("projects")).sort(
 </BaseLayout>
 
 <style>
-  /* Custom dashed border with wider gaps than CSS `border-style: dashed` allows.
-     Uses an inline SVG rounded rect as a background so we control dash + gap
-     length independently. Color is driven by the live border token. */
+  /* Inline SVG dashed border — true rounded caps. Uses currentColor so it
+     follows the theme via the parent's text color. */
   .empty-state {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='3' stroke-linecap='round' stroke-dasharray='8 14'/></svg>");
+    color: color-mix(in srgb, var(--color-primary) 22%, transparent);
   }
-  :root.dark .empty-state {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(255 255 255 / 0.18)' stroke-width='3' stroke-linecap='round' stroke-dasharray='8 14'/></svg>");
-  }
-  :root:not(.dark) .empty-state {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'><rect width='100%25' height='100%25' rx='24' ry='24' fill='none' stroke='rgb(0 0 0 / 0.18)' stroke-width='3' stroke-linecap='round' stroke-dasharray='8 14'/></svg>");
+  .empty-state-border {
+    overflow: visible;
   }
 
   /* Hide the default disclosure marker across browsers */
