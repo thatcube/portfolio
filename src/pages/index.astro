@@ -24,15 +24,15 @@ const projects = (await getCollection("projects")).sort(
       class="font-mono text-base sm:text-lg text-primary/70 leading-relaxed mt-10 max-w-xl rise-el"
       style="--rise-delay: 380ms"
     >
-      Product designer at Microsoft, currently shaping Power BI. I've spent the
-      last few years thinking about data models, developer experiences, and AI.
+      Product designer at Microsoft. I shape Power BI's data modeling,
+      developer, and AI experiences.
     </p>
   </section>
 
   <!-- Empty-state placeholder for current work -->
   <section class="max-w-5xl mx-auto px-6 pb-12">
     <aside
-      class="empty-state relative rounded-3xl bg-transparent p-10 sm:p-12 text-center"
+      class="empty-state relative rounded-3xl bg-transparent py-12 px-8 sm:py-14 sm:px-10 text-center"
       aria-label="No current work to show"
     >
       <svg
@@ -53,8 +53,7 @@ const projects = (await getCollection("projects")).sort(
           stroke-linecap="round"
           stroke-dasharray="14 16"
           vector-effect="non-scaling-stroke"
-          style="width: calc(100% - 3px); height: calc(100% - 3px);"
-        ></rect>
+          style="width: calc(100% - 3px); height: calc(100% - 3px);"></rect>
       </svg>
       <p
         class="relative font-mono text-xs uppercase tracking-[0.18em] text-primary/40 mb-3"
@@ -62,9 +61,9 @@ const projects = (await getCollection("projects")).sort(
         No recent work to show
       </p>
       <p
-        class="relative font-mono text-sm sm:text-base text-primary/55 leading-relaxed max-w-md mx-auto"
+        class="relative font-mono text-sm sm:text-base text-primary/70 leading-relaxed max-w-md mx-auto"
       >
-        My Power BI work at Microsoft isn't public.
+        My work at Microsoft isn't public.
       </p>
     </aside>
   </section>
@@ -75,23 +74,17 @@ const projects = (await getCollection("projects")).sort(
       class="archive group rounded-3xl border border-border/15 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.345,0.115,0.135,1.42)]"
     >
       <summary
-        class="archive-summary list-none cursor-pointer p-7 sm:p-9 flex items-center justify-between gap-6 transition-colors duration-300 hover:bg-border/[0.04]"
+        class="archive-summary list-none cursor-pointer py-12 px-8 sm:py-14 sm:px-10 flex items-center justify-between gap-6 transition-colors duration-300 hover:bg-border/[0.04]"
       >
         <div class="min-w-0">
           <p
-            class="font-mono text-xs leading-4 uppercase tracking-[0.18em] text-primary/50 mb-2"
+            class="font-mono text-xs uppercase tracking-[0.18em] text-primary/40 mb-3"
           >
-            Archive
+            Earlier work
           </p>
-          <h2
-            class="font-display font-bold text-xl sm:text-2xl text-primary/90 leading-8"
-          >
-            Earlier case studies
-          </h2>
-          <p class="mt-1 text-sm text-primary/60 max-w-xl leading-5">
-            Three projects from my CBORD &amp; Horizon Software years
-            (2018&ndash;2020). Older work — kept here for context, not as a
-            reflection of my current practice.
+          <p class="font-mono text-sm sm:text-base text-primary/70 leading-relaxed">
+            Projects from CBORD (now Illumia) and Horizon Software,
+            2018&ndash;2021.
           </p>
         </div>
         <svg
@@ -186,9 +179,8 @@ const projects = (await getCollection("projects")).sort(
   // enough browser support yet, so we drive it from JS. Re-binds on every
   // `astro:page-load` because ClientRouter swaps the DOM on navigation.
   function initArchive() {
-    const details = document.querySelector<HTMLDetailsElement>(
-      "details.archive",
-    );
+    const details =
+      document.querySelector<HTMLDetailsElement>("details.archive");
     if (!details) return;
 
     const summary = details.querySelector<HTMLElement>(".archive-summary");
@@ -199,9 +191,7 @@ const projects = (await getCollection("projects")).sort(
     if (details.dataset.animatedReady === "1") return;
     details.dataset.animatedReady = "1";
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    );
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     let animation: Animation | null = null;
     let isClosing = false;
