@@ -34,3 +34,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # The action bundles wrangler 3.x by default, which predates
+          # assets-only Workers and fails with "Missing entry-point".
+          wranglerVersion: "4.121.0"
