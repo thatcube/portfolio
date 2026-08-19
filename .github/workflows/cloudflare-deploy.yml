@@ -1,0 +1,36 @@
+name: Deploy to Cloudflare Workers
+
+# Auto-deploys the static Astro build to Cloudflare Workers on every push to
+# main. Requires one repo secret:
+#   CLOUDFLARE_API_TOKEN - token with "Workers Scripts: Edit" permission
+# (the account id is not secret and lives in wrangler.jsonc)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: cloudflare-prod
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -83,6 +83,41 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Loves: prototypes, pixel pushing, motion, microinteractions.
 - The 🦄 unicorn easter-egg emoji in the about copy is intentional — keep it.
 
+## Local tooling gotchas (READ BEFORE INSTALLING ANYTHING)
+
+**`registry.npmjs.org` is blocked on Brandon's Microsoft-managed machine.** A
+direct request returns nothing (curl exit code `000` — connection failure), so a
+plain `npm install <pkg>` will **hang for minutes and then fail**, not error
+fast. Don't interpret that hang as a slow network.
+
+The global `~/.npmrc` redirects all traffic to an internal mirror:
+`https://packagefeedproxy.microsoft.io/npm/`. Rules that follow from this:
+
+- **`npm ci` works — use it.** The lockfile pins exact versions and npm rewrites
+  the `resolved` hosts to the mirror, so no version resolution happens. This is
+  the correct way to install this project's dependencies.
+- **`npm install <new-pkg>` in this repo often fails.** Adding a package makes
+  npm re-resolve the whole tree, and the mirror's packuments have gaps. Real
+  example: it 404s on `sharp@0.35.2` (the mirror has `0.35.1` and `0.35.3` but
+  not `0.35.2`), producing a confusing `ETARGET / No matching version found`
+  error that has nothing to do with the package being installed.
+- **`bun` ignores the `~/.npmrc` registry** and goes straight to the blocked
+  host, failing with `ConnectionClosed downloading tarball ...`. Don't reach for
+  bun as a workaround.
+- **To install a global CLI tool, install it in its own directory** so it never
+  re-resolves this project's tree. That's how `wrangler` was installed:
+
+  ```sh
+  mkdir -p ~/.local/wrangler-cli && cd ~/.local/wrangler-cli
+  npm install wrangler            # isolated: no astro/sharp to resolve
+  ln -sf ~/.local/wrangler-cli/node_modules/.bin/wrangler ~/.local/bin/wrangler
+  ```
+
+  `wrangler` is therefore **not** a dependency in `package.json` — it lives at
+  `~/.local/bin/wrangler`. CI installs its own copy and is unaffected.
+- **CI is not affected.** GitHub Actions runners reach the public registry
+  normally, and `package-lock.json` already references `registry.npmjs.org`.
+
 ## Design rules
 
 - **No pill buttons or pill-shaped hover states.** Don't use fully-rounded
